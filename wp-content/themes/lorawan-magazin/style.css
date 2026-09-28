@@ -1222,6 +1222,21 @@ p {
 	opacity: .7;
 }
 
+/* Unterabschnitte (H3): eingerückt, ohne eigene Nummer */
+.lw-toc__list .lw-toc__sub {
+	counter-increment: none;
+}
+
+.lw-toc__list .lw-toc__sub a {
+	padding-left: 2.2rem;
+	grid-template-columns: 1fr;
+	font-size: var(--wp--preset--font-size--xs);
+}
+
+.lw-toc__list .lw-toc__sub a::before {
+	content: none;
+}
+
 .lw-toc__list a:hover,
 .lw-toc__list a[aria-current] {
 	color: var(--wp--preset--color--ink);
