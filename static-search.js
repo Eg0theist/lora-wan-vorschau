@@ -12,7 +12,7 @@
 		if ( index ) {
 			return Promise.resolve( index );
 		}
-		return fetch( root + 'search-index.json' )
+		return fetch( root + 'search-index.json?v=' + ( window.LW_BUILD || '' ) )
 			.then( function ( r ) {
 				return r.json();
 			} )
