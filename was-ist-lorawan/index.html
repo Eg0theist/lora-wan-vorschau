@@ -7,15 +7,15 @@
 <meta name="theme-color" content="#0B1622" media="(prefers-color-scheme: dark)">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name='robots' content='noindex, nofollow' />
-<title>Was ist LoRaWAN? Der große Überblick – lora-wan.de</title>
+<title>Was ist LoRaWAN? Das Funknetz für Sensoren einfach erklärt – lora-wan.de</title>
 <link rel='dns-prefetch' href='//localhost' />
 <link rel="icon" href="../wp-content/themes/lorawan-magazin/assets/img/favicon.svg" type="image/svg+xml">
-<meta name="description" content="LoRaWAN ist eine Low Power Wide Area Network (LPWAN oder Niedrigenergieweitverkehrnetzwerk) Spezifikation für drahtlose batteriebetriebene Systeme in einem …">
+<meta name="description" content="LoRaWAN ist ein Funknetzprotokoll für Sensoren, die kleine Datenmengen über große Entfernungen senden und dabei jahrelang mit einer Batterie auskommen …">
 <meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="lora-wan.de">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Was ist LoRaWAN? Der große Überblick – lora-wan.de">
-<meta property="og:description" content="LoRaWAN ist eine Low Power Wide Area Network (LPWAN oder Niedrigenergieweitverkehrnetzwerk) Spezifikation für drahtlose batteriebetriebene Systeme in einem …">
+<meta property="og:title" content="Was ist LoRaWAN? Das Funknetz für Sensoren einfach erklärt – lora-wan.de">
+<meta property="og:description" content="LoRaWAN ist ein Funknetzprotokoll für Sensoren, die kleine Datenmengen über große Entfernungen senden und dabei jahrelang mit einer Batterie auskommen …">
 <meta property="og:url" content="./index.html">
 <meta property="og:image" content="../wp-content/uploads/2026/07/was-ist-lorawan-1024x576.webp">
 <meta name="twitter:card" content="summary_large_image">
@@ -55,6 +55,10 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 .is-small-text{font-size:.875em}.is-regular-text{font-size:1em}.is-large-text{font-size:2.25em}.is-larger-text{font-size:3em}.has-drop-cap:not(:focus):first-letter{float:left;font-size:8.4em;font-style:normal;font-weight:100;line-height:.68;margin:.05em .1em 0 0;text-transform:uppercase}body.rtl .has-drop-cap:not(:focus):first-letter{float:none;margin-left:.1em}p.has-drop-cap.has-background{overflow:hidden}:root :where(p.has-background){padding:1.25em 2.375em}:where(p.has-text-color:not(.has-link-color)) a{color:inherit}p.has-text-align-left[style*="writing-mode:vertical-lr"],p.has-text-align-right[style*="writing-mode:vertical-rl"]{rotate:180deg}
 /*# sourceURL=../wp-includes/blocks/paragraph/style.min.css?v=622f970d12 */
 </style>
+<style id="wp-block-heading-inline-css">
+h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-background,h3:where(.wp-block-heading).has-background,h4:where(.wp-block-heading).has-background,h5:where(.wp-block-heading).has-background,h6:where(.wp-block-heading).has-background{padding:1.25em 2.375em}h1.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h1.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h2.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h2.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h3.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h3.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h4.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h4.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h5.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h5.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h6.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h6.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]){rotate:180deg}
+/*# sourceURL=../wp-includes/blocks/heading/style.min.css?v=187c2a0a01 */
+</style>
 <style id="wp-block-embed-inline-css">
 .wp-block-embed.alignleft,.wp-block-embed.alignright,.wp-block[data-align=left]>[data-type="core/embed"],.wp-block[data-align=right]>[data-type="core/embed"]{max-width:360px;width:100%}.wp-block-embed.alignleft .wp-block-embed__wrapper,.wp-block-embed.alignright .wp-block-embed__wrapper,.wp-block[data-align=left]>[data-type="core/embed"] .wp-block-embed__wrapper,.wp-block[data-align=right]>[data-type="core/embed"] .wp-block-embed__wrapper{min-width:280px}.wp-block-cover .wp-block-embed{min-height:240px;min-width:320px}.wp-block-group.is-layout-flex .wp-block-embed{flex:1 1 0%;min-width:0}.wp-block-embed{overflow-wrap:break-word}.wp-block-embed :where(figcaption){margin-bottom:1em;margin-top:.5em}.wp-block-embed iframe{max-width:100%}.wp-block-embed__wrapper{position:relative}.wp-embed-responsive .wp-has-aspect-ratio .wp-block-embed__wrapper:before{content:"";display:block;padding-top:50%}.wp-embed-responsive .wp-has-aspect-ratio iframe{bottom:0;height:100%;left:0;position:absolute;right:0;top:0;width:100%}.wp-embed-responsive .wp-embed-aspect-21-9 .wp-block-embed__wrapper:before{padding-top:42.85%}.wp-embed-responsive .wp-embed-aspect-18-9 .wp-block-embed__wrapper:before{padding-top:50%}.wp-embed-responsive .wp-embed-aspect-16-9 .wp-block-embed__wrapper:before{padding-top:56.25%}.wp-embed-responsive .wp-embed-aspect-4-3 .wp-block-embed__wrapper:before{padding-top:75%}.wp-embed-responsive .wp-embed-aspect-1-1 .wp-block-embed__wrapper:before{padding-top:100%}.wp-embed-responsive .wp-embed-aspect-9-16 .wp-block-embed__wrapper:before{padding-top:177.77%}.wp-embed-responsive .wp-embed-aspect-1-2 .wp-block-embed__wrapper:before{padding-top:200%}
 /*# sourceURL=../wp-includes/blocks/embed/style.min.css?v=2329e4c910 */
@@ -62,14 +66,6 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <style id="wp-block-list-inline-css">
 ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:1.25em 2.375em}
 /*# sourceURL=../wp-includes/blocks/list/style.min.css?v=942b230201 */
-</style>
-<style id="wp-block-heading-inline-css">
-h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-background,h3:where(.wp-block-heading).has-background,h4:where(.wp-block-heading).has-background,h5:where(.wp-block-heading).has-background,h6:where(.wp-block-heading).has-background{padding:1.25em 2.375em}h1.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h1.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h2.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h2.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h3.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h3.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h4.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h4.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h5.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h5.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h6.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h6.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]){rotate:180deg}
-/*# sourceURL=../wp-includes/blocks/heading/style.min.css?v=187c2a0a01 */
-</style>
-<style id="wp-block-quote-inline-css">
-.wp-block-quote{box-sizing:border-box;overflow-wrap:break-word}.wp-block-quote.is-large:where(:not(.is-style-plain)),.wp-block-quote.is-style-large:where(:not(.is-style-plain)){margin-bottom:1em;padding:0 1em}.wp-block-quote.is-large:where(:not(.is-style-plain)) p,.wp-block-quote.is-style-large:where(:not(.is-style-plain)) p{font-size:1.5em;font-style:italic;line-height:1.6}.wp-block-quote.is-large:where(:not(.is-style-plain)) cite,.wp-block-quote.is-large:where(:not(.is-style-plain)) footer,.wp-block-quote.is-style-large:where(:not(.is-style-plain)) cite,.wp-block-quote.is-style-large:where(:not(.is-style-plain)) footer{font-size:1.125em;text-align:right}.wp-block-quote>cite{display:block}
-/*# sourceURL=../wp-includes/blocks/quote/style.min.css?v=64b45ce7e0 */
 </style>
 <style id="wp-block-post-content-inline-css">
 .wp-block-post-content{display:flow-root}
@@ -99,13 +95,13 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 .lwc-video{position:relative;aspect-ratio:16/9;margin-inline:0;border-radius:6px;overflow:hidden;background:#0B1622;color:#E4E9EE;display:grid;place-items:center;text-align:center}.lwc-video__consent{max-width:34rem;padding:1.5rem;font-family:var(--wp--preset--font-family--display,sans-serif);font-size:.9375rem}.lwc-video__title{font-weight:700;font-size:1.1rem;margin:0 0 .4rem}.lwc-video__actions{display:flex;gap:1rem;justify-content:center;align-items:center;flex-wrap:wrap}.lwc-video__actions a{color:inherit}.lwc-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 /*# sourceURL=lwc-video-inline-css */
 </style>
-<link rel='stylesheet' id='lorawan-magazin-css' href='../wp-content/themes/lorawan-magazin/style.css?v=96fc2709a6' media='all' />
+<link rel='stylesheet' id='lorawan-magazin-css' href='../wp-content/themes/lorawan-magazin/style.css?v=596e322377' media='all' />
 <link rel="canonical" href="./index.html" />
 <script id="wp-importmap" type="importmap">
 {"imports":{"@wordpress/interactivity":"../wp-includes/js/dist/script-modules/interactivity/index.min.js?v=726ac59577"}}
 </script>
 <link rel="modulepreload" href="../wp-includes/js/dist/script-modules/interactivity/index.min.js?v=726ac59577" id="@wordpress/interactivity-js-modulepreload" fetchpriority="low">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"../index.html#organization","name":"growth with attitude UG (haftungsbeschränkt)","url":"../index.html","logo":{"@type":"ImageObject","url":"../wp-content/themes/lorawan-magazin/assets/img/logo-512.png"}},{"@type":"WebSite","@id":"../index.html#website","url":"../index.html","name":"lora-wan.de","description":"Das LoRaWAN-Magazin","inLanguage":"de-DE","publisher":{"@id":"../index.html#organization"},"potentialAction":{"@type":"SearchAction","target":"http://localhost:8080/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"TechArticle","@id":"./index.html#article","headline":"Was ist LoRaWAN? Der große Überblick","description":"LoRaWAN ist eine Low Power Wide Area Network (LPWAN oder Niedrigenergieweitverkehrnetzwerk) Spezifikation für drahtlose batteriebetriebene Systeme in einem …","inLanguage":"de-DE","wordCount":3608,"articleSection":["Grundlagen"],"author":{"@id":"../index.html#organization"},"publisher":{"@id":"../index.html#organization"},"isPartOf":{"@id":"../index.html#website"},"mainEntityOfPage":"./index.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Magazin","item":"../index.html"},{"@type":"ListItem","position":2,"name":"Grundlagen","item":"../thema/grundlagen/index.html"},{"@type":"ListItem","position":3,"name":"Was ist LoRaWAN? Der große Überblick","item":"./index.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"../index.html#organization","name":"growth with attitude UG (haftungsbeschränkt)","url":"../index.html","logo":{"@type":"ImageObject","url":"../wp-content/themes/lorawan-magazin/assets/img/logo-512.png"}},{"@type":"WebSite","@id":"../index.html#website","url":"../index.html","name":"lora-wan.de","description":"Das LoRaWAN-Magazin","inLanguage":"de-DE","publisher":{"@id":"../index.html#organization"},"potentialAction":{"@type":"SearchAction","target":"http://localhost:8080/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"TechArticle","@id":"./index.html#article","headline":"Was ist LoRaWAN? Das Funknetz für Sensoren einfach erklärt","description":"LoRaWAN ist ein Funknetzprotokoll für Sensoren, die kleine Datenmengen über große Entfernungen senden und dabei jahrelang mit einer Batterie auskommen …","inLanguage":"de-DE","wordCount":1018,"articleSection":["Grundlagen"],"author":{"@id":"../index.html#organization"},"publisher":{"@id":"../index.html#organization"},"isPartOf":{"@id":"../index.html#website"},"mainEntityOfPage":"./index.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Magazin","item":"../index.html"},{"@type":"ListItem","position":2,"name":"Grundlagen","item":"../thema/grundlagen/index.html"},{"@type":"ListItem","position":3,"name":"Was ist LoRaWAN? Das Funknetz für Sensoren einfach erklärt","item":"./index.html"}]}]}</script>
 <style class="wp-fonts-local">
 @font-face{font-family:"Schibsted Grotesk";font-style:normal;font-weight:400 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/schibsted-grotesk-latin-wght-normal.woff2') format('woff2');}
 @font-face{font-family:"Schibsted Grotesk";font-style:italic;font-weight:400 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/schibsted-grotesk-latin-wght-italic.woff2') format('woff2');}
@@ -194,10 +190,10 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 </p>
 
 
-<h1 class="lw-article__title wp-block-post-title">Was ist LoRaWAN? Der große Überblick</h1>
+<h1 class="lw-article__title wp-block-post-title">Was ist LoRaWAN? Das Funknetz für Sensoren einfach erklärt</h1>
 
 <div class="lw-post-meta wp-block-lorawan-magazin-post-meta">
-	<p class="lw-meta"><span class="lw-meta__time"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>18 Min. Lesezeit</span></p></div>
+	<p class="lw-meta"><span class="lw-meta__time"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>6 Min. Lesezeit</span></p></div>
 </div>
 
 
@@ -211,15 +207,15 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 	<details open>
 		<summary id="lw-toc-title-7" class="lw-toc__title">In diesem Artikel</summary>
 		<ol class="lw-toc__list">
-							<li><a href="#was-ist-der-unterschied-zwischen-lora-und-lorawan">Was ist der Unterschied zwischen LoRa und LoRaWAN?</a></li>
-							<li><a href="#ist-lorawan-die-zukunft-von-iot">Ist LoRaWAN die Zukunft von IoT?</a></li>
+							<li><a href="#lora-und-lorawan-was-ist-was">LoRa und LoRaWAN: Was ist was?</a></li>
+							<li><a href="#wie-ist-ein-lorawan-netz-aufgebaut">Wie ist ein LoRaWAN-Netz aufgebaut?</a></li>
+							<li><a href="#wie-weit-wie-schnell-wie-viel">Wie weit, wie schnell, wie viel?</a></li>
+							<li><a href="#wann-kann-ein-geraet-nachrichten-empfangen">Wann kann ein Gerät Nachrichten empfangen?</a></li>
 							<li><a href="#wie-sicher-ist-lorawan">Wie sicher ist LoRaWAN?</a></li>
-							<li><a href="#wird-lora-nur-eine-nische-bleiben">Wird LoRa nur eine Nische bleiben?</a></li>
-							<li><a href="#was-ist-die-lora-alliance">Was ist die LoRa-Alliance?</a></li>
-							<li><a href="#wie-gruendet-man-sein-eigenes-lora-netzwerk">Wie gründet man sein eigenes LoRa-Netzwerk?</a></li>
-							<li><a href="#was-bietet-lorawan-fuer-entwickler">Was bietet LoRaWAN für Entwickler?</a></li>
-							<li><a href="#welche-lora-entwickler-kits-gibt-es">Welche LoRA-Entwickler-KITs gibt es?</a></li>
-							<li><a href="#was-sind-die-groessten-unterschiede-zwischen-lora-sigfox-symphony-link-nwave-rmpa-und-weightless-technologien">Was sind die größten Unterschiede zwischen LoRa, SigFox, Symphony Link, NWAVE, RMPA und Weightless Technologien?</a></li>
+							<li><a href="#wofuer-eignet-sich-lorawan-und-wofuer-nicht">Wofür eignet sich LoRaWAN – und wofür nicht?</a></li>
+							<li><a href="#eigenes-netz-community-oder-betreiber">Eigenes Netz, Community oder Betreiber?</a></li>
+							<li><a href="#ist-lorawan-die-zukunft-des-iot">Ist LoRaWAN die Zukunft des IoT?</a></li>
+							<li><a href="#quellen-und-technischer-stand">Quellen und technischer Stand</a></li>
 					</ol>
 	</details>
 </nav>
@@ -228,15 +224,39 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 
 
 <div class="wp-block-group lw-article-body is-layout-flow wp-block-group-is-layout-flow"><div class="entry-content lw-prose wp-block-post-content is-layout-flow wp-block-post-content-is-layout-flow">
-<p class="wp-block-paragraph">LoRaWAN ist eine Low Power Wide Area Network (LPWAN oder Niedrigenergieweitverkehrnetzwerk) Spezifikation für drahtlose batteriebetriebene Systeme in einem regionalen, nationalen oder auch globalen Netzwerk. LoRaWAN zielt dabei auf die wichtigsten Anforderungen des IoT – Internet of things (Internet der Dinge) – wie sichere bidirektionale Kommunikation, Lokalisierung und Mobilität von Dienstleistungen, eine Ende-zu-Ende Verschlüsselung und die <a href="../anbieter-von-lora-netzwerken/index.html">Mobilität von Dienstleistungen</a> ab.</p>
+<p class="wp-block-paragraph"><strong>LoRaWAN ist ein Funknetzprotokoll für Sensoren, die kleine Datenmengen über große Entfernungen senden und dabei jahrelang mit einer Batterie auskommen sollen.</strong> Es baut auf der Funktechnik LoRa auf und legt fest, wie Endgeräte, Gateways und Server zusammenarbeiten. Die Spezifikation pflegt die <a href="../lora-alliance-spezifikationen/index.html">LoRa Alliance</a>; sie ist frei verfügbar und seit 2021 auch als ITU-Empfehlung Y.4480 veröffentlicht.</p>
 
 
 
-<p class="wp-block-paragraph">Die LoRaWAN-Spezifikation bietet eine nahtlose Zusammenarbeit von verschiedenen Systemen und Techniken unter Smart Things ohne die Notwendigkeit von starren, lokalen komplexen Installationen und gibt die Freiheit für den Benutzer, Entwickler und Unternehmen wieder zurück, die das Ausrollen im Internet der Dinge ermöglichen.</p>
+<p class="wp-block-paragraph">Typische LoRaWAN-Geräte melden einen Zählerstand, eine Temperatur oder einen Türkontakt. Sie senden wenige Bytes, schlafen dazwischen und brauchen weder WLAN noch SIM-Karte. Dieser Artikel ordnet ein, wie ein Netz aufgebaut ist, was es leisten kann und wo seine Grenzen liegen. Die Details stehen jeweils in eigenen Beiträgen.</p>
 
 
 
-<p class="wp-block-paragraph">Die Netzwerkarchitektur des LoRaWAN ist typischerweise in einer Sterntopologie angeordnet, bei der die Gateways die Verbindung zwischen den Endgeräten und dem zentralen Netzwerkserver herstellen. Die Gateways werden über eine Standard-IP-Verbindung mit dem entsprechenden Netzwerkserver verbunden, während die Endgeräte eine Single-Hop-Verbindung zu einem oder mehreren Gateways verwenden. Die Kommunikation aller Modi ist in der Regel bidirektional. Sie unterstützt auch den Betrieb von Multicast-Adress-Gruppen, um einen effizienten Gebrauch des Spektrums für z.B. Firmware-Over-The-Air Updates (FOTA) oder andere Massennachrichten zu gewährleisten.</p>
+<h2 class="wp-block-heading" id="lora-und-lorawan-was-ist-was">LoRa und LoRaWAN: Was ist was?</h2>
+
+
+
+<p class="wp-block-paragraph"><strong>LoRa</strong> ist die Funkmodulation, also die physikalische Schicht. Sie spreizt jedes Symbol über eine Frequenzrampe (Chirp Spread Spectrum) und kann dadurch Signale noch unterhalb des Rauschpegels empfangen. Die Technik stammt von Semtech; Funkchips gibt es von Semtech und von Lizenznehmern.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>LoRaWAN</strong> ist das Protokoll darüber. Es regelt, wie sich Geräte im Netz anmelden, wie Nachrichten adressiert und gesichert werden, welche Datenraten erlaubt sind und wann ein Gerät Antworten empfangen kann. LoRa lässt sich auch ohne LoRaWAN nutzen, etwa für Punkt-zu-Punkt-Verbindungen oder mit herstellereigenen Protokollen. Ein LoRa-Gerät ist deshalb nicht automatisch LoRaWAN-fähig. Mehr zur Funktechnik steht im Artikel <a href="../lora/index.html">Was ist LoRa?</a></p>
+
+
+
+<h2 class="wp-block-heading" id="wie-ist-ein-lorawan-netz-aufgebaut">Wie ist ein LoRaWAN-Netz aufgebaut?</h2>
+
+
+
+<figure class="lw-arch"><ol class="lw-arch__flow"><li class="lw-arch__node"><strong>Endgeräte</strong> <span>Sensoren und Aktoren</span></li><li class="lw-arch__link">LoRa-Funk</li><li class="lw-arch__node"><strong>Gateways</strong> <span>empfangen alle Pakete in Reichweite</span></li><li class="lw-arch__link">IP-Verbindung</li><li class="lw-arch__node"><strong>Netzwerkserver</strong> <span>entfernt Dubletten, prüft und steuert das Netz</span></li><li class="lw-arch__link">IP-Verbindung</li><li class="lw-arch__node"><strong>Anwendungsserver</strong> <span>entschlüsselt und verarbeitet die Messwerte</span></li></ol><figcaption>Aufbau eines LoRaWAN-Netzes: Endgeräte funken direkt zu allen Gateways in Reichweite, die Gateways leiten die Pakete per IP an den Netzwerkserver weiter.</figcaption></figure>
+
+
+
+<p class="wp-block-paragraph">Ein Endgerät ist keinem Gateway fest zugeordnet. Es sendet einfach, und jedes <a href="../lora-gateway/index.html">Gateway</a> in Reichweite empfängt die Nachricht und leitet sie per IP an den Netzwerkserver weiter, über Ethernet, Mobilfunk oder Glasfaser. Deshalb brauchen bewegte Geräte beim Senden keinen Handover wie im Mobilfunk.</p>
+
+
+
+<p class="wp-block-paragraph">Der <strong>Netzwerkserver</strong> ist das Herz des Netzes. Er verwirft doppelt empfangene Pakete, prüft die Integrität jeder Nachricht, verwaltet Datenraten und Sendeleistung und wählt für Antworten das passende Gateway aus. Ein <strong>Join-Server</strong> verwaltet die Stammschlüssel, wenn sich Geräte anmelden. Der <strong>Anwendungsserver</strong> entschlüsselt die Nutzdaten und gibt sie an Datenbank, Dashboard oder Fachanwendung weiter. In kleinen Installationen laufen alle Rollen oft in einer Software.</p>
 
 
 <figure class="wp-block-embed lwc-video" data-lwc-video="https://www.youtube-nocookie.com/embed/2Y0bMX3TVi0?autoplay=1&#038;rel=0">
@@ -252,89 +272,43 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 		
 
 
-<p class="wp-block-paragraph">Die Kommunikation zwischen Gateways und Endgeräten verteilt sich auf unterschiedliche Datenraten. Die Auswahl der Datenrate ist ein Kompromiss zwischen Dauer der Nachrichtenübertragung und Empfangsbereich. Durch die Spread-Spectrum-Technologie wird die Kommunikation mit verschiedenen Datenraten nicht gegenseitig gestört und schafft eine Reihe von „virtuellen“ Kanälen, welche die Kapazität der jeweiligen Gateways erhöhen. Zur Maximierung der Batterielebensdauer der Endgeräte und der gesamten Netzwerkkapazität, verwaltet der LoRaWAN-Netzwerkserver die verwendete Datenrate für jedes Endgerät individuell mittels eines adaptiven Datenraten Algorithmus (ADR). Die LoRaWAN-Datenraten reichen dabei von 0,3 kbps bis hin zu 50 kbps.</p>
+<h2 class="wp-block-heading" id="wie-weit-wie-schnell-wie-viel">Wie weit, wie schnell, wie viel?</h2>
 
 
 
-<p class="wp-block-paragraph">Nationale Netzwerke, die auf das Internet der Dinge, wie kritischer Infrastruktur, persönlichen vertraulichen Daten oder sehr kritischen Funktionen für die Allgemeinheit abzielen, haben einen exklusiven Bedarf an sicherer Kommunikation.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Dies wurde durch mehrere Schichten der Verschlüsselung gelöst:</strong></p>
+<p class="wp-block-paragraph">LoRaWAN tauscht Datenrate gegen Reichweite. Im europäischen Frequenzplan EU868 reicht die Spanne bei LoRa-Modulation von etwa 250 bit/s bei Spreading Factor 12 bis 11 kbit/s; mit FSK-Modulation sind 50 kbit/s möglich. Je langsamer ein Paket gesendet wird, desto robuster ist es – und desto länger belegt es den Kanal. Die Grafik im Artikel <a href="../lora/index.html">Was ist LoRa?</a> zeigt, wie stark die Sendezeit mit dem Spreading Factor wächst.</p>
 
 
 
 <ul class="wp-block-list">
-<li>Sicherheit auf Netzwerkebene und eindeutiger Netzwerkschlüssel (EUI64)</li>
+<li><strong>Nutzdaten:</strong> Je nach Datenrate sind in EU868 nur 51 bis 222 Byte pro Nachricht erlaubt. Gute Anwendungen kommen mit 10 bis 20 Byte aus.</li>
 
-<li>Ein einzigartiger Application Key (EUI64) sorgt für die Sicherheit auf der Applikationsebene</li>
+<li><strong>Sendezeit:</strong> In den üblichen Kanälen bei 868 MHz darf ein Gerät höchstens 1 % der Zeit senden. Community-Netze setzen teils strengere Fair-Use-Regeln.</li>
 
-<li>Gerätespezifischer Schlüssel (EUI128)</li>
+<li><strong>Reichweite:</strong> In Städten sind wenige Kilometer realistisch, im freien Gelände mit hoch montiertem Gateway auch deutlich mehr. Gebäude, Keller und Antennen entscheiden im Einzelfall.</li>
 </ul>
 
 
 
-<p class="wp-block-paragraph">Die LoRaWAN-Technologie verfügt über mehrere Klassen von Endgeräten, welche den jeweils verschiedenen Anforderungen unterschiedlicher <a href="../thema/anwendungen/index.html">Anwendungsfälle </a>gerecht werden:</p>
+<p class="wp-block-paragraph">Welche Datenrate ein Gerät nutzt, steuert der Netzwerkserver mit der <a href="../lorawan-adr-algorithmus/index.html">Adaptive Data Rate (ADR)</a>: Geräte mit gutem Empfang senden schneller und sparen Energie, weit entfernte Geräte bleiben bei robusten Einstellungen.</p>
 
 
 
-<p class="wp-block-paragraph"><strong>Bidirektionale Endgeräte (Klasse A):</strong></p>
+<h2 class="wp-block-heading" id="wann-kann-ein-geraet-nachrichten-empfangen">Wann kann ein Gerät Nachrichten empfangen?</h2>
 
 
 
-<p class="wp-block-paragraph">Endgeräte der Klasse A gestatten bidirektionale Kommunikation, wobei die Uplink-Datenübertragung von den Endgeräten ausgeht und synchron oder asynchron erfolgen kann. Nach jedem Uplink folgen zwei kurze Empfangsfenster für Downlinks, durch welche die Möglichkeit besteht Informationen vom Backend zum Endgerät zu übertragen. Auf diese Weise können beispielsweise Geräteparameter aus der Ferne geändert werden.</p>
+<p class="wp-block-paragraph">LoRaWAN-Geräte senden von sich aus. Für Nachrichten in Gegenrichtung, etwa neue Einstellungen, gibt es drei <a href="../lorawan-geraeteklassen-a-b-c/index.html">Geräteklassen</a>:</p>
 
 
 
-<p class="wp-block-paragraph">Zwischen den einzelnen Sendezeitpunkten können die Klasse A Geräte das LoRa-Modul vollständig in den Energiesparmodus versetzen, wodurch Geräte dieser Klasse besonders energieeffizient sind. Aufgrund der Tatsache, dass Downlinks immer nur unmittelbar nach dem Senden des Endgerätes übertragen werden können, kann es zwischen dem Anstoßen des Downlinks und dem tatsächlichen Übertragen zu Wartezeiten kommen.</p>
+<ul class="wp-block-list">
+<li><strong>Klasse A:</strong> Nach jedem Uplink öffnet das Gerät zwei kurze Empfangsfenster. Das ist am sparsamsten, aber eine Antwort muss bis zum nächsten Uplink warten. Jedes Gerät beherrscht Klasse A.</li>
 
+<li><strong>Klasse B:</strong> Das Gerät synchronisiert sich über Beacons der Gateways und hört zusätzlich zu festen Zeitpunkten zu.</li>
 
-
-<p class="wp-block-paragraph"><strong>Bidirektionale Endgeräte mit definierten Empfangsfenstern (Klasse B):</strong></p>
-
-
-
-<p class="wp-block-paragraph">Ergänzend zu den Übertragungsfenstern der Klasse A, sind Klasse B Geräte über periodisch gesendete Beacons mit dem Netzwerk synchronisiert und öffnen zu definierten Zeiten weitere Empfangsfenster für Downlinks. Das ermöglicht dem Netzwerk Downlinks mit einer deterministischen Latenz zu übertragen, führt aber zu einem zusätzlichen Energieverbrauch der Endgeräte. Die Latenz ist für verschiedene Anwendungen auf bis zu 128 Sekunden programmierbar. Der zusätzliche Energieverbrauch ist aber niedrig genug, um batteriebetriebene Anwendungen umsetzen zu können.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Bidirektionale Endgeräte mit dauerhaft geöffnetem Empfangsfenster (Klasse C):</strong></p>
-
-
-
-<p class="wp-block-paragraph">Ergänzend zu der Klasse A Struktur mit zwei auf einen Uplink folgenden Empfangsfenstern, reduziert Klasse C die Latenz beim Downlink, indem das Empfangsfenster des Endgeräts immer geöffnet ist, sofern das Gerät nicht selbst sendet. Darauf basierend kann der Netzwerkserver zu jeder Zeit eine Downlink Übertragung initiieren. Für batteriebetriebene Geräte ist ein zeitlicher Wechsel zwischen Klasse A und C möglich und nützlich für Aufgaben wie Firmware-Over-The-Air Updates.</p>
-
-
-
-<h2 class="wp-block-heading" id="was-ist-der-unterschied-zwischen-lora-und-lorawan">Was ist der Unterschied zwischen LoRa und LoRaWAN?</h2>
-
-
-
-<p class="wp-block-paragraph">LoRaWAN definiert das Standard Kommunikationsprotokoll und die Systemarchitektur für das Netzwerk, während <a href="../lora/index.html">LoRa</a> die physikalische Schicht beschreibt, welche die „long range“ Kommunikationsverbindung ermöglicht. Das Protokoll und die Netzwerkarchitektur haben dabei den größten Einfluss bei der Bestimmung der Batterielebensdauer eines Knotens, der Netzwerkkapazität, der Servicequalität, der Sicherheit und der Vielfalt der vom Netzwerk bedienten Anwendungen.</p>
-
-
-
-<p class="wp-block-paragraph">Technisch gesehen kann man einen LoRa Radio / Chipsatz nutzen – um den Vorteil der Technologie zu nutzen, die sie bietet, aber zusätzlich ein anderes High-Level-Protokoll wie die Leute von Link Labs es z. B. getan haben.</p>
-
-
-
-<p class="wp-block-paragraph">LoRa bezieht sich auf eine drahtlose Modulation, die eine Kommunikation mit sehr geringem Stromverbrauch ermöglicht.</p>
-
-
-
-<p class="wp-block-paragraph">LoRaWAN bezieht sich dabei auf ein Netzwerkprotokoll mit LoRa-Chips für die Kommunikation. Es basiert auf der Basisstation, die 8 Frequenzen mit mehreren Spreizfaktoren mit fast 42 Kanälen überwachen kann.</p>
-
-
-
-<p class="wp-block-paragraph">Es ist möglich, die LoRa Modulation als Punkt zu Punkt oder als Star-Netzwerk ohne LoRaWAN verwenden. Auch könnte es möglich sein, LoRaWAN wie ein Netzwerk mit anderen Radio-Link zu betreiben, was aber nicht wirklich praktisch wäre.</p>
-
-
-
-<h2 class="wp-block-heading" id="ist-lorawan-die-zukunft-von-iot">Ist LoRaWAN die Zukunft von IoT?</h2>
-
-
-
-<p class="wp-block-paragraph">Bei dieser Frage gibt es keine genaue und präzise Antwort. Die Meinungen gehen weit auseinander, wenn es um die Funktechnik der Zukunft geht. Um große geographische Bereiche abzudecken, werden LPWAN verwendet. In diesem Bereich gibt es jedoch noch andere Konkurrenten am Markt wie SigFox und Narrow-Band IoT. LoRa besitzt aber alle nötigen Eigenschaften und Voraussetzungen, um sich als LPWAN Standard durchzusetzen.</p>
+<li><strong>Klasse C:</strong> Das Gerät hört fast durchgehend zu. Das passt zu Geräten mit Netzanschluss, etwa Aktoren an der Straßenbeleuchtung.</li>
+</ul>
 
 
 
@@ -342,351 +316,73 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 
 
 
-<p class="wp-block-paragraph">Das Thema Sicherheit ist ein elementarer Bestandteil von LPWAN. Um den Anforderungen gerecht zu werden, verwendet LoRaWAN zwei Sicherheitsebenen: Eine für das Netzwerk und eine für die Anwendung. Die Netzwerksicherheit stellt die Authentizität des Knotens im Netzwerk sicher, während die Anwendungsschicht dafür sorgt, dass der Netzbetreiber keinen Zugriff auf die Anwendungsdaten des Endbenutzers hat. Die AES-Verschlüsselung wird mit dem Schlüsselaustausch unter Verwendung einer IEEE-EUI64-Kennung verwendet.</p>
+<p class="wp-block-paragraph">Sicherheit ist im Protokoll eingebaut. Jede Nachricht trägt eine kryptografische Prüfsumme, mit der der Netzwerkserver Herkunft und Unversehrtheit prüft. Die Nutzdaten werden zusätzlich mit einem eigenen Schlüssel nach AES-128 verschlüsselt, den der Netzbetreiber nicht kennen muss. Fortlaufende Zähler verhindern, dass abgefangene Pakete erneut eingespielt werden. Wo die typischen Schwachstellen trotzdem liegen, erklärt der Beitrag <a href="../wie-sicher-ist-lorawan/index.html">Wie sicher ist LoRaWAN?</a></p>
 
 
 
-<p class="wp-block-paragraph">Auch wenn es bei jeder gewählten Technologie Kompromisse zu machen gilt, bieten die LoRaWAN-Funktionen die breiteste Auswahl an Netzwerkarchitekturen, Geräteklassen, Sicherheit und Skalierbarkeit von potenziellen IoT-Anwendungen. Ein korrekt implementiertes Verschlüsselungsverfahren wie zum Beispiel die 128 Bit AES Verschlüsselung bietet ein hohes Maß an Sicherheit. Deren weit verbreiteten Algorithmen sind schon jahrelang praxiserprobt und optimiert. Wichtig ist die Verwendung im standardisierten CRT-Modus, der mit XOR-Crypto-Operationen für eine verstärkte Verschlüsselung sorgt.</p>
+<h2 class="wp-block-heading" id="wofuer-eignet-sich-lorawan-und-wofuer-nicht">Wofür eignet sich LoRaWAN – und wofür nicht?</h2>
 
 
 
-<p class="wp-block-paragraph">Bei der Datenübertragung im Internet der Dinge genügt es aber nicht, Daten beim „Transport over the Air“ zu verschlüsseln und dann im Server des Betreibers unverschlüsselt zu übertragen. Echte Sicherheit bietet nur die End-to-End-Verschlüsselung der Daten auf dem gesamten Weg vom Endgerät zum Applikationsserver und damit auch während der Übertragung innerhalb des Core-Netzwerkes des Betreibers. Protokolle, die die Übertragung im Kernnetz nicht verschlüsseln, verlangen für eine sichere Übertragung über die ganze Strecke eine VPN-Verbindung oder eine zusätzliche Verschlüsselungsebene wie TLS, was aber zu höherem Stromverbrauch führt. Dies würde die Lebensdauer der Batterien wesentlich verringern.</p>
+<p class="wp-block-paragraph">LoRaWAN spielt seine Stärken aus, wenn viele Messstellen gelegentlich kleine Werte liefern: Zähler, Füllstände, Raumklima, Bodenfeuchte, Zustände von Maschinen oder die grobe Position von Behältern. Funk durch Wände und in Kellerräume, lange Batterielaufzeiten und die Möglichkeit, ein eigenes Netz zu betreiben, sind die wichtigsten Argumente.</p>
 
 
 
-<p class="wp-block-paragraph">Wichtig ist die wechselseitige Authentifizierung der Sensoren und des zugehörigen Netzwerkservers. Jeder Sensor verfügt beim LoRaWAN-Protokoll über seinen eigenen 128- Bit-AES-Key, den Appkey. Während des Join-Prozess eines Sensors wird bei der Over-the-Air-Aktivierung durch den für jedes Netzwerk eigenen Identifyer die Zugehörigkeit des Sensors zum Netz überprüft. Auch der Join-Server eines Netzwerkes verfügt über einen weltweit eindeutigen Identifyer.</p>
+<p class="wp-block-paragraph">Ungeeignet ist LoRaWAN für Video, Sprache, große Dateien und Anwendungen, die häufig oder in harter Echtzeit Daten austauschen. Auch Downlinks sind knapp: Ein Gateway empfängt nicht, während es sendet, und unterliegt ebenfalls Sendezeitgrenzen. Sicherheitskritische Steuerungen brauchen deshalb zusätzliche Absicherung, zum Beispiel lokale Logik im Gerät.</p>
 
 
 
-<p class="wp-block-paragraph">Die Überprüfung, ob beide denselben Appkey kennen, erfolgt durch Berechnung eines AES-CMAC (Cipher-based Message Authentication Code) sowohl für die Join-Anfrage des Sensors als auch durch den Backend-Empfänger. Bei erfolgreicher Authentifizierung werden dann für jede Datenübertragungssession zwei Schlüssel abgeleitet: Der AppSKey sichert die End-to- End-Verschlüsselung der Anwendungspayload. Der so genannte NWSKey sichert die Integrität und Verschlüsselung der Kommandos und der Anwendungspayload.</p>
+<h2 class="wp-block-heading" id="eigenes-netz-community-oder-betreiber">Eigenes Netz, Community oder Betreiber?</h2>
 
 
 
-<p class="wp-block-paragraph">Die Verwendung beider Schlüssel stellt auch die Integrität der Datenübertragung sicher. Ein zum Beispiel beim LoRaWAN-Protokoll bei jeder Verschlüsselung berechneter Frame Counter verhindert zudem ein Packet Replay durch einen anderen, nicht autorisierten Sensor. Ein berechneter Message Integrity Code (MIC) verhindert die Manipulation der Daten im Verlauf der Datenübertragung und gewährleistet zudem, dass nur ein authentifiziertes Endgerät einen gültigen Frame erzeugen kann.</p>
-
-
-
-<p class="wp-block-paragraph">Sicherheit hängt natürlich auch noch von anderen Faktoren als der Verschlüsselung ab. Wichtig ist auch, dass Sensoren nicht mit leicht in Erfahrung zu bringenden Default-Keys oder Default-Passwörtern ausgeliefert werden und die Individualität etwa der Erkennung eines Join-Servers von einer Instanz wie der LoRa-Allianz gewährleistet ist.</p>
-
-
-
-<p class="wp-block-paragraph">Im Kernbereich des Netzes sollte die Kommunikation zwischen Join-Server, Netzwerk-Server und Applikations-Server zusätzlich durch HTTPS- oder VPN-Technologien abgesichert werden. Hier gelten dann die normalen Regeln der Netzwerksicherheit.</p>
-
-
-
-<p class="wp-block-paragraph">Wichtig ist es auch die gespeicherten Schlüssel vor dem Zugriff durch unberechtigte Personen zu schützen.</p>
-
-
-
-<h2 class="wp-block-heading" id="wird-lora-nur-eine-nische-bleiben">Wird LoRa nur eine Nische bleiben?</h2>
-
-
-
-<p class="wp-block-paragraph">Aktuell ist LoRaWAN in Deutschland im Aufschwung. Die geografische Abdeckung wird immer weitreichender und großflächiger. Auch die Zahl der Anwendungsfälle steigt (beispielsweise durch den Einsatz von <a href="../lorawan-monitoring/index.html">LoRaWAN-Monitoring</a>) und somit kann man LoRaWAN immer vielfältiger einsetzen. Natürlich lässt sich die Zukunft von LoRa nicht vorhersagen, aber die Antwort tendiert in Richtung Nein.</p>
-
-
-
-<p class="wp-block-paragraph">Johannes Dultz – CEO von <a href="http://www.samemission.de/" rel="noopener">www.samemission.de</a> ist sich jedoch sicher:</p>
-
-
-
-<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
-<p class="wp-block-paragraph">„LoRaWAN-Technologie wird den bestehenden Markt stark revolutionieren und das Internet der Dinge für alle endlich greifbar machen.“</p>
-</blockquote>
-
-
-
-<h2 class="wp-block-heading" id="was-ist-die-lora-alliance">Was ist die LoRa-Alliance?</h2>
-
-
-
-<p class="wp-block-paragraph">Bei der LoRa Alliance handelt es sich um eine offene, gemeinnützige Organisation, die sich die Förderung der Interoperabilität und Standardisierung von Low-Power-Wide-Area-Network-Technologien (LPWAN) zum Ziel gemacht hat. Damit einhergehend verfolgt sie das Bestreben, das Wachstum und die weitreichende Realisierung des Internet of Things (IoT) zu unterstützen und dieses folglich durchzusetzen. Durch die kontinuierliche Verbreitung des Long-Range-WAN-Protokolls (LoRaWAN) zur Etablierung als zukünftigen globalen Standard vertritt die LoRa Alliance die Meinung, dass ganze Städte bis hin zu kompletten Ländern mit nur wenigen Basisstationen abgedeckt werden können und so eine flächendeckende Verfügbarkeit von LoRaWAN erreicht werden kann.</p>
-
-
-
-<p class="wp-block-paragraph">Inzwischen besitzt die LoRa Alliance eine umfassende globale Präsenz öffentlicher Netzwerke und bestehender Implementierungen. Insbesondere durch die bereits erfolgte Standardisierung und das akkreditierte Zertifizierungsprogramm konnte die erforderliche Interoperabilität zur Skalierung von LPWA-Netzwerken erreicht werden, wodurch LoRaWAN zur führenden Lösung für weltweite LPWAN-Bereitstellungen herangewachsen ist. Die globale Ausdehnung der LoRaWAN-Netzwerkabdeckung nimmt dabei stetig zu und erfährt eine signifikante monatliche Steigerung.</p>
-
-
-
-<p class="wp-block-paragraph">Gegründet im Jahr 2015 von IBM, MicroChip, Cisco, Semtech, Bouygues Telecom, Singtel, KPN, Swisscom, Fastnet und Belgacom zählt die LoRa Alliance inzwischen zu den am schnellsten wachsenden Technologie-Bündnissen weltweit. Derzeit umfasst sie etwa 500 Mitgliedsunternehmen, welche sich sowohl in Nordamerika, Europa und Afrika als auch in Asien befinden. Dazu zählen Telekommunikationsunternehmen, Original Equipment Manufacturers (OEM), Systemintegratoren sowie Sensor- und Halbleiterhersteller. Namentliche Größen sind zum Beispiel führende Produktunternehmen wie Schneider, Bosch, Diehl und Mueller; darüber hinaus sind zahlreiche mittelständische Unternehmen und Start-Ups involviert.</p>
-
-
-
-<p class="wp-block-paragraph">Mit etwa 100 Netzwerkbetreibern, 68 Bündnis-Mitgliedsbetreibern, einer operativen Tätigkeit in 51 Ländern und einer LoRaWAN-Bereitstellung in über 100 Ländern ist der Nutzen und das Wirken der LoRa Alliance bereits international deutlich geworden. Eine kontinuierliche Ausweitung ist dabei weiterhin geplant.</p>
-
-
-
-<h2 class="wp-block-heading" id="wie-gruendet-man-sein-eigenes-lora-netzwerk">Wie gründet man sein eigenes LoRa-Netzwerk?</h2>
-
-
-
-<p class="wp-block-paragraph">Da LoRaWAN auf einem offenem Standard basiert, weshalb man selbst leicht sein eigenes Netzwerk aufbauen kann. Die Architektur eines Netzwerks sieht wie folgt aus:</p>
-
-
-
-<figure class="lw-arch"><ol class="lw-arch__flow"><li class="lw-arch__node"><strong>Endgeräte</strong> <span>Sensoren und Aktoren</span></li><li class="lw-arch__link">LoRa-Funk</li><li class="lw-arch__node"><strong>Gateways</strong> <span>empfangen alle Pakete in Reichweite</span></li><li class="lw-arch__link">IP-Verbindung</li><li class="lw-arch__node"><strong>Netzwerkserver</strong> <span>entfernt Dubletten, prüft und steuert das Netz</span></li><li class="lw-arch__link">IP-Verbindung</li><li class="lw-arch__node"><strong>Anwendungsserver</strong> <span>entschlüsselt und verarbeitet die Messwerte</span></li></ol><figcaption>Aufbau eines LoRaWAN-Netzes: Endgeräte funken direkt zu allen Gateways in Reichweite, die Gateways leiten die Pakete per IP an den Netzwerkserver weiter.</figcaption></figure>
-
-
-
-<p class="wp-block-paragraph">Unter End-Nodes sind Endgeräte, also Sensoren und Messgeräte gemeint, die Datenpakete übermitteln. Diese werden von Gateways die in Reichweite montiert sein müssen, aufgenommen. Von dort aus werden alle empfangenen Telegramme an den Netzwerkserver weitergeleitet.</p>
-
-
-
-<p class="wp-block-paragraph">Der Server hat die Aufgabe, die Daten den richtigen Anwendungen zur Verfügung zu stellen, das beste Gateway für die Downlink-Nachricht auszuwählen, die redundanten Daten, die aufgrund des Empfangs einer Nachricht von mehreren Gateways entsteht, auszufiltern und zu entfernen und die Telegramme der Endgeräte zu entschlüsseln bzw. Nachrichten für die Endgeräte wieder zu verschlüsseln.</p>
-
-
-
-<p class="wp-block-paragraph">Aufgrund der Eigenschaft, dass ein Telegramm eines Endgeräts von mehreren Gateways gleichzeitig empfangen werden kann, ist es nicht notwendig mobile Messgeräte an ein nächstes <a href="../lora-gateway/index.html">Lora-Gateway</a> zu übergeben. Es muss lediglich in Reichweite eines Gateway sein, um empfangen zu werden. Verbunden mit dem Netzwerkserver ist der Anwendungsserver, welcher die anwendungsspezifische Verarbeitung übernimmt.</p>
-
-
-
-<h2 class="wp-block-heading" id="was-bietet-lorawan-fuer-entwickler">Was bietet LoRaWAN für Entwickler?</h2>
-
-
-
-<p class="wp-block-paragraph">Die LoRaWAN-Spezifikation ist ein Low-Power-Wide Area Netzwerkprotokoll, um drahtlos batteriebetriebene Geräte mit dem Internet zu verbinden. Das Protokoll enthält Features, welche kostengünstig sind, mobile und sichere bidirektionale Kommunikation und ‚smart-city‘ und industrielle Anwendungen unterstützt. Das LoRaWAN-Protokoll ist für einen niedrigen Energieverbrauch und für die Skalierbarkeit von einer Gateway-Installation bis hin zu großen globalen Netzwerken mit Milliarden von Geräten konzipiert.</p>
-
-
-
-<h3 class="wp-block-heading" id="lorawan-spezifikationsdokumente">LoRaWAN Spezifikationsdokumente</h3>
-
-
-
-<p class="wp-block-paragraph">Diese Dokumente wurden von der LoRa Alliance entwickelt und werden von ihr auch gepflegt. Um das LoRaWAN-Protokoll zu definieren und die Interaktivität der Geräte und Netzwerke sicherzustellen, entwickelt und pflegt die Alliance folgende Dokumente:</p>
-
-
-
-<h3 class="wp-block-heading" id="lorawan-kernspezifikation">LoRaWAN-Kernspezifikation</h3>
-
-
-
-<p class="wp-block-paragraph">Das Dokument definiert das LoRaWAN-Netzwerkprotokoll mit MAC Layerbefehlen, Rahmeninhalten, Klassen, Datenraten, Sicherheit und flexiblem Netzwerkfrequenzmanagement.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Regionale Parameter</strong><br/> Dieses Dokument enthält die geprüften Frequenzkanalpläne für verschiedene globale Regionen und agiert nach den etablierten Einschränkungen. Diese Details werden separat von der Kernspezifikation behandelt, damit die Alliance schnell regionale regulatorische Unterstützungsanforderungen ansprechen kann. Die LoRa „physical layer“-Parameter überdeckt von den regionalen Parameter beinhalten: Kanalfrequenzen, Datenraten und Leistungssteuerungen.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Back-End Interfaces</strong><br/> Dieses Dokument unterstützt die Zerlegung des Netzwerks in interoperable Knoten, wie für Roaming zwischen Anbietern erforderlich. Diese Back-End Schnittstellenspezifikation stellt die Protokolle zur Verfügung, welche die Server mit unterschiedlichen Rollen verbindet, wie: steuern des MAC Layer, der End-Punkt Authentifikation oder Anwendungen im Kernnetz. Die Trennung dieser Server ermöglicht eine offene Auswahl von Anbietern für jedes Element der Wertschöpfungskette, wodurch das System gestärkt wird.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Zertifizierungsprogramm</strong><br/> Für jede Technologie, die innerhalb eines offenen Ökosystems mit mehreren Anbietern skaliert werden kann, ist es kritisch auf die Interoperabilität zu vertrauen.</p>
-
-
-
-<p class="wp-block-paragraph">Dies gibt den Anwendern die Gewissheit, dass das das LoRaWAN-Protokoll eingehalten wird, die Schnittstelle zwischen Endgeräten und die Netzwerkinfrastruktur auch</p>
-
-
-
-<h3 class="wp-block-heading" id="mitgliedsvorteile-fuer-das-lora-alliance-zertifikationsprogramm">Mitgliedsvorteile für das LoRa-Alliance Zertifikationsprogramm</h3>
+<p class="wp-block-paragraph">Ein LoRaWAN-Netz kann jeder betreiben, weil die Frequenzen lizenzfrei nutzbar sind. Daraus ergeben sich drei Wege:</p>
 
 
 
 <ul class="wp-block-list">
-<li>Auflistung der zertifizierten Produkte auf der LoRa Alliance-Website</li>
+<li><strong>Öffentliche Betreiber</strong> bieten Abdeckung als Dienstleistung an, oft Stadtwerke oder Telekommunikationsunternehmen. Einen Überblick gibt der Beitrag <a href="../anbieter-von-lora-netzwerken/index.html">Anbieter von LoRa-Netzwerken</a>.</li>
 
-<li>Höheres Ranking und Sichtbarkeit im LoRaWAN im Produktkatalog</li>
+<li><strong>Community-Netze</strong> wie <a href="../thethingsnetwork-iot/index.html">The Things Network</a> eignen sich für Tests und Projekte ohne Verfügbarkeitszusage.</li>
 
-<li>Das Recht das offizielle LoRaWAN-Logo zu benutzen</li>
-
-<li>Produktanpreisungen zusätzlich auch über die Alliance</li>
-
-<li>Prominente Positionierung bei Demonstrationen der LoRa Alliance auf Messen</li>
-
-<li>Hervorhebungen über Social Media und den Alliance Newsletter</li>
+<li><strong>Eigene Netze</strong> mit eigenen Gateways und eigenem Netzwerkserver lohnen sich auf Werksgeländen, in Gebäuden oder Kommunen. Wie das geht, zeigt der Beitrag <a href="../eigenes-lorawan-netz-aufbauen/index.html">Ein eigenes LoRaWAN-Netz aufbauen</a>.</li>
 </ul>
 
 
 
-<h3 class="wp-block-heading" id="arten-der-zertifizierung">Arten der Zertifizierung</h3>
+<h2 class="wp-block-heading" id="ist-lorawan-die-zukunft-des-iot">Ist LoRaWAN die Zukunft des IoT?</h2>
 
 
 
-<p class="wp-block-paragraph">Das LoRa-Alliance Zertifikationsprogramm sorgt dafür, dass die Endgeräte auf die nationalen Regelungen in der jeweiligen Region treffen und sich daran halten.</p>
+<p class="wp-block-paragraph">Eine einzige Funktechnik für das Internet der Dinge wird es nicht geben. LoRaWAN konkurriert vor allem mit den Mobilfunkverfahren NB-IoT und LTE-M sowie mit weiteren <a href="../lpwan/index.html">LPWAN-Technologien</a>. Mobilfunk punktet mit fertiger Abdeckung und Mobilität, verlangt aber SIM-Verträge und hängt vom Netz des Betreibers ab. LoRaWAN punktet dort, wo Anwender die Infrastruktur selbst kontrollieren oder Messstellen in schwierigen Lagen erreichen wollen. Der Vergleich <a href="../lorawan-und-mobilfunknetze/index.html">LoRaWAN und Mobilfunknetze</a> geht darauf genauer ein.</p>
 
 
 
-<p class="wp-block-paragraph">Das LoRa Alliance Certified Produkt-Programm stellt auch sicher, das LoRaWAN die Interoperabilität und Netzinfrastruktur, Komponenten und Angebote gemäß den nationalen Frequenzregelungen und der Allianz-Spezifikation einhalten</p>
+<p class="wp-block-paragraph">Aus der Nische ist LoRaWAN längst heraus: Energieversorger, Kommunen, Bahnen und Industrie setzen es in großen Stückzahlen ein, und die Spezifikation wird laufend erweitert, etwa um <a href="../lorawan-fuota/index.html">Firmware-Updates über Funk</a>, <a href="../lorawan-relay-funktionalitaet/index.html">Relays</a> und <a href="../lr-fhss-lorawan/index.html">LR-FHSS</a>, das unter anderem Empfang über Satelliten ermöglicht. Welche Technik passt, entscheidet am Ende der Anwendungsfall, nicht die Marktprognose.</p>
 
 
 
-<h3 class="wp-block-heading" id="autorisierter-test-service-provider-und-zertifizierungsprozess">Autorisierter Test Service Provider und Zertifizierungsprozess</h3>
-
-
-
-<p class="wp-block-paragraph">Nur autorisierte LoRa Alliance Testhäuser können Tests für die LoRa Alliance Certified Produkt-Programm durchführen. Anwendbare Berichte und Anmeldungen für die nationale Konformitätsprüfung werden zusammen mit dem LoRa Alliance Konformitätsbericht der Alliance Zertifizierungsstelle geliefert, bevor sie das Recht als zertifiziertes Produkt oder zertifizierte Plattform erhalten.</p>
-
-
-
-<h2 class="wp-block-heading" id="welche-lora-entwickler-kits-gibt-es">Welche LoRA-Entwickler-KITs gibt es?</h2>
-
-
-
-<h3 class="wp-block-heading" id="die-auf-lora-basierten-entwicklungs-kits-ermoeglichen-schnelles-prototyping">Die auf LoRa-basierten Entwicklungs-Kits ermöglichen schnelles Prototyping</h3>
-
-
-
-<p class="wp-block-paragraph">Die LoRa Alliance-Mitglieder, Libelium und Loriot, haben ein LoRaWAN verbundenes Entwicklungs-Kit angekündigt, welches die Entwicklung und das Testen von IoT-Anwendungen deutlich beschleunigen soll.</p>
-
-
-
-<p class="wp-block-paragraph">Mit solchen LoRa-Kits kann man, je nach Größe des Kits, verschiedene Anwendungsfälle testen, darunter Reichweitentests, Durchdringungstests, Langzeittests, Raumklima und Raumbelegung erfassen, sowie Luftqualität und Temperatur.</p>
-
-
-
-<p class="wp-block-paragraph">„Die Entwicklung von IoT-Anwendungen umfasst typischerweise das Einrichten eines Netzwerks und Testen der verschiedenen Hardware-Komponenten und Software, um sicherzustellen, alles korrekt funktioniert“, betonte Javier Martínez, Libelium VP of Business Development und Vertrieb. „Mit unserem Kit müssen Kunden keine Zeit aufwenden für die Konfiguration und ein neues Netzwerk zu testen, weil wir es bereits mit einer LoRaWAN-Netzwerkverbindung zur Verfügung stellen, die bereits mit den Kit-Komponenten getestet und eingerichtet wurde, um die Software laufen zu lassen.“</p>
-
-
-
-<p class="wp-block-paragraph">Bestehend aus einem Gateway und zehn Sensorvorrichtungen, Anwendungssoftware und einer Verbindung zu Loriots Cloud-basiertem LoRaWAN-Netzwerk ist das Kit perfekt geeignet für all diejenigen, die gerne eine Lösung auf der Loriot.io Plattform programmieren möchten. Testen Sie es mit realen Sensoren.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Solche Development Kit ist geeignet für Anwendungen wie:</strong></p>
+<h2 class="wp-block-heading" id="quellen-und-technischer-stand">Quellen und technischer Stand</h2>
 
 
 
 <ul class="wp-block-list">
-<li>Smart City</li>
+<li><a href="https://resources.lora-alliance.org/home/ts001-1-0-4-lorawan-l2-1-0-4-specification" rel="noopener">LoRa Alliance: TS001-1.0.4, LoRaWAN L2</a> – Netzarchitektur, Geräteklassen, Aktivierung und Sicherheit.</li>
 
-<li>Smart Security</li>
+<li><a href="https://resources.lora-alliance.org/technical-specifications/rp002-1-0-5-lorawan-regional-parameters" rel="noopener">LoRa Alliance: RP002-1.0.5, Regional Parameters</a> – Datenraten, Nutzdatengrenzen und Kanalplan EU868.</li>
 
-<li>Smart Environment</li>
-
-<li>Smart Agriculture</li>
+<li><a href="https://www.itu.int/rec/T-REC-Y.4480" rel="noopener">ITU-T Y.4480</a> – LoRaWAN als internationale Empfehlung der ITU.</li>
 </ul>
-
-
-
-<p class="wp-block-paragraph">Das Kit steht sowohl für Nordamerika (915MHz) und auch europäische (868MHz) Frequenzen zur Verfügung.</p>
-
-
-
-<p class="wp-block-paragraph">Auch bereits deutsche Firmen wie SmartMakers verkauft inzwischen verschiedene LoRa-Entwickler-Kits, wie zum Beispiel das ‚Starter-Kit‘ in großer und kleiner Ausführung, das ‚Developer-Kit‘, das ‚Energie Monitoring-Kit‘ und das ‚Room Sensing-Kit‘.</p>
-
-
-
-<p class="wp-block-paragraph">Enthaltene Komponenten im großen Starter-Kit sind dabei: ein Indoor- und ein Outdoor-Gateway, ein Adeunis LoRaWAN Feldtester, zwei Raumsensoren, zwei LoRaWAN I/O Adapter, zwei Temperatursensoren, zwei Outdoor- und Langzeitfeldtester, einen Feldtester Suite Zugang und eine sechs monatige ThingsHub Demo-Lizenz.</p>
-
-
-
-<h2 class="wp-block-heading" id="was-sind-die-groessten-unterschiede-zwischen-lora-sigfox-symphony-link-nwave-rmpa-und-weightless-technologien">Was sind die größten Unterschiede zwischen LoRa, SigFox, Symphony Link, NWAVE, RMPA und Weightless Technologien?</h2>
-
-
-
-<p class="wp-block-paragraph">Obwohl es viele LPWAN-Technologien und auc -Standards gibt, sollten wir uns auf SigFox, LoRa, Weightless, Symphony Link und RPMA konzentrieren, da diese Technologien sowohl aktiv entwickelt oder implementiert werden. Obwohl es andere proprietäre Protokolle und Stacks wie das Dash7 Alliance Protokoll u. a. gibt, haben diese nicht annähernd so viel Zugkraft gewonnen und werden in dieser Frage daher auch nicht behandelt.</p>
-
-
-
-<p class="wp-block-paragraph">Die folgenden Abschnitte sollen einen Überblick über jede der aufgeführten LPWAN-Technologien geben. Im weiteren Verlauf dieser Serie widmen wir den einzelnen Optionen individuelle Beiträge, indem wir einen tieferen Einblick in die verschiedenen Vor- und Nachteile eines jeden Unternehmens geben und einen technischen Drill-down auf die zugrunde liegenden Technologie-Stacks durchführen.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>LoRa</strong><br/> Die LoRa Alliance ist eine offene, gemeinnützige Organisation, die gegründet wurde, um ein Ökosystem für bestimmte LPWAN-Technologien zu fördern. Zu den Gründungsmitgliedern gehören sowohl IBM, MicroChip, Cisco, Semtech, Bouygues Telecom, Singtel, KPN, Swisscom, Fastnet, als auch Belgacom.</p>
-
-
-
-<p class="wp-block-paragraph">LoRaWAN ist die Open-Standard-Netzwerkschicht der LoRa Alliance. Es ist jedoch nicht wirklich offen, da der zugrunde liegende Chip zur Implementierung eines vollständigen LoRaWAN-Stacks nur über Semtech verfügbar ist. Im Grunde ist LoRa die physikalische Schicht: der Chip. LoRaWAN ist die MAC-Schicht: Die Software, die auf den Chip gelegt wird, um eine Vernetzung zu ermöglichen.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>SigFox</strong><br/> SigFox wurde 2009 gegründet und ist ein französisches Unternehmen mit Sitz in Labège, Frankreich. SigFox hat wohl die stärkste Zugkraft im LPWAN-Bereich (oder zumindest ist es am bekanntesten) aufgrund seiner erfolgreichen Marketingkampagnen in Europa. Es verfügt auch über ein großes Ökosystem von Anbietern wie Texas Instruments, Silicon Labs oder Axom.</p>
-
-
-
-<p class="wp-block-paragraph">SigFox verwendet dabei eine proprietäre Technologie, ein Beispiel für die Verwendung einer langsamen Modulationsrate, um eine größere Reichweite zu erzielen. Aufgrund dieser Design-Wahl ist SigFox eine ausgezeichnete Option für Anwendungen, bei denen das System nur kleine, seltene Datenstöße senden muss.</p>
-
-
-
-<p class="wp-block-paragraph">Mögliche Anwendungen sind Parksensoren, Wasserzähler oder intelligente Mülltonnen. Es hat jedoch auch einige Nachteile im Gepäck. Das Senden von Daten an die Sensoren / Geräte (Downlink-Fähigkeit) ist stark eingeschränkt und Signalstörungen können zu einem Problem werden.</p>
-
-
-
-<p class="wp-block-paragraph">Das SigFox-Konzept steht für eine bidirektionale Ende-zu-Ende Verbindung. Sicherheitstechnisch ist SigFox gut abgesichert, z.B. durch Scrambling der Nachrichten und einen Schutz vor Replay Angriffen. Zur Vermeidung von Störungen bei der Datenübertragung wird mit dem Frequenzsprungverfahren gearbeitet. Die Ultra-Schmalbandübertragungstechnik ermöglicht die Skalierbarkeit und den geringen Energieverbrauch.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Symphony Link</strong><br/> Link Labs ist Mitglied der LoRa Alliance und verwendet somit den oben genannten LoRa Chip. Anstatt LoRaWAN zu verwenden, hat Link Labs jedoch eine proprietäre MAC-Schicht (Software) auf Semtech-Chips namens Symphony Link aufgebaut.</p>
-
-
-
-<p class="wp-block-paragraph">Link Labs wurde 2013 von ehemaligen Mitgliedern des Applied Physics Laboratory der Johns Hopkins University gegründet und hat seinen Hauptsitz in Annapolis, Maryland.</p>
-
-
-
-<p class="wp-block-paragraph">Symphony Link basiert, genau wie LoRa, auf der Technologie des „Chirped Spread Spectrum“. Es wird von ‚Link Labs‘ entwickelt, mit dem Ziel, die Grenzen von LoRa zu überschreiten. Es wird eine Nachrichtenauslieferung garantiert durch zum Beispiel Sendewiederholungen. Auch die Funktionen eines Gateways sind erweiterbar, um eine Informationsverarbeitung zu gewährleisten, wenn eine schlechte Internetverbindung vorliegt.</p>
-
-
-
-<p class="wp-block-paragraph">Symphony Link bietet einige wichtige Konnektivitätsfunktionen im Vergleich zu LoRaWAN, darunter: garantierter Nachrichtenempfang, Firmware-Upgrade über Funk, Beseitigung der Tastgradbegrenzung, Repeater-Fähigkeit und Dynamikbereich.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Nwave</strong><br/> Nwave ist der Funktionalität von SigFox sehr ähnlich, verfügt jedoch über eine bessere Implementierung der MAC-Schicht. Es behauptet, „fortschrittliche Demodulationstechniken“ zu verwenden, um zu ermöglichen, dass sein Netzwerk mit anderen Funktechnologien ohne zusätzliches Rauschen koexistiert. Wie SigFox ist es am besten für sensorbasierte Netzwerke, Temperaturmessungen, Tankfüllstandsüberwachung, Smart Metering und andere Anwendungen.</p>
-
-
-
-<p class="wp-block-paragraph">Es ist ebenfalls ein offener Standard für LPWANs. Die Übertragung erfolgt auch durch Ultra-Schmalband. Es können Entfernungen von 10 km bis 30 km abgedeckt werden. Die verwendete Datenrate ist 100 bit/s und die Netzwerkarchitektur ist eine Sternentopologie.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>RMPA</strong><br/> Random-Phase-Multiple-Access (RPMA) ist ein proprietärer LPWAN-Technologie-Stack von Ingenu. Das Unternehmen wurde 2008 von ehemaligen Ingenieuren von Qualcomm in San Diego, Kalifornien, gegründet und war ursprünglich On-Ramp Wireless.</p>
-
-
-
-<p class="wp-block-paragraph">Als Gründungsmitglied der Aufgabengruppe IEEE 802.15.4k (die sich mit der Überwachung von energieintensiven Infrastrukturen befasste) hat Ingenu enorme Anstrengungen bei der Entwicklung von RPMA unternommen, während sich SigFox- und LoRaWAN-Gruppen auf eine schnellere Markteinführung konzentriert haben.</p>
-
-
-
-<p class="wp-block-paragraph">Aufgrund seiner Architektur verfügt RPMA über eine bessere Uplink- und Downlink-Kapazität als andere Modelle. Es behauptet, eine bessere Doppler-, Terminierungs- und Interferenzrobustheit zu haben. Es arbeitet im 2,4 GHz-Spektrum, das weltweit verfügbar ist (für WLAN und Bluetooth). Dies bedeutet, dass es keine Architekturänderungen pro Region wie SigFox und LoRa gibt.</p>
-
-
-
-<p class="wp-block-paragraph">Die LPWAN-Technologie RPMA (Random Phase Multiple Access) operiert bei 2,4 GHz. Die Übertragungstechnik ist hier die Spreizbandtechnik mit Mehrfachzugriff. Die verwendete Datenrate ist 2 kbit/s. Die Reichweite ist sehr groß zwischen 20 und 65 km.</p>
-
-
-
-<p class="wp-block-paragraph">Laut seinen internen Studien hat RPMA ein deutlich höheres Linkbudget (177 vs. 149 und 157 für SigFox bzw. LoRa), was eine bessere Abdeckung bedeutet.</p>
-
-
-
-<p class="wp-block-paragraph"><strong>Weightless</strong><br/> Die Weightless SIG (Special Interest Group) wurde 2008 mit dem Ziel gegründet, LPWANs zu standardisieren. Es gibt fünf „Promotor Group Members“, darunter Accenture, ARM, M2COMM, Sony-Europe und Telensa.</p>
-
-
-
-<p class="wp-block-paragraph">Weightless ist der einzige wirklich offene Standard, der im unlizenzierten Spektrum von unter 1 GHz arbeitet. Es gibt drei Versionen von Weightless, die unterschiedlichen Zwecken dienen:</p>
-
-
-
-<p class="wp-block-paragraph">Weightless-W : überträgt mit einer Bandbreite von 5 MHz mithilfe des Frequenzsprungverfahrens un dies ebenfalls bidirektional.<br/> Weightless-N : arbeitet mit einem schmalrandigen Übertragungsverfahren (Ultra-Schmalband), welches, wie bei den anderen Versionen, durch eine AES-Verschlüsselung mit 128 Bits geschützt ist. Es handelt sich um ein unidirektionales Verfahren.<br/> Weightless-P : arbeitet mit einer Kanalbreite von 12,5 kHz. Die Übertragung ist hier bidirektional.</p>
-
-
-
-<p class="wp-block-paragraph">Weightless N und P sind die beliebtesten Optionen, da Weightless-W eine kürzere Batterielaufzeit hat.</p>
-
-
-
-<h3 class="wp-block-heading" id="weighless-p">Weighless-P</h3>
-
-
-
-<p class="wp-block-paragraph">Dieser Standard verwendet eine FDMA + TDMA-Modulation in einem 12,5 kHz-Schmalband (größer als SigFox, aber kleiner als LoRa). Es hat auch eine adaptive Datenrate, ähnlich wie Symphony Link (200 Bps bis 100 kbps). Die Empfindlichkeit ist ziemlich hoch, -134 dBm bei 625 bps und unterstützt sowohl die PSK- als auch die GMSK-Modulation.</p>
-
-
-
-<p class="wp-block-paragraph">Weightless-P ist sinnvoll für private Netzwerke, anspruchsvollere Anwendungsfälle und Fälle, in denen die Steuerung von Uplink-Daten und Downlink-Daten wichtig ist. Entwicklungskits für Weightless-P kommen gerade erst auf den Markt.</p>
 </div>
 
 <footer class="lwc-article-footer wp-block-lorawan-core-article-footer">
 		<p class="lwc-article-footer__feedback">
-		Fehler gefunden oder Ergänzung? Schreiben Sie an <a href="mailto:info@lora-wan.de?subject=Feedback%3A%20Was%20ist%20LoRaWAN%3F%20Der%20gro%C3%9Fe%20%C3%9Cberblick">info@lora-wan.de</a>.	</p>
+		Fehler gefunden oder Ergänzung? Schreiben Sie an <a href="mailto:info@lora-wan.de?subject=Feedback%3A%20Was%20ist%20LoRaWAN%3F%20Das%20Funknetz%20f%C3%BCr%20Sensoren%20einfach%20erkl%C3%A4rt">info@lora-wan.de</a>.	</p>
 	<p class="lwc-article-footer__share">
 		<span>Teilen:</span>
 					<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.lora-wan.de%2Fwas-ist-lorawan%2F" rel="noopener nofollow" target="_blank">LinkedIn</a>
-					<a href="https://x.com/intent/post?url=https%3A%2F%2Fwww.lora-wan.de%2Fwas-ist-lorawan%2F&#038;text=Was%20ist%20LoRaWAN%3F%20Der%20gro%C3%9Fe%20%C3%9Cberblick" rel="noopener nofollow" target="_blank">X</a>
-					<a href="mailto:?subject=Was%20ist%20LoRaWAN%3F%20Der%20gro%C3%9Fe%20%C3%9Cberblick&#038;body=https%3A%2F%2Fwww.lora-wan.de%2Fwas-ist-lorawan%2F" rel="noopener nofollow" target="_blank">E-Mail</a>
+					<a href="https://x.com/intent/post?url=https%3A%2F%2Fwww.lora-wan.de%2Fwas-ist-lorawan%2F&#038;text=Was%20ist%20LoRaWAN%3F%20Das%20Funknetz%20f%C3%BCr%20Sensoren%20einfach%20erkl%C3%A4rt" rel="noopener nofollow" target="_blank">X</a>
+					<a href="mailto:?subject=Was%20ist%20LoRaWAN%3F%20Das%20Funknetz%20f%C3%BCr%20Sensoren%20einfach%20erkl%C3%A4rt&#038;body=https%3A%2F%2Fwww.lora-wan.de%2Fwas-ist-lorawan%2F" rel="noopener nofollow" target="_blank">E-Mail</a>
 			</p>
 </footer>
 </div>
@@ -835,6 +531,6 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 <script data-wp-router-options="{&quot;loadOnClientNavigation&quot;:true}" fetchpriority="low" id="@wordpress/block-library/search/view-js-module" src="../wp-includes/js/dist/script-modules/block-library/search/view.min.js?v=03f9888c8a" type="module"></script>
 <script data-wp-strategy="defer" defer id="lwc-video-js" src="../wp-content/plugins/lorawan-magazin-core/assets/video.js?v=d93cf8677a"></script>
 <script data-wp-strategy="defer" defer id="lorawan-magazin-js" src="../wp-content/themes/lorawan-magazin/assets/js/theme.js?v=ea45b88b36"></script>
-<script>window.LW_STATIC_ROOT="../";window.LW_BUILD="57e1b8b04f";</script><script src="../static-search.js?v=57e1b8b04f" defer></script>
+<script>window.LW_STATIC_ROOT="../";window.LW_BUILD="7ff0962fb8";</script><script src="../static-search.js?v=7ff0962fb8" defer></script>
 </body>
 </html>
