@@ -93,7 +93,7 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 {"imports":{"@wordpress/interactivity":"../wp-includes/js/dist/script-modules/interactivity/index.min.js?v=726ac59577"}}
 </script>
 <link rel="modulepreload" href="../wp-includes/js/dist/script-modules/interactivity/index.min.js?v=726ac59577" id="@wordpress/interactivity-js-modulepreload" fetchpriority="low">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"../index.html#organization","name":"growth with attitude UG (haftungsbeschränkt)","url":"../index.html","logo":{"@type":"ImageObject","url":"../wp-content/themes/lorawan-magazin/assets/img/logo-512.png"}},{"@type":"WebSite","@id":"../index.html#website","url":"../index.html","name":"lora-wan.de","description":"Das LoRaWAN-Magazin","inLanguage":"de-DE","publisher":{"@id":"../index.html#organization"},"potentialAction":{"@type":"SearchAction","target":"http://localhost:8080/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"TechArticle","@id":"./index.html#article","headline":"Wie sicher ist LoRaWAN? Schlüssel, Verschlüsselung und typische Schwachstellen","description":"LoRaWAN bringt Verschlüsselung, Integritätsschutz und Schutz gegen wiederholte Pakete bereits im Protokoll mit. Ob ein Netz sicher ist, entscheidet sich …","inLanguage":"de-DE","wordCount":814,"articleSection":["Grundlagen"],"author":{"@id":"../index.html#organization"},"publisher":{"@id":"../index.html#organization"},"isPartOf":{"@id":"../index.html#website"},"mainEntityOfPage":"./index.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Magazin","item":"../index.html"},{"@type":"ListItem","position":2,"name":"Grundlagen","item":"../thema/grundlagen/index.html"},{"@type":"ListItem","position":3,"name":"Wie sicher ist LoRaWAN? Schlüssel, Verschlüsselung und typische Schwachstellen","item":"./index.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"../index.html#organization","name":"growth with attitude UG (haftungsbeschränkt)","url":"../index.html","logo":{"@type":"ImageObject","url":"../wp-content/themes/lorawan-magazin/assets/img/logo-512.png"}},{"@type":"WebSite","@id":"../index.html#website","url":"../index.html","name":"lora-wan.de","description":"Das LoRaWAN-Magazin","inLanguage":"de-DE","publisher":{"@id":"../index.html#organization"},"potentialAction":{"@type":"SearchAction","target":"http://localhost:8080/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"TechArticle","@id":"./index.html#article","headline":"Wie sicher ist LoRaWAN? Schlüssel, Verschlüsselung und typische Schwachstellen","description":"LoRaWAN bringt Verschlüsselung, Integritätsschutz und Schutz gegen wiederholte Pakete bereits im Protokoll mit. Ob ein Netz sicher ist, entscheidet sich …","inLanguage":"de-DE","wordCount":861,"articleSection":["Grundlagen"],"author":{"@id":"../index.html#organization"},"publisher":{"@id":"../index.html#organization"},"isPartOf":{"@id":"../index.html#website"},"mainEntityOfPage":"./index.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Magazin","item":"../index.html"},{"@type":"ListItem","position":2,"name":"Grundlagen","item":"../thema/grundlagen/index.html"},{"@type":"ListItem","position":3,"name":"Wie sicher ist LoRaWAN? Schlüssel, Verschlüsselung und typische Schwachstellen","item":"./index.html"}]}]}</script>
 <style class="wp-fonts-local">
 @font-face{font-family:"Schibsted Grotesk";font-style:normal;font-weight:400 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/schibsted-grotesk-latin-wght-normal.woff2') format('woff2');}
 @font-face{font-family:"Schibsted Grotesk";font-style:italic;font-weight:400 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/schibsted-grotesk-latin-wght-italic.woff2') format('woff2');}
@@ -259,7 +259,7 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 
 
 
-<p class="wp-block-paragraph">Bei der <strong>Activation by Personalization (ABP)</strong> werden Geräteadresse und Sitzungsschlüssel fest einprogrammiert. Das spart den Join, aber die Schlüssel ändern sich nie, und nach einem Neustart droht ein zurückgesetzter Zähler. ABP ist deshalb nur in Sonderfällen sinnvoll; im Normalfall ist OTAA der richtige Weg.</p>
+<p class="wp-block-paragraph">Bei der <strong>Activation by Personalization (ABP)</strong> werden Geräteadresse und Sitzungsschlüssel fest einprogrammiert. Das spart den Join, aber die Schlüssel ändern sich während der gesamten Lebensdauer nie, und das Gerät muss seine Zähler auch über Batteriewechsel hinweg dauerhaft speichern. Die Spezifikation selbst empfiehlt für höhere Sicherheitsanforderungen OTAA; ABP ist nur in Sonderfällen sinnvoll.</p>
 
 
 
@@ -282,11 +282,11 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 <ul class="wp-block-list">
 <li><strong>Schlüssel in Tabellen und E-Mails:</strong> AppKeys wandern bei der Inbetriebnahme oft als Liste durch mehrere Hände. Wer die Liste hat, kann Geräte imitieren.</li>
 
-<li><strong>Gleiche oder voreingestellte Schlüssel:</strong> Beispielschlüssel aus Handbüchern oder ein gemeinsamer Schlüssel für eine ganze Charge machen aus einem kompromittierten Gerät ein kompromittiertes Netz.</li>
+<li><strong>Gleiche oder voreingestellte Schlüssel:</strong> Beispielschlüssel aus Handbüchern oder ein gemeinsamer Schlüssel für eine ganze Charge machen aus einem kompromittierten Gerät ein kompromittiertes Netz. Die Spezifikation verlangt ausdrücklich eigene Schlüssel je Gerät, die sich nicht aus öffentlichen Angaben wie der DevEUI ableiten lassen.</li>
 
 <li><strong>Abgeschaltete Zählerprüfung:</strong> Wer bei ABP-Geräten die Frame-Counter-Prüfung lockert, damit Neustarts nicht stören, öffnet die Tür für wiederholte Pakete.</li>
 
-<li><strong>Physischer Zugriff:</strong> Liegt der Schlüssel ungeschützt im Flash, lässt er sich aus einem abmontierten Gerät auslesen. Ein Secure Element im Gerät verhindert das.</li>
+<li><strong>Physischer Zugriff:</strong> Liegt der Schlüssel ungeschützt im Flash, lässt er sich aus einem abmontierten Gerät auslesen. Ein Secure Element im Gerät, das den Schlüssel nie herausgibt, erschwert das erheblich.</li>
 
 <li><strong>Ungesicherte Gateway-Anbindung:</strong> Der verbreitete UDP-Packet-Forwarder überträgt ohne Verschlüsselung und ohne Authentifizierung. LoRa Basics Station nutzt dagegen TLS mit Zertifikaten.</li>
 
@@ -331,6 +331,8 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 <li><a href="https://resources.lora-alliance.org/home/lorawan-specification-v1-1" rel="noopener">LoRa Alliance: LoRaWAN Specification 1.1</a> – getrennte Netzwerkschlüssel und verschlüsselte FOpts.</li>
 
 <li><a href="https://resources.lora-alliance.org/technical-specifications/ts002-1-1-0-lorawan-backend-interfaces" rel="noopener">LoRa Alliance: TS002-1.1.0, Backend Interfaces</a> – Rollen von Join-, Netzwerk- und Anwendungsserver.</li>
+
+<li><a href="https://github.com/Lora-net/packet_forwarder/blob/master/PROTOCOL.TXT" rel="noopener">Semtech: Packet-Forwarder-Protokoll</a> – ausdrücklich nur für Demonstrationen oder private, zuverlässige Netze gedacht, ohne Authentifizierung.</li>
 </ul>
 </div>
 
@@ -489,6 +491,6 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 <script data-wp-router-options="{&quot;loadOnClientNavigation&quot;:true}" fetchpriority="low" id="@wordpress/block-library/navigation/view-js-module" src="../wp-includes/js/dist/script-modules/block-library/navigation/view.min.js?v=fbe11af6f2" type="module"></script>
 <script data-wp-router-options="{&quot;loadOnClientNavigation&quot;:true}" fetchpriority="low" id="@wordpress/block-library/search/view-js-module" src="../wp-includes/js/dist/script-modules/block-library/search/view.min.js?v=03f9888c8a" type="module"></script>
 <script data-wp-strategy="defer" defer id="lorawan-magazin-js" src="../wp-content/themes/lorawan-magazin/assets/js/theme.js?v=ea45b88b36"></script>
-<script>window.LW_STATIC_ROOT="../";window.LW_BUILD="7ff0962fb8";</script><script src="../static-search.js?v=7ff0962fb8" defer></script>
+<script>window.LW_STATIC_ROOT="../";window.LW_BUILD="cb74789834";</script><script src="../static-search.js?v=cb74789834" defer></script>
 </body>
 </html>

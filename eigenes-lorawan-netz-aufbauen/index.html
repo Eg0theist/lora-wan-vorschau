@@ -98,7 +98,7 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 {"imports":{"@wordpress/interactivity":"../wp-includes/js/dist/script-modules/interactivity/index.min.js?v=726ac59577"}}
 </script>
 <link rel="modulepreload" href="../wp-includes/js/dist/script-modules/interactivity/index.min.js?v=726ac59577" id="@wordpress/interactivity-js-modulepreload" fetchpriority="low">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"../index.html#organization","name":"growth with attitude UG (haftungsbeschränkt)","url":"../index.html","logo":{"@type":"ImageObject","url":"../wp-content/themes/lorawan-magazin/assets/img/logo-512.png"}},{"@type":"WebSite","@id":"../index.html#website","url":"../index.html","name":"lora-wan.de","description":"Das LoRaWAN-Magazin","inLanguage":"de-DE","publisher":{"@id":"../index.html#organization"},"potentialAction":{"@type":"SearchAction","target":"http://localhost:8080/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"TechArticle","@id":"./index.html#article","headline":"Eigenes LoRaWAN-Netz aufbauen: Bausteine, Betriebsmodelle und erste Schritte","description":"Ein eigenes LoRaWAN-Netz lässt sich mit überschaubarem Aufwand aufbauen: Die Frequenzen sind lizenzfrei, die Spezifikation ist offen und Netzwerkserver gibt …","inLanguage":"de-DE","wordCount":647,"articleSection":["Grundlagen"],"author":{"@id":"../index.html#organization"},"publisher":{"@id":"../index.html#organization"},"isPartOf":{"@id":"../index.html#website"},"mainEntityOfPage":"./index.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Magazin","item":"../index.html"},{"@type":"ListItem","position":2,"name":"Grundlagen","item":"../thema/grundlagen/index.html"},{"@type":"ListItem","position":3,"name":"Eigenes LoRaWAN-Netz aufbauen: Bausteine, Betriebsmodelle und erste Schritte","item":"./index.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"../index.html#organization","name":"growth with attitude UG (haftungsbeschränkt)","url":"../index.html","logo":{"@type":"ImageObject","url":"../wp-content/themes/lorawan-magazin/assets/img/logo-512.png"}},{"@type":"WebSite","@id":"../index.html#website","url":"../index.html","name":"lora-wan.de","description":"Das LoRaWAN-Magazin","inLanguage":"de-DE","publisher":{"@id":"../index.html#organization"},"potentialAction":{"@type":"SearchAction","target":"http://localhost:8080/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"TechArticle","@id":"./index.html#article","headline":"Eigenes LoRaWAN-Netz aufbauen: Bausteine, Betriebsmodelle und erste Schritte","description":"Ein eigenes LoRaWAN-Netz lässt sich mit überschaubarem Aufwand aufbauen: Die Frequenzen sind lizenzfrei, die Spezifikation ist offen und Netzwerkserver gibt …","inLanguage":"de-DE","wordCount":671,"articleSection":["Grundlagen"],"author":{"@id":"../index.html#organization"},"publisher":{"@id":"../index.html#organization"},"isPartOf":{"@id":"../index.html#website"},"mainEntityOfPage":"./index.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Magazin","item":"../index.html"},{"@type":"ListItem","position":2,"name":"Grundlagen","item":"../thema/grundlagen/index.html"},{"@type":"ListItem","position":3,"name":"Eigenes LoRaWAN-Netz aufbauen: Bausteine, Betriebsmodelle und erste Schritte","item":"./index.html"}]}]}</script>
 <style class="wp-fonts-local">
 @font-face{font-family:"Schibsted Grotesk";font-style:normal;font-weight:400 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/schibsted-grotesk-latin-wght-normal.woff2') format('woff2');}
 @font-face{font-family:"Schibsted Grotesk";font-style:italic;font-weight:400 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/schibsted-grotesk-latin-wght-italic.woff2') format('woff2');}
@@ -236,9 +236,9 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 <ul class="wp-block-list">
 <li><strong>Endgeräte:</strong> Sensoren oder Aktoren mit LoRaWAN-Funkmodul, meist batteriebetrieben. Sie müssen zum Frequenzplan passen, in Europa EU868.</li>
 
-<li><strong><a href="../lora-gateway/index.html">Gateways</a>:</strong> Sie empfangen alle Pakete in Reichweite und leiten sie per Ethernet, Mobilfunk oder WLAN weiter. Ein Gateway kann Tausende Geräte bedienen, solange diese selten senden.</li>
+<li><strong><a href="../lora-gateway/index.html">Gateways</a>:</strong> Sie empfangen alle Pakete in Reichweite und leiten sie per Ethernet, Mobilfunk oder WLAN weiter. Ein Gateway kann Tausende Geräte bedienen, solange diese selten und kurz senden; entscheidend ist die gesamte Sendezeit, nicht die Zahl der Geräte.</li>
 
-<li><strong>Netzwerkserver:</strong> Er prüft und entdoppelt die Pakete, steuert die Datenraten und plant Downlinks. Verbreitet sind ChirpStack (Open Source) und The Things Stack (Open-Source- und kommerzielle Ausgabe) sowie gehostete Dienste.</li>
+<li><strong>Netzwerkserver:</strong> Er prüft und entdoppelt die Pakete, steuert die Datenraten und plant Downlinks. Verbreitet sind ChirpStack (Open Source, MIT-Lizenz) und The Things Stack (Open-Source-Ausgabe und kommerzielle Ausgaben) sowie gehostete Dienste.</li>
 
 <li><strong>Join-Server:</strong> Er verwaltet die Stammschlüssel der Geräte und ist meist im Netzwerkserver integriert.</li>
 
@@ -321,6 +321,8 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 <li><a href="https://resources.lora-alliance.org/technical-specifications/ts002-1-1-0-lorawan-backend-interfaces" rel="noopener">LoRa Alliance: TS002-1.1.0, Backend Interfaces</a> – Join-Server und Roaming zwischen Netzen.</li>
 
 <li><a href="https://www.chirpstack.io/" rel="noopener">ChirpStack</a> – Open-Source-Netzwerkserver für LoRaWAN.</li>
+
+<li><a href="https://www.thethingsnetwork.org/docs/gateways/start/single-channel/" rel="noopener">The Things Network: Single-channel gateways</a> – warum Einkanal-Gateways nicht LoRaWAN-konform sind.</li>
 
 <li><a href="https://www.thethingsindustries.com/docs/" rel="noopener">The Things Stack</a> – Dokumentation des Netzwerkservers hinter The Things Network.</li>
 </ul>
@@ -481,6 +483,6 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 <script data-wp-router-options="{&quot;loadOnClientNavigation&quot;:true}" fetchpriority="low" id="@wordpress/block-library/navigation/view-js-module" src="../wp-includes/js/dist/script-modules/block-library/navigation/view.min.js?v=fbe11af6f2" type="module"></script>
 <script data-wp-router-options="{&quot;loadOnClientNavigation&quot;:true}" fetchpriority="low" id="@wordpress/block-library/search/view-js-module" src="../wp-includes/js/dist/script-modules/block-library/search/view.min.js?v=03f9888c8a" type="module"></script>
 <script data-wp-strategy="defer" defer id="lorawan-magazin-js" src="../wp-content/themes/lorawan-magazin/assets/js/theme.js?v=ea45b88b36"></script>
-<script>window.LW_STATIC_ROOT="../";window.LW_BUILD="7ff0962fb8";</script><script src="../static-search.js?v=7ff0962fb8" defer></script>
+<script>window.LW_STATIC_ROOT="../";window.LW_BUILD="cb74789834";</script><script src="../static-search.js?v=cb74789834" defer></script>
 </body>
 </html>
