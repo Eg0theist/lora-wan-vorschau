@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8" />
+	<script>(function(){try{var t=localStorage.getItem('lw-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<meta name="theme-color" content="#F6F7F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1622" media="(prefers-color-scheme: dark)">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name='robots' content='noindex, nofollow' />
+<title>Container-Tracking auf See mit LoRaWAN: Netze, Zeitstempel und echte Sichtbarkeit – lora-wan.de</title>
+<link rel='dns-prefetch' href='//localhost' />
+<link rel="icon" href="../wp-content/themes/lorawan-magazin/assets/img/favicon.svg" type="image/svg+xml">
+<meta name="description" content="Der Container ist auf See. Auf der Karte steht noch Rotterdam. Ist der Tracker ausgefallen? Nicht unbedingt. Vielleicht zeichnet er Ereignisse auf und wartet …">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="lora-wan.de">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Container-Tracking auf See mit LoRaWAN: Netze, Zeitstempel und echte Sichtbarkeit – lora-wan.de">
+<meta property="og:description" content="Der Container ist auf See. Auf der Karte steht noch Rotterdam. Ist der Tracker ausgefallen? Nicht unbedingt. Vielleicht zeichnet er Ereignisse auf und wartet …">
+<meta property="og:url" content="./index.html">
+<meta property="og:image" content="../wp-content/themes/lorawan-magazin/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="wp-block-site-title-inline-css">
+.wp-block-site-title{box-sizing:border-box}.wp-block-site-title :where(a){color:inherit;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;text-decoration:inherit}
+/*# sourceURL=../wp-includes/blocks/site-title/style.min.css */
+</style>
+<style id="wp-block-site-tagline-inline-css">
+.wp-block-site-tagline{box-sizing:border-box}
+/*# sourceURL=../wp-includes/blocks/site-tagline/style.min.css */
+</style>
+<style id="wp-block-group-inline-css">
+.wp-block-group{box-sizing:border-box}:where(.wp-block-group.wp-block-group-is-layout-constrained){position:relative}
+/*# sourceURL=../wp-includes/blocks/group/style.min.css */
+</style>
+<style id="wp-block-navigation-link-inline-css">
+.wp-block-navigation .wp-block-navigation-item__label{overflow-wrap:break-word}.wp-block-navigation .wp-block-navigation-item__description{display:none}.link-ui-tools{outline:1px solid #f0f0f0;padding:8px}.link-ui-block-inserter{padding-top:8px}.link-ui-block-inserter__back{margin-left:8px;text-transform:uppercase}
+/*# sourceURL=../wp-includes/blocks/navigation-link/style.min.css */
+</style>
+<style id="wp-block-navigation-inline-css">
+.wp-block-navigation{position:relative}.wp-block-navigation ul{margin-bottom:0;margin-left:0;margin-top:0;padding-left:0}.wp-block-navigation ul,.wp-block-navigation ul li{list-style:none}.wp-block-navigation .wp-block-navigation-item{align-items:center;background-color:inherit;display:flex;position:relative}.wp-block-navigation .wp-block-navigation-item .wp-block-navigation__submenu-container:empty{display:none}.wp-block-navigation .wp-block-navigation-item__content{display:block;z-index:1}.wp-block-navigation .wp-block-navigation-item__content.wp-block-navigation-item__content{color:inherit}.wp-block-navigation.has-text-decoration-underline .wp-block-navigation-item__content,.wp-block-navigation.has-text-decoration-underline .wp-block-navigation-item__content:active,.wp-block-navigation.has-text-decoration-underline .wp-block-navigation-item__content:focus{text-decoration:underline}.wp-block-navigation.has-text-decoration-line-through .wp-block-navigation-item__content,.wp-block-navigation.has-text-decoration-line-through .wp-block-navigation-item__content:active,.wp-block-navigation.has-text-decoration-line-through .wp-block-navigation-item__content:focus{text-decoration:line-through}.wp-block-navigation :where(a),.wp-block-navigation :where(a:active),.wp-block-navigation :where(a:focus){text-decoration:none}.wp-block-navigation .wp-block-navigation__submenu-icon{align-self:center;background-color:inherit;border:none;color:currentColor;display:inline-block;font-size:inherit;height:.6em;line-height:0;margin-left:.25em;padding:0;width:.6em}.wp-block-navigation .wp-block-navigation__submenu-icon svg{stroke:currentColor;display:inline-block;height:inherit;margin-top:.075em;width:inherit}.wp-block-navigation{--navigation-layout-justification-setting:flex-start;--navigation-layout-direction:row;--navigation-layout-wrap:wrap;--navigation-layout-justify:flex-start;--navigation-layout-align:center}.wp-block-navigation.is-vertical{--navigation-layout-direction:column;--navigation-layout-justify:initial;--navigation-layout-align:flex-start}.wp-block-navigation.no-wrap{--navigation-layout-wrap:nowrap}.wp-block-navigation.items-justified-center{--navigation-layout-justification-setting:center;--navigation-layout-justify:center}.wp-block-navigation.items-justified-center.is-vertical{--navigation-layout-align:center}.wp-block-navigation.items-justified-right{--navigation-layout-justification-setting:flex-end;--navigation-layout-justify:flex-end}.wp-block-navigation.items-justified-right.is-vertical{--navigation-layout-align:flex-end}.wp-block-navigation.items-justified-space-between{--navigation-layout-justification-setting:space-between;--navigation-layout-justify:space-between}:where(.wp-block-navigation) ul li{padding:0}.wp-block-navigation .has-child .wp-block-navigation__submenu-container{align-items:normal;background-color:inherit;color:inherit;display:flex;flex-direction:column;opacity:0;position:absolute;z-index:2}@media not (prefers-reduced-motion){.wp-block-navigation .has-child .wp-block-navigation__submenu-container{transition:opacity .1s linear}}.wp-block-navigation .has-child .wp-block-navigation__submenu-container{height:0;overflow:hidden;visibility:hidden;width:0}.wp-block-navigation .has-child .wp-block-navigation__submenu-container>.wp-block-navigation-item>.wp-block-navigation-item__content{display:flex;flex-grow:1;padding:.5em 1em}.wp-block-navigation .has-child .wp-block-navigation__submenu-container>.wp-block-navigation-item>.wp-block-navigation-item__content .wp-block-navigation__submenu-icon{margin-left:auto;margin-right:0}.wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation-item__content{margin:0}.wp-block-navigation .has-child .wp-block-navigation__submenu-container{left:-1px;top:100%}@media (min-width:782px){.wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container{left:100%;top:-1px}.wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container:before{background:transparent;content:"";display:block;height:100%;position:absolute;right:100%;width:.5em}.wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-icon{margin-right:.25em}.wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-icon svg{transform:rotate(-90deg)}}@media (hover:hover){.wp-block-navigation .has-child:not(.open-on-click):hover>.wp-block-navigation__submenu-container{height:auto;min-width:200px;opacity:1;overflow:visible;visibility:visible;width:auto}}.wp-block-navigation .has-child .wp-block-navigation-submenu__toggle[aria-expanded=true]~.wp-block-navigation__submenu-container,.wp-block-navigation .has-child:not(.open-on-click):not(.open-on-hover-click):focus-within>.wp-block-navigation__submenu-container{height:auto;min-width:200px;opacity:1;overflow:visible;visibility:visible;width:auto}.wp-block-navigation .has-child.open-always{align-items:var(--navigation-layout-align,initial);flex-direction:var(--navigation-layout-direction,initial);flex-wrap:var(--navigation-layout-wrap,wrap);gap:var(--wp--style--block-gap,2em)}.wp-block-navigation .has-child.open-always,.wp-block-navigation .has-child.open-always .wp-block-navigation-item{justify-content:var(--navigation-layout-justify,initial)}.wp-block-navigation .has-child.open-always .wp-block-navigation__submenu-container,.wp-block-navigation .has-child.open-always.wp-block-navigation-submenu{gap:var(--wp--style--block-gap,2em)}.wp-block-navigation .has-child.open-always .wp-block-navigation-item,.wp-block-navigation .has-child.open-always .wp-block-navigation__submenu-container,.wp-block-navigation .has-child.open-always.wp-block-navigation-submenu{padding-bottom:0;padding-top:0}.wp-block-navigation .has-child.open-always .wp-block-navigation__submenu-container{padding-left:var(--wp--style--block-gap,2em);padding-right:var(--wp--style--block-gap,2em)}.wp-block-navigation .has-child.open-always .wp-block-navigation__submenu-container .wp-block-navigation-item__content{padding:0}.wp-block-navigation .has-child.open-always .wp-block-navigation__submenu-container>.wp-block-navigation-item>.wp-block-navigation-item__content,.wp-block-navigation .has-child.open-always>.wp-block-navigation-item__content{flex-grow:0}.wp-block-navigation .has-child.open-always>.wp-block-navigation__submenu-container{background-color:transparent;border:none;color:inherit;flex-basis:100%;height:auto;opacity:1;overflow:visible;position:static;visibility:visible;width:auto}.wp-block-navigation.has-background .has-child .wp-block-navigation__submenu-container{left:0;top:100%}@media (min-width:782px){.wp-block-navigation.has-background .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container{left:100%;top:0}}.wp-block-navigation-submenu{display:flex;position:relative}.wp-block-navigation-submenu .wp-block-navigation__submenu-icon svg{stroke:currentColor}button.wp-block-navigation-item__content{background-color:transparent;border:none;color:currentColor;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;text-align:left;text-transform:inherit}.wp-block-navigation-submenu__toggle{cursor:pointer}.wp-block-navigation-submenu__toggle[aria-expanded=true]+.wp-block-navigation__submenu-icon>svg,.wp-block-navigation-submenu__toggle[aria-expanded=true]>svg{transform:rotate(180deg)}.wp-block-navigation-item.open-on-click .wp-block-navigation-submenu__toggle{padding-left:0;padding-right:.85em}.wp-block-navigation-item.open-on-click .wp-block-navigation-submenu__toggle+.wp-block-navigation__submenu-icon{margin-left:-.6em;pointer-events:none}.wp-block-navigation-item.open-on-click button.wp-block-navigation-item__content:not(.wp-block-navigation-submenu__toggle){padding:0}.wp-block-navigation .wp-block-page-list,.wp-block-navigation__container,.wp-block-navigation__responsive-close,.wp-block-navigation__responsive-container,.wp-block-navigation__responsive-container-content,.wp-block-navigation__responsive-dialog{gap:inherit}:where(.wp-block-navigation.has-background .wp-block-navigation-item a:not(.wp-element-button)),:where(.wp-block-navigation.has-background .wp-block-navigation-submenu a:not(.wp-element-button)){padding:.5em 1em}:where(.wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item a:not(.wp-element-button)),:where(.wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-submenu a:not(.wp-element-button)),:where(.wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-submenu button.wp-block-navigation-item__content),:where(.wp-block-navigation .wp-block-navigation__submenu-container .wp-block-pages-list__item button.wp-block-navigation-item__content){padding:.5em 1em}.wp-block-navigation.items-justified-right .wp-block-navigation__container .has-child .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-right .wp-block-page-list>.has-child .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-space-between .wp-block-page-list>.has-child:last-child .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-space-between>.wp-block-navigation__container>.has-child:last-child .wp-block-navigation__submenu-container{left:auto;right:0}.wp-block-navigation.items-justified-right .wp-block-navigation__container .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-right .wp-block-page-list>.has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-space-between .wp-block-page-list>.has-child:last-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-space-between>.wp-block-navigation__container>.has-child:last-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container{left:-1px;right:-1px}@media (min-width:782px){.wp-block-navigation.items-justified-right .wp-block-navigation__container .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-right .wp-block-page-list>.has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-space-between .wp-block-page-list>.has-child:last-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-space-between>.wp-block-navigation__container>.has-child:last-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container{left:auto;right:100%}}.wp-block-navigation:not(.has-background) .wp-block-navigation__submenu-container{background-color:#fff;border:1px solid rgba(0,0,0,.15)}.wp-block-navigation.has-background .wp-block-navigation__submenu-container{background-color:inherit}.wp-block-navigation:not(.has-text-color) .wp-block-navigation__submenu-container{color:#000}.wp-block-navigation__container{align-items:var(--navigation-layout-align,initial);display:flex;flex-direction:var(--navigation-layout-direction,initial);flex-wrap:var(--navigation-layout-wrap,wrap);justify-content:var(--navigation-layout-justify,initial);list-style:none;margin:0;padding-left:0}.wp-block-navigation__container .is-responsive{display:none}.wp-block-navigation__container:only-child,.wp-block-page-list:only-child{flex-grow:1}@keyframes overlay-menu__fade-in-animation{0%{opacity:0;transform:translateY(.5em)}to{opacity:1;transform:translateY(0)}}.wp-block-navigation__responsive-container{bottom:0;display:none;left:0;position:fixed;right:0;top:0}.wp-block-navigation__responsive-container :where(.wp-block-navigation-item a){color:inherit}.wp-block-navigation__responsive-container .wp-block-navigation__responsive-container-content{align-items:var(--navigation-layout-align,initial);display:flex;flex-direction:var(--navigation-layout-direction,initial);flex-wrap:var(--navigation-layout-wrap,wrap);justify-content:var(--navigation-layout-justify,initial)}.wp-block-navigation__responsive-container:not(.is-menu-open.is-menu-open){background-color:inherit!important;color:inherit!important}.wp-block-navigation__responsive-container.is-menu-open{background-color:inherit;display:flex;flex-direction:column}@media not (prefers-reduced-motion){.wp-block-navigation__responsive-container.is-menu-open{animation:overlay-menu__fade-in-animation .1s ease-out;animation-fill-mode:forwards}}.wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay){padding:clamp(1rem,var(--wp--style--root--padding-top),20rem) clamp(1rem,var(--wp--style--root--padding-right),20rem) clamp(1rem,var(--wp--style--root--padding-bottom),20rem) clamp(1rem,var(--wp--style--root--padding-left),20rem)}.wp-block-navigation__responsive-container.is-menu-open{overflow:auto;z-index:100000}.wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay) .wp-block-navigation__responsive-container-content{padding-top:calc(2rem + 24px)}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content{align-items:var(--navigation-layout-justification-setting,inherit);display:flex;flex-direction:column;flex-wrap:nowrap;overflow:visible}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation__container,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-page-list{justify-content:flex-start}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation__submenu-icon{display:none}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .has-child .wp-block-navigation__submenu-container{border:none;height:auto;min-width:200px;opacity:1;overflow:initial;padding-left:2rem;padding-right:2rem;position:static;visibility:visible;width:auto}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation__container,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation__submenu-container{gap:inherit}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation__submenu-container{padding-top:var(--wp--style--block-gap,2em)}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation-item__content{padding:0}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation-item,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation__container,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-page-list{align-items:var(--navigation-layout-justification-setting,initial);display:flex;flex-direction:column}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation-item,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation-item .wp-block-navigation__submenu-container,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__container,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-page-list{background:transparent!important;color:inherit!important}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__submenu-container.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container{left:auto;right:auto}.wp-block-navigation__responsive-container.disable-default-overlay .wp-block-navigation__overlay-container{display:none;width:100%}.wp-block-navigation__responsive-container.disable-default-overlay .wp-block-navigation__responsive-close{max-width:none}.wp-block-navigation__responsive-container.disable-default-overlay.is-menu-open .wp-block-navigation__responsive-container-content>:not(.wp-block-navigation__overlay-container){display:none}.wp-block-navigation__responsive-container.disable-default-overlay.is-menu-open .wp-block-navigation__responsive-container-content .wp-block-navigation__overlay-container{display:block}.wp-block-navigation__responsive-container.disable-default-overlay.is-menu-open .wp-block-navigation__responsive-container-content .wp-block-navigation__overlay-container .wp-block-navigation__submenu-container{left:0;right:auto}@media (min-width:600px){.wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open){background-color:inherit;display:block;position:relative;width:100%;z-index:auto}.wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open) .wp-block-navigation__responsive-container-close{display:none}.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__submenu-container.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container{left:0}}.wp-block-navigation:not(.has-background) .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay){background-color:#fff}.wp-block-navigation:not(.has-text-color) .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay){color:#000}.wp-block-navigation__toggle_button_label{font-size:1rem;font-weight:700}.wp-block-navigation__responsive-container-close,.wp-block-navigation__responsive-container-open{background:transparent;border:none;color:currentColor;cursor:pointer;margin:0;padding:0;text-transform:inherit;vertical-align:middle}.wp-block-navigation__responsive-container-close svg,.wp-block-navigation__responsive-container-open svg{fill:currentColor;display:block;height:24px;pointer-events:none;width:24px}.wp-block-navigation__responsive-container-open{display:flex}.wp-block-navigation__responsive-container-open.wp-block-navigation__responsive-container-open.wp-block-navigation__responsive-container-open{font-family:inherit;font-size:inherit;font-weight:inherit}@media (min-width:600px){.wp-block-navigation__responsive-container-open:not(.always-shown){display:none}}.wp-block-navigation__responsive-container-close{position:absolute;right:0;top:0;z-index:2}.wp-block-navigation__responsive-container-close.wp-block-navigation__responsive-container-close.wp-block-navigation__responsive-container-close{font-family:inherit;font-size:inherit;font-weight:inherit}.disable-default-overlay .wp-block-navigation__responsive-container-close{right:clamp(1rem,var(--wp--style--root--padding-left),20rem);top:clamp(1rem,var(--wp--style--root--padding-left),20rem)}.wp-block-navigation__responsive-close{width:100%}.has-modal-open .wp-block-navigation__responsive-close{margin-left:auto;margin-right:auto;max-width:var(--wp--style--global--wide-size,100%)}.wp-block-navigation__responsive-close:focus{outline:none}.is-menu-open .wp-block-navigation__responsive-close,.is-menu-open .wp-block-navigation__responsive-container-content,.is-menu-open .wp-block-navigation__responsive-dialog{box-sizing:border-box}.wp-block-navigation__responsive-dialog{position:relative}.has-modal-open .admin-bar .is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-dialog{margin-top:46px}@media (min-width:782px){.has-modal-open .admin-bar .is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-dialog{margin-top:32px}}html.has-modal-open{overflow:hidden}
+/*# sourceURL=../wp-includes/blocks/navigation/style.min.css */
+</style>
+<style id="wp-block-search-inline-css">
+.wp-block-search__button{margin-left:10px;word-break:normal}.wp-block-search__button.has-icon{line-height:0}.wp-block-search__button svg{fill:currentColor;height:1.25em;min-height:24px;min-width:24px;vertical-align:text-bottom;width:1.25em}:where(.wp-block-search__button){border:1px solid #ccc;padding:6px 10px}.wp-block-search__inside-wrapper{display:flex;flex:auto;flex-wrap:nowrap;max-width:100%}.wp-block-search__label{width:100%}.wp-block-search.wp-block-search__button-only .wp-block-search__button{box-sizing:border-box;display:flex;flex-shrink:0;justify-content:center;margin-left:0;max-width:100%}.wp-block-search.wp-block-search__button-only .wp-block-search__inside-wrapper{min-width:0!important;transition-property:width}.wp-block-search.wp-block-search__button-only .wp-block-search__input{flex-basis:100%;transition-duration:.3s}.wp-block-search.wp-block-search__button-only.wp-block-search__searchfield-hidden,.wp-block-search.wp-block-search__button-only.wp-block-search__searchfield-hidden .wp-block-search__inside-wrapper{overflow:hidden}.wp-block-search.wp-block-search__button-only.wp-block-search__searchfield-hidden .wp-block-search__input{border-left-width:0!important;border-right-width:0!important;flex-basis:0;flex-grow:0;margin:0;min-width:0!important;padding-left:0!important;padding-right:0!important;width:0!important}:where(.wp-block-search__input){-webkit-appearance:initial;-moz-appearance:initial;appearance:none;border:1px solid #949494;flex-grow:1;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;margin-left:0;margin-right:0;min-width:3rem;padding:8px;text-decoration:unset!important;text-transform:inherit}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper){background-color:#fff;border:1px solid #949494;box-sizing:border-box;padding:4px}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper) .wp-block-search__input{border:none;border-radius:0;padding:0 4px}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper) .wp-block-search__input:focus{outline:none}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper) :where(.wp-block-search__button){padding:4px 8px}.wp-block-search.aligncenter .wp-block-search__inside-wrapper{margin:auto}.wp-block[data-align=right] .wp-block-search.wp-block-search__button-only .wp-block-search__inside-wrapper{float:right}
+/*# sourceURL=../wp-includes/blocks/search/style.min.css */
+</style>
+<style id="wp-block-post-title-inline-css">
+.wp-block-post-title{box-sizing:border-box;word-break:break-word}.wp-block-post-title :where(a){display:inline-block;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;text-decoration:inherit}
+/*# sourceURL=../wp-includes/blocks/post-title/style.min.css */
+</style>
+<style id="wp-block-paragraph-inline-css">
+.is-small-text{font-size:.875em}.is-regular-text{font-size:1em}.is-large-text{font-size:2.25em}.is-larger-text{font-size:3em}.has-drop-cap:not(:focus):first-letter{float:left;font-size:8.4em;font-style:normal;font-weight:100;line-height:.68;margin:.05em .1em 0 0;text-transform:uppercase}body.rtl .has-drop-cap:not(:focus):first-letter{float:none;margin-left:.1em}p.has-drop-cap.has-background{overflow:hidden}:root :where(p.has-background){padding:1.25em 2.375em}:where(p.has-text-color:not(.has-link-color)) a{color:inherit}p.has-text-align-left[style*="writing-mode:vertical-lr"],p.has-text-align-right[style*="writing-mode:vertical-rl"]{rotate:180deg}
+/*# sourceURL=../wp-includes/blocks/paragraph/style.min.css */
+</style>
+<style id="wp-block-heading-inline-css">
+h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-background,h3:where(.wp-block-heading).has-background,h4:where(.wp-block-heading).has-background,h5:where(.wp-block-heading).has-background,h6:where(.wp-block-heading).has-background{padding:1.25em 2.375em}h1.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h1.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h2.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h2.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h3.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h3.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h4.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h4.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h5.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h5.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h6.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h6.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]){rotate:180deg}
+/*# sourceURL=../wp-includes/blocks/heading/style.min.css */
+</style>
+<style id="wp-block-table-inline-css">
+.wp-block-table{overflow-x:auto}.wp-block-table table{border-collapse:collapse;width:100%}.wp-block-table thead{border-bottom:3px solid}.wp-block-table tfoot{border-top:3px solid}.wp-block-table td,.wp-block-table th{border:1px solid;padding:.5em}.wp-block-table .has-fixed-layout{table-layout:fixed;width:100%}.wp-block-table .has-fixed-layout td,.wp-block-table .has-fixed-layout th{word-break:break-word}.wp-block-table.aligncenter,.wp-block-table.alignleft,.wp-block-table.alignright{display:table;width:auto}.wp-block-table.aligncenter td,.wp-block-table.aligncenter th,.wp-block-table.alignleft td,.wp-block-table.alignleft th,.wp-block-table.alignright td,.wp-block-table.alignright th{word-break:break-word}.wp-block-table .has-subtle-light-gray-background-color{background-color:#f3f4f5}.wp-block-table .has-subtle-pale-green-background-color{background-color:#e9fbe5}.wp-block-table .has-subtle-pale-blue-background-color{background-color:#e7f5fe}.wp-block-table .has-subtle-pale-pink-background-color{background-color:#fcf0ef}.wp-block-table.is-style-stripes{background-color:transparent;border-collapse:inherit;border-spacing:0}.wp-block-table.is-style-stripes tbody tr:nth-child(odd){background-color:#f0f0f0}.wp-block-table.is-style-stripes.has-subtle-light-gray-background-color tbody tr:nth-child(odd){background-color:#f3f4f5}.wp-block-table.is-style-stripes.has-subtle-pale-green-background-color tbody tr:nth-child(odd){background-color:#e9fbe5}.wp-block-table.is-style-stripes.has-subtle-pale-blue-background-color tbody tr:nth-child(odd){background-color:#e7f5fe}.wp-block-table.is-style-stripes.has-subtle-pale-pink-background-color tbody tr:nth-child(odd){background-color:#fcf0ef}.wp-block-table.is-style-stripes td,.wp-block-table.is-style-stripes th{border-color:transparent}.wp-block-table.is-style-stripes{border-bottom:1px solid #f0f0f0}.wp-block-table .has-border-color td,.wp-block-table .has-border-color th,.wp-block-table .has-border-color tr,.wp-block-table .has-border-color>*{border-color:inherit}.wp-block-table table[style*=border-top-color] tr:first-child,.wp-block-table table[style*=border-top-color] tr:first-child td,.wp-block-table table[style*=border-top-color] tr:first-child th,.wp-block-table table[style*=border-top-color]>*,.wp-block-table table[style*=border-top-color]>* td,.wp-block-table table[style*=border-top-color]>* th{border-top-color:inherit}.wp-block-table table[style*=border-top-color] tr:not(:first-child){border-top-color:currentColor}.wp-block-table table[style*=border-right-color] td:last-child,.wp-block-table table[style*=border-right-color] th,.wp-block-table table[style*=border-right-color] tr,.wp-block-table table[style*=border-right-color]>*{border-right-color:inherit}.wp-block-table table[style*=border-bottom-color] tr:last-child,.wp-block-table table[style*=border-bottom-color] tr:last-child td,.wp-block-table table[style*=border-bottom-color] tr:last-child th,.wp-block-table table[style*=border-bottom-color]>*,.wp-block-table table[style*=border-bottom-color]>* td,.wp-block-table table[style*=border-bottom-color]>* th{border-bottom-color:inherit}.wp-block-table table[style*=border-bottom-color] tr:not(:last-child){border-bottom-color:currentColor}.wp-block-table table[style*=border-left-color] td:first-child,.wp-block-table table[style*=border-left-color] th,.wp-block-table table[style*=border-left-color] tr,.wp-block-table table[style*=border-left-color]>*{border-left-color:inherit}.wp-block-table table[style*=border-style] td,.wp-block-table table[style*=border-style] th,.wp-block-table table[style*=border-style] tr,.wp-block-table table[style*=border-style]>*{border-style:inherit}.wp-block-table table[style*=border-width] td,.wp-block-table table[style*=border-width] th,.wp-block-table table[style*=border-width] tr,.wp-block-table table[style*=border-width]>*{border-style:inherit;border-width:inherit}
+/*# sourceURL=../wp-includes/blocks/table/style.min.css */
+</style>
+<style id="wp-block-list-inline-css">
+ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:1.25em 2.375em}
+/*# sourceURL=../wp-includes/blocks/list/style.min.css */
+</style>
+<style id="wp-block-post-content-inline-css">
+.wp-block-post-content{display:flow-root}
+/*# sourceURL=../wp-includes/blocks/post-content/style.min.css */
+</style>
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-break:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style^=border-color],[style*=";border-color"],[style*="; border-color"]){border-style:solid}html :where([style^=border-top-color],[style*=";border-top-color"],[style*="; border-top-color"]){border-top-style:solid}html :where([style^=border-right-color],[style*=";border-right-color"],[style*="; border-right-color"]){border-right-style:solid}html :where([style^=border-bottom-color],[style*=";border-bottom-color"],[style*="; border-bottom-color"]){border-bottom-style:solid}html :where([style^=border-left-color],[style*=";border-left-color"],[style*="; border-left-color"]){border-left-style:solid}html :where([style^=border-width],[style*=";border-width"],[style*="; border-width"]){border-style:solid}html :where([style^=border-top-width],[style*=";border-top-width"],[style*="; border-top-width"]){border-top-style:solid}html :where([style^=border-right-width],[style*=";border-right-width"],[style*="; border-right-width"]){border-right-style:solid}html :where([style^=border-bottom-width],[style*=";border-bottom-width"],[style*="; border-bottom-width"]){border-bottom-style:solid}html :where([style^=border-left-width],[style*=";border-left-width"],[style*="; border-left-width"]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
+</style>
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--paper: #F6F7F4;--wp--preset--color--surface: #FFFFFF;--wp--preset--color--sunken: #ECEFEA;--wp--preset--color--ink: #0E1B2B;--wp--preset--color--muted: #566270;--wp--preset--color--line: #D9DED8;--wp--preset--color--accent: #D9481A;--wp--preset--color--accent-soft: #FBE3D8;--wp--preset--color--night: #0B1622;--wp--preset--color--night-text: #E4E9EE;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: clamp(14px, 0.875rem + ((1vw - 3.2px) * 0.625), 20px);--wp--preset--font-size--large: clamp(22.041px, 1.378rem + ((1vw - 3.2px) * 1.454), 36px);--wp--preset--font-size--x-large: clamp(25.014px, 1.563rem + ((1vw - 3.2px) * 1.769), 42px);--wp--preset--font-size--xs: 0.8125rem;--wp--preset--font-size--sm: 0.9375rem;--wp--preset--font-size--md: clamp(1.0625rem, 1.063rem + ((1vw - 0.2rem) * 0.208), 1.1875rem);--wp--preset--font-size--lg: clamp(1.1875rem, 1.188rem + ((1vw - 0.2rem) * 0.52), 1.5rem);--wp--preset--font-size--xl: clamp(1.5rem, 1.5rem + ((1vw - 0.2rem) * 1.25), 2.25rem);--wp--preset--font-size--xxl: clamp(2.125rem, 2.125rem + ((1vw - 0.2rem) * 2.292), 3.5rem);--wp--preset--font-size--display: clamp(2.5rem, 2.5rem + ((1vw - 0.2rem) * 3.75), 4.75rem);--wp--preset--font-family--display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;--wp--preset--font-family--serif: "Source Serif 4", Georgia, "Times New Roman", serif;--wp--preset--font-family--mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;--wp--preset--spacing--20: 0.5rem;--wp--preset--spacing--30: 1rem;--wp--preset--spacing--40: clamp(1.25rem, 2.5vw, 1.75rem);--wp--preset--spacing--50: clamp(1.75rem, 4vw, 2.75rem);--wp--preset--spacing--60: clamp(2.5rem, 6vw, 4.5rem);--wp--preset--spacing--70: clamp(3.5rem, 9vw, 7rem);--wp--preset--spacing--80: 5.06rem;--wp--preset--spacing--10: 0.25rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);--wp--custom--radius: 6px;--wp--custom--measure: 68ch;}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:root { --wp--style--global--content-size: 44rem;--wp--style--global--wide-size: 80rem; }:where(body) { margin: 0; }.wp-site-blocks { padding-top: var(--wp--style--root--padding-top); padding-bottom: var(--wp--style--root--padding-bottom); }.has-global-padding { padding-right: var(--wp--style--root--padding-right); padding-left: var(--wp--style--root--padding-left); }.has-global-padding > .alignfull { margin-right: calc(var(--wp--style--root--padding-right) * -1); margin-left: calc(var(--wp--style--root--padding-left) * -1); }.has-global-padding :where(:not(.alignfull.is-layout-flow) > .has-global-padding:not(.wp-block-block, .alignfull)) { padding-right: 0; padding-left: 0; }.has-global-padding :where(:not(.alignfull.is-layout-flow) > .has-global-padding:not(.wp-block-block, .alignfull)) > .alignfull { margin-left: 0; margin-right: 0; }.wp-site-blocks > .alignleft { float: left; margin-right: 2em; }.wp-site-blocks > .alignright { float: right; margin-left: 2em; }.wp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }:where(.wp-site-blocks) > * { margin-block-start: 1.25rem; margin-block-end: 0; }:where(.wp-site-blocks) > :first-child { margin-block-start: 0; }:where(.wp-site-blocks) > :last-child { margin-block-end: 0; }:root { --wp--style--block-gap: 1.25rem; }:root :where(.is-layout-flow) > :first-child{margin-block-start: 0;}:root :where(.is-layout-flow) > :last-child{margin-block-end: 0;}:root :where(.is-layout-flow) > *{margin-block-start: 1.25rem;margin-block-end: 0;}:root :where(.is-layout-constrained) > :first-child{margin-block-start: 0;}:root :where(.is-layout-constrained) > :last-child{margin-block-end: 0;}:root :where(.is-layout-constrained) > *{margin-block-start: 1.25rem;margin-block-end: 0;}:root :where(.is-layout-flex){gap: 1.25rem;}:root :where(.is-layout-grid){gap: 1.25rem;}.is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{background-color: var(--wp--preset--color--paper);color: var(--wp--preset--color--ink);font-family: var(--wp--preset--font-family--display);font-size: var(--wp--preset--font-size--md);font-weight: 400;line-height: 1.55;--wp--style--root--padding-top: 0px;--wp--style--root--padding-right: clamp(1rem, 4vw, 2.5rem);--wp--style--root--padding-bottom: 0px;--wp--style--root--padding-left: clamp(1rem, 4vw, 2.5rem);}a:where(:not(.wp-element-button)){color: currentColor;text-decoration: underline;}:root :where(a:where(:not(.wp-element-button)):hover){color: var(--wp--preset--color--accent);}h1, h2, h3, h4, h5, h6{font-family: var(--wp--preset--font-family--display);font-weight: 700;letter-spacing: -0.015em;line-height: 1.12;}h1{font-size: var(--wp--preset--font-size--xxl);font-weight: 800;letter-spacing: -0.025em;}h2{font-size: var(--wp--preset--font-size--xl);}h3{font-size: var(--wp--preset--font-size--lg);}h4{font-size: var(--wp--preset--font-size--md);}:root :where(.wp-element-button, .wp-block-button__link){background-color: var(--wp--preset--color--ink);border-radius: 999px;border-width: 0;color: var(--wp--preset--color--paper);font-family: inherit;font-size: var(--wp--preset--font-size--sm);font-style: inherit;font-weight: 600;letter-spacing: inherit;line-height: inherit;padding-top: 0.7rem;padding-right: 1.3rem;padding-bottom: 0.7rem;padding-left: 1.3rem;text-decoration: none;text-transform: inherit;}:root :where(.wp-element-button:hover, .wp-block-button__link:hover){background-color: var(--wp--preset--color--accent);color: #FFFFFF;}:root :where(.wp-element-caption, .wp-block-audio figcaption, .wp-block-embed figcaption, .wp-block-gallery figcaption, .wp-block-image figcaption, .wp-block-table figcaption, .wp-block-video figcaption){color: var(--wp--preset--color--muted);font-size: var(--wp--preset--font-size--xs);}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-paper-color{color: var(--wp--preset--color--paper) !important;}.has-surface-color{color: var(--wp--preset--color--surface) !important;}.has-sunken-color{color: var(--wp--preset--color--sunken) !important;}.has-ink-color{color: var(--wp--preset--color--ink) !important;}.has-muted-color{color: var(--wp--preset--color--muted) !important;}.has-line-color{color: var(--wp--preset--color--line) !important;}.has-accent-color{color: var(--wp--preset--color--accent) !important;}.has-accent-soft-color{color: var(--wp--preset--color--accent-soft) !important;}.has-night-color{color: var(--wp--preset--color--night) !important;}.has-night-text-color{color: var(--wp--preset--color--night-text) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-paper-background-color{background-color: var(--wp--preset--color--paper) !important;}.has-surface-background-color{background-color: var(--wp--preset--color--surface) !important;}.has-sunken-background-color{background-color: var(--wp--preset--color--sunken) !important;}.has-ink-background-color{background-color: var(--wp--preset--color--ink) !important;}.has-muted-background-color{background-color: var(--wp--preset--color--muted) !important;}.has-line-background-color{background-color: var(--wp--preset--color--line) !important;}.has-accent-background-color{background-color: var(--wp--preset--color--accent) !important;}.has-accent-soft-background-color{background-color: var(--wp--preset--color--accent-soft) !important;}.has-night-background-color{background-color: var(--wp--preset--color--night) !important;}.has-night-text-background-color{background-color: var(--wp--preset--color--night-text) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-paper-border-color{border-color: var(--wp--preset--color--paper) !important;}.has-surface-border-color{border-color: var(--wp--preset--color--surface) !important;}.has-sunken-border-color{border-color: var(--wp--preset--color--sunken) !important;}.has-ink-border-color{border-color: var(--wp--preset--color--ink) !important;}.has-muted-border-color{border-color: var(--wp--preset--color--muted) !important;}.has-line-border-color{border-color: var(--wp--preset--color--line) !important;}.has-accent-border-color{border-color: var(--wp--preset--color--accent) !important;}.has-accent-soft-border-color{border-color: var(--wp--preset--color--accent-soft) !important;}.has-night-border-color{border-color: var(--wp--preset--color--night) !important;}.has-night-text-border-color{border-color: var(--wp--preset--color--night-text) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-xs-font-size{font-size: var(--wp--preset--font-size--xs) !important;}.has-sm-font-size{font-size: var(--wp--preset--font-size--sm) !important;}.has-md-font-size{font-size: var(--wp--preset--font-size--md) !important;}.has-lg-font-size{font-size: var(--wp--preset--font-size--lg) !important;}.has-xl-font-size{font-size: var(--wp--preset--font-size--xl) !important;}.has-xxl-font-size{font-size: var(--wp--preset--font-size--xxl) !important;}.has-display-font-size{font-size: var(--wp--preset--font-size--display) !important;}.has-display-font-family{font-family: var(--wp--preset--font-family--display) !important;}.has-serif-font-family{font-family: var(--wp--preset--font-family--serif) !important;}.has-mono-font-family{font-family: var(--wp--preset--font-family--mono) !important;}
+:root :where(.wp-block-post-content){font-family: var(--wp--preset--font-family--serif);font-size: var(--wp--preset--font-size--md);line-height: 1.7;}
+:root :where(.wp-block-table > table){font-family: var(--wp--preset--font-family--display);font-size: var(--wp--preset--font-size--sm);line-height: 1.45;}
+:root :where(.wp-block-search){font-size: var(--wp--preset--font-size--sm);}
+:root :where(.wp-block-navigation){font-size: var(--wp--preset--font-size--sm);font-weight: 600;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+<style id="core-block-supports-inline-css">
+.wp-container-core-group-is-layout-50740f72{flex-wrap:nowrap;align-items:center;}.wp-container-core-navigation-is-layout-a904f976{justify-content:flex-end;}.wp-container-core-group-is-layout-2f20ec05{flex-wrap:nowrap;justify-content:space-between;}.wp-container-core-group-is-layout-5f78a805{justify-content:space-between;}
+/*# sourceURL=core-block-supports-inline-css */
+</style>
+<style id="wp-block-template-skip-link-inline-css">
+/*! This file is auto-generated */
+.skip-link.screen-reader-text{border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute!important;width:1px;word-wrap:normal!important;word-break:normal!important}.skip-link.screen-reader-text:focus{background-color:#eee;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}
+/*# sourceURL=/wp-includes/css/wp-block-template-skip-link.min.css */
+</style>
+<style id="lwc-staging-inline-css">
+.lwc-staging-bar{position:relative;z-index:70;padding:.45rem clamp(1rem,4vw,2.5rem);background:repeating-linear-gradient(135deg,#FFD166 0 14px,#FFC53D 14px 28px);color:#1A1300;font:500 .8125rem/1.4 var(--wp--preset--font-family--mono,monospace);text-align:center}.lwc-staging-bar strong{margin-right:.4rem;text-transform:uppercase;letter-spacing:.05em}
+/*# sourceURL=lwc-staging-inline-css */
+</style>
+<link rel='stylesheet' id='lorawan-magazin-css' href='../wp-content/themes/lorawan-magazin/style.css' media='all' />
+<link rel="canonical" href="./index.html" />
+<script id="wp-importmap" type="importmap">
+{"imports":{"@wordpress/interactivity":"../wp-includes/js/dist/script-modules/interactivity/index.min.js"}}
+</script>
+<link rel="modulepreload" href="../wp-includes/js/dist/script-modules/interactivity/index.min.js" id="@wordpress/interactivity-js-modulepreload" fetchpriority="low">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"../index.html#organization","name":"growth with attitude UG (haftungsbeschränkt)","url":"../index.html","logo":{"@type":"ImageObject","url":"../wp-content/themes/lorawan-magazin/assets/img/logo-512.png"}},{"@type":"WebSite","@id":"../index.html#website","url":"../index.html","name":"lora-wan.de","description":"Das LoRaWAN-Magazin","inLanguage":"de-DE","publisher":{"@id":"../index.html#organization"},"potentialAction":{"@type":"SearchAction","target":"http://localhost:8080/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"TechArticle","@id":"./index.html#article","headline":"Container-Tracking auf See mit LoRaWAN: Netze, Zeitstempel und echte Sichtbarkeit","description":"Der Container ist auf See. Auf der Karte steht noch Rotterdam. Ist der Tracker ausgefallen? Nicht unbedingt. Vielleicht zeichnet er Ereignisse auf und wartet …","inLanguage":"de-DE","wordCount":840,"articleSection":["Logistik &amp; Tracking"],"author":{"@id":"../index.html#organization"},"publisher":{"@id":"../index.html#organization"},"isPartOf":{"@id":"../index.html#website"},"mainEntityOfPage":"./index.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Magazin","item":"../index.html"},{"@type":"ListItem","position":2,"name":"Anwendungen","item":"../thema/anwendungen/index.html"},{"@type":"ListItem","position":3,"name":"Logistik &amp; Tracking","item":"../thema/anwendungen/logistik/index.html"},{"@type":"ListItem","position":4,"name":"Container-Tracking auf See mit LoRaWAN: Netze, Zeitstempel und echte Sichtbarkeit","item":"./index.html"}]}]}</script>
+<style class="wp-fonts-local">
+@font-face{font-family:"Schibsted Grotesk";font-style:normal;font-weight:400 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/schibsted-grotesk-latin-wght-normal.woff2') format('woff2');}
+@font-face{font-family:"Schibsted Grotesk";font-style:italic;font-weight:400 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/schibsted-grotesk-latin-wght-italic.woff2') format('woff2');}
+@font-face{font-family:"Source Serif 4";font-style:normal;font-weight:200 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/source-serif-4-latin-wght-normal.woff2') format('woff2');}
+@font-face{font-family:"Source Serif 4";font-style:italic;font-weight:200 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/source-serif-4-latin-wght-italic.woff2') format('woff2');}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2');}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2');}
+</style>
+</head>
+
+<body class="wp-singular post-template-default single single-post postid-46 single-format-standard wp-embed-responsive wp-theme-lorawan-magazin lw-ressort-anwendungen">
+<div class="lwc-staging-bar" role="note"><strong>Staging-Vorschau</strong> Neue Version von lora-wan.de, nicht öffentlich und nicht indexiert. Inhalte übernommen von der Live-Seite.</div><style>:root{--lw-cat:#0369a1}</style>
+<a class="skip-link screen-reader-text" id="wp-skip-link" href="#inhalt">Zum Inhalt springen</a><div class="wp-site-blocks"><div class="wp-block-template-part">
+<header class="wp-block-group lw-header has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+<div class="wp-block-group alignwide lw-header__bar is-content-justification-space-between is-nowrap is-layout-flex wp-container-core-group-is-layout-2f20ec05 wp-block-group-is-layout-flex">
+<div class="wp-block-group lw-brand is-nowrap is-layout-flex wp-container-core-group-is-layout-50740f72 wp-block-group-is-layout-flex"><p class="lw-brand__name wp-block-site-title"><a href="../index.html" target="_self" rel="home">lora-wan.de</a></p>
+
+<p class="lw-brand__tag wp-block-site-tagline">Das LoRaWAN-Magazin</p></div>
+
+
+
+<div class="wp-block-group lw-header__nav is-nowrap is-layout-flex wp-container-core-group-is-layout-50740f72 wp-block-group-is-layout-flex"><nav class="is-responsive items-justified-right lw-nav wp-block-navigation is-content-justification-right is-layout-flex wp-container-core-navigation-is-layout-a904f976 wp-block-navigation-is-layout-flex" 
+		 data-wp-interactive="core/navigation" data-wp-context='{"overlayOpenedBy":{"click":false,"hover":false,"focus":false},"type":"overlay","roleAttribute":"","ariaLabel":"Men\u00fc"}'><button aria-haspopup="dialog" aria-label="Menü öffnen" class="wp-block-navigation__responsive-container-open" 
+				data-wp-on--click="actions.openMenuOnClick"
+				data-wp-on--keydown="actions.handleMenuKeydown"
+			><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 5v1.5h14V5H5z"></path><path d="M5 12.8h14v-1.5H5v1.5z"></path><path d="M5 19h14v-1.5H5V19z"></path></svg></button>
+				<div class="wp-block-navigation__responsive-container"  id="modal-1" 
+				data-wp-class--has-modal-open="state.isMenuOpen"
+				data-wp-class--is-menu-open="state.isMenuOpen"
+				data-wp-watch="callbacks.initMenu"
+				data-wp-on--keydown="actions.handleMenuKeydown"
+				data-wp-on--focusout="actions.handleMenuFocusout"
+				tabindex="-1"
+			>
+					<div class="wp-block-navigation__responsive-close" tabindex="-1">
+						<div class="wp-block-navigation__responsive-dialog" 
+				data-wp-bind--aria-modal="state.ariaModal"
+				data-wp-bind--aria-label="state.ariaLabel"
+				data-wp-bind--role="state.roleAttribute"
+			>
+							<button aria-label="Menü schließen" class="wp-block-navigation__responsive-container-close" 
+				data-wp-on--click="actions.closeMenuOnClick"
+			><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z"></path></svg></button>
+							<div class="wp-block-navigation__responsive-container-content" 
+				data-wp-watch="callbacks.focusFirstElement"
+			 id="modal-1-content">
+								<ul class="wp-block-navigation__container is-responsive items-justified-right lw-nav wp-block-navigation"><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/grundlagen/index.html"><span class="wp-block-navigation-item__label">Grundlagen</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/technik/index.html"><span class="wp-block-navigation-item__label">Technik</span></a></li><li data-wp-context="{ &quot;submenuOpenedBy&quot;: { &quot;click&quot;: false, &quot;hover&quot;: false, &quot;focus&quot;: false }, &quot;type&quot;: &quot;submenu&quot;, &quot;modal&quot;: null, &quot;previousFocus&quot;: null }" data-wp-interactive="core/navigation" data-wp-on--focusout="actions.handleMenuFocusout" data-wp-on--keydown="actions.handleMenuKeydown" data-wp-on--pointerenter="actions.openMenuOnHover" data-wp-on--pointerleave="actions.closeMenuOnHover" data-wp-watch="callbacks.initMenu" tabindex="-1" class="wp-block-navigation-item has-child open-on-hover-click wp-block-navigation-submenu"><a class="wp-block-navigation-item__content" href="../thema/anwendungen/index.html"><span class="wp-block-navigation-item__label">Anwendungen</span></a><button data-wp-bind--aria-expanded="state.isSubmenuOpen" data-wp-on--click="actions.toggleMenuOnClick" aria-label="Untermenü von Anwendungen" class="wp-block-navigation__submenu-icon wp-block-navigation-submenu__toggle" ><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></button><ul data-wp-on--focus="actions.openMenuOnFocus" class="wp-block-navigation__submenu-container wp-block-navigation-submenu"><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/index.html"><span class="wp-block-navigation-item__label">Alle Anwendungen</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/industrie/index.html"><span class="wp-block-navigation-item__label">Industrie &amp; Bergbau</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/logistik/index.html"><span class="wp-block-navigation-item__label">Logistik &amp; Tracking</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/bau-infrastruktur/index.html"><span class="wp-block-navigation-item__label">Bau &amp; Infrastruktur</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/energie/index.html"><span class="wp-block-navigation-item__label">Energie</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/umwelt-landwirtschaft/index.html"><span class="wp-block-navigation-item__label">Umwelt &amp; Landwirtschaft</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/smart-city/index.html"><span class="wp-block-navigation-item__label">Smart City</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/gebaeude/index.html"><span class="wp-block-navigation-item__label">Gebäude &amp; Smart Home</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/gesundheit/index.html"><span class="wp-block-navigation-item__label">Gesundheit &amp; Pflege</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/handel/index.html"><span class="wp-block-navigation-item__label">Handel &amp; Finanzen</span></a></li></ul></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/netze-anbieter/index.html"><span class="wp-block-navigation-item__label">Netze &amp; Anbieter</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../glossar/index.html"><span class="wp-block-navigation-item__label">Glossar</span></a></li></ul>
+								
+							</div>
+						</div>
+					</div>
+				</div></nav>
+
+<form role="search" method="get" action="../index.html" class="wp-block-search__button-only wp-block-search__searchfield-hidden wp-block-search__icon-button lw-header__search wp-block-search" 
+		 data-wp-interactive="core/search"
+		 data-wp-context='{"isSearchInputVisible":false,"inputId":"wp-block-search__input-2","ariaLabelExpanded":"Suche starten","ariaLabelCollapsed":"Suchfeld erweitern"}'
+		 data-wp-class--wp-block-search__searchfield-hidden="!context.isSearchInputVisible"
+		 data-wp-on--keydown="actions.handleSearchKeydown"
+		 data-wp-on--focusout="actions.handleSearchFocusout"
+		><label class="wp-block-search__label screen-reader-text" for="wp-block-search__input-2" >Suche</label><div class="wp-block-search__inside-wrapper" ><input aria-hidden="true" class="wp-block-search__input" data-wp-bind--aria-hidden="!context.isSearchInputVisible" data-wp-bind--tabindex="state.tabindex" id="wp-block-search__input-2" placeholder="Artikel durchsuchen …"  value="" type="search" name="s" required /><button  aria-expanded="false"  class="wp-block-search__button has-icon wp-element-button" data-wp-bind--aria-controls="state.ariaControls" data-wp-bind--aria-expanded="context.isSearchInputVisible" data-wp-bind--aria-label="state.ariaLabel" data-wp-bind--type="state.type" data-wp-on--click="actions.openSearchInput"  ><svg class="search-icon" viewBox="0 0 24 24" width="24" height="24">
+					<path d="M13 5c-3.3 0-6 2.7-6 6 0 1.4.5 2.7 1.3 3.7l-3.8 3.8 1.1 1.1 3.8-3.8c1 .8 2.3 1.3 3.7 1.3 3.3 0 6-2.7 6-6S16.3 5 13 5zm0 10.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z"></path>
+				</svg></button></div></form>
+
+<button type="button" class="lw-theme-toggle wp-block-lorawan-magazin-theme-toggle" data-lw-theme-toggle aria-label="Dunkles Farbschema umschalten" aria-pressed="false">
+	<span class="lw-theme-toggle__moon"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg></span>
+	<span class="lw-theme-toggle__sun"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg></span>
+</button>
+</div>
+</div>
+</header>
+
+</div>
+
+
+<main class="wp-block-group lw-main lw-article has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" id="inhalt">
+<div class="wp-block-group alignwide lw-article__head is-layout-flow wp-block-group-is-layout-flow"><nav class="lw-breadcrumbs wp-block-lorawan-magazin-breadcrumbs" aria-label="Brotkrümelnavigation">
+	<ol>
+					<li><a href="../index.html">Magazin</a></li>
+					<li><a href="../thema/anwendungen/index.html">Anwendungen</a></li>
+					<li><a href="../thema/anwendungen/logistik/index.html">Logistik &amp; Tracking</a></li>
+			</ol>
+</nav>
+
+
+<p class="lw-eyebrow-row wp-block-lorawan-magazin-eyebrow">
+			<a class="lw-eyebrow lw-eyebrow--quiet" href="../thema/anwendungen/index.html">Anwendungen</a>
+		<span class="lw-eyebrow-row__sep" aria-hidden="true">/</span>
+		<a class="lw-eyebrow" href="../thema/anwendungen/logistik/index.html">Logistik &amp; Tracking</a>
+</p>
+
+
+<h1 class="lw-article__title wp-block-post-title">Container-Tracking auf See mit LoRaWAN: Netze, Zeitstempel und echte Sichtbarkeit</h1>
+
+<div class="lw-post-meta wp-block-lorawan-magazin-post-meta">
+	<p class="lw-meta"><span class="lw-meta__time"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>5 Min. Lesezeit</span></p></div>
+</div>
+
+
+<figure class="lw-cover lw-cover--wide alignwide lw-article__cover wp-block-lorawan-magazin-cover">
+	<svg class="lw-cover__svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" role="presentation" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<linearGradient id="lwc46-1-bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#083652"/>
+			<stop offset="1" stop-color="#0A2234"/>
+		</linearGradient>
+		<filter id="lwc46-1-glow" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="7"/></filter>
+	</defs>
+	<rect width="100%" height="100%" fill="url(#lwc46-1-bg)"/>
+	<path d="M0 113.4H1200M0 160.6H1200M0 207.9H1200M0 255.1H1200M0 302.3H1200M0 349.5H1200M0 396.7H1200M0 443.9H1200M0 491.2H1200" stroke="#9FC6DB" stroke-opacity=".09" stroke-width="1" fill="none"/>
+	<path d="M856 472h4M287 156h8M696 248h6M1129 358h7M904 312h10M739 334h7M245 353h8M334 253h6M348 442h8M287 457h8M489 478h8M1139 226h4M136 417h7M428 319h10M776 355h8M631 472h7M701 358h4M762 408h4M442 297h4M1045 380h4M1092 401h5M1158 383h10M358 204h3M965 333h5M654 469h7M767 398h6M1139 346h7M776 190h7M936 219h5M584 223h9M847 204h9M913 267h10M856 472h4M287 156h8M696 248h6M1129 358h7M904 312h10M739 334h7M245 353h8M334 253h6M348 442h8M287 457h8M489 478h8M1139 226h4M136 417h7M428 319h10M776 355h8M631 472h7M701 358h4M762 408h4M442 297h4M1045 380h4M1092 401h5M1158 383h10M358 204h3M965 333h5M654 469h7M767 398h6M1139 346h7M776 190h7M936 219h5M584 223h9M847 204h9M913 267h10M856 472h4M287 156h8M696 248h6M1129 358h7M904 312h10M739 334h7" stroke="#9FC6DB" stroke-opacity=".22" stroke-width="2" fill="none"/>
+	<path d="M50.5 649.0V661.0M244.7 649.0V661.0M438.9 649.0V661.0M633.1 649.0V661.0M827.3 649.0V661.0M1021.5 649.0V661.0" stroke="#9FC6DB" stroke-opacity=".35" stroke-width="2" fill="none"/>
+	<path d="M-143.7 491.2L50.5 113.4M50.5 491.2L244.7 113.4M244.7 491.2L438.9 113.4M438.9 396.7L584.5 113.4M584.5 491.2L633.1 396.7M633.1 302.3L730.2 113.4M730.2 491.2L827.3 302.3M827.3 113.4L1021.5 491.2M1021.5 113.4L1215.7 491.2" stroke="#428FB9" stroke-width="9" stroke-linecap="round" fill="none" opacity=".55" filter="url(#lwc46-1-glow)"/>
+	<path d="M-143.7 491.2L50.5 113.4M50.5 491.2L244.7 113.4M244.7 491.2L438.9 113.4M438.9 396.7L584.5 113.4M584.5 491.2L633.1 396.7M633.1 302.3L730.2 113.4M730.2 491.2L827.3 302.3M827.3 113.4L1021.5 491.2M1021.5 113.4L1215.7 491.2" stroke="#9FC6DB" stroke-width="3" stroke-linecap="round" fill="none"/>
+	</svg></figure>
+
+
+
+<div class="wp-block-group alignwide lw-article__grid is-layout-flow wp-block-group-is-layout-flow">
+<aside class="wp-block-group lw-article__aside is-layout-flow wp-block-group-is-layout-flow"><nav class="lw-toc wp-block-lorawan-magazin-toc" aria-labelledby="lw-toc-title-46">
+	<details open>
+		<summary id="lw-toc-title-46" class="lw-toc__title">In diesem Artikel</summary>
+		<ol class="lw-toc__list">
+							<li><a href="#was-soll-waehrend-der-reise-bekannt-sein">Was soll während der Reise bekannt sein?</a></li>
+							<li><a href="#wie-funktioniert-die-uebertragung-zwischen-hafen-und-see">Wie funktioniert die Übertragung zwischen Hafen und See?</a></li>
+							<li><a href="#warum-internationale-routen-ein-frequenzkonzept-brauchen">Warum internationale Routen ein Frequenzkonzept brauchen</a></li>
+							<li><a href="#welches-datenmodell-verhindert-eine-falsche-reisehistorie">Welches Datenmodell verhindert eine falsche Reisehistorie?</a></li>
+							<li><a href="#beispiel-ereignis-auf-see-empfang-erst-im-zielhafen">Beispiel: Ereignis auf See, Empfang erst im Zielhafen</a></li>
+							<li><a href="#wie-haelt-die-batterie-ueber-die-geplante-nutzung">Wie hält die Batterie über die geplante Nutzung?</a></li>
+							<li><a href="#was-muss-eine-testreise-abdecken">Was muss eine Testreise abdecken?</a></li>
+							<li><a href="#quellen-und-fachliche-grundlagen">Quellen und fachliche Grundlagen</a></li>
+					</ol>
+	</details>
+</nav>
+</aside>
+
+
+
+<div class="wp-block-group lw-article-body is-layout-flow wp-block-group-is-layout-flow"><div class="entry-content lw-prose wp-block-post-content is-layout-flow wp-block-post-content-is-layout-flow">
+<p class="wp-block-paragraph">Der Container ist auf See. Auf der Karte steht noch Rotterdam. Ist der Tracker ausgefallen? Nicht unbedingt. Vielleicht zeichnet er Ereignisse auf und wartet auf die nächste Verbindung. Ein brauchbares Tracking zeigt diesen Unterschied, statt aus dem letzten bekannten Punkt eine aktuelle Position zu machen.</p>
+
+
+
+<p class="wp-block-paragraph">LoRaWAN kann Container in Terminals, Depots und mit passender Bordausrüstung auch auf Schiffen anbinden. Für eine gesamte Reise müssen Ortung, Datenübertragung und Prozessereignisse getrennt geplant werden. Ein Funksystem übernimmt nicht automatisch alle drei Aufgaben.</p>
+
+
+
+<h2 class="wp-block-heading" id="was-soll-waehrend-der-reise-bekannt-sein">Was soll während der Reise bekannt sein?</h2>
+
+
+
+<p class="wp-block-paragraph">Für manche Ladungen genügt die Bestätigung wichtiger Übergaben. Andere benötigen Temperaturverlauf, Türereignisse oder einen aktuellen Standort. Diese Anforderungen unterscheiden sich bei Datenmenge, Energiebedarf und tolerierbarer Verzögerung deutlich.</p>
+
+
+
+<figure class="wp-block-table"><table><thead><tr><th>Information</th><th>Mögliche Quelle</th><th>Grenze</th></tr></thead><tbody><tr><td>Position</td><td>GNSS oder geeignetes lokales Ortungsverfahren</td><td>Empfang, Infrastruktur und Fehlergrenzen müssen passen.</td></tr><tr><td>Präsenz in einer Zone</td><td>Bekannter Erfassungspunkt, Beacon oder Gatewaykontext</td><td>Ein Funkkontakt ist keine metergenaue Koordinate.</td></tr><tr><td>Türöffnung oder Erschütterung</td><td>Sensor am zugeordneten Container</td><td>Sensorereignis ist noch keine bestätigte Prozessursache.</td></tr><tr><td>Verladung oder Entladung</td><td>Bestätigtes Terminal- oder Carrier-Ereignis</td><td>Bewegung allein beweist keine Verladung auf ein bestimmtes Schiff.</td></tr></tbody></table></figure>
+
+
+
+<p class="wp-block-paragraph">GNSS ist damit eine wichtige Ortungsquelle, aber nicht die einzige Möglichkeit für genaue Positionsbestimmung. Umgekehrt garantiert ein eingebauter GNSS-Empfänger noch keinen Fix im Container oder tief im Stahlstapel.</p>
+
+
+
+<h2 class="wp-block-heading" id="wie-funktioniert-die-uebertragung-zwischen-hafen-und-see">Wie funktioniert die Übertragung zwischen Hafen und See?</h2>
+
+
+
+<p class="wp-block-paragraph">Im Depot oder Terminal können eigene oder vertraglich nutzbare LoRaWAN-Gateways Nachrichten empfangen. Auf dem Schiff kann ein Bord-Gateway dieselbe Rolle übernehmen. Sein Anschluss an die Datenplattform erfolgt dann über die vorhandene Bordkommunikation, beispielsweise einen Satelliten-Backhaul.</p>
+
+
+
+<p class="wp-block-paragraph">Davon zu unterscheiden sind direkte satellitengestützte LoRaWAN-Angebote. Solche Ansätze existieren, wie die <a href="https://blog.lora-alliance.org/pervasive-lorawan-network-coverage-by-the-lora-alliance-ecosystem" rel="noopener">LoRa Alliance zur Netzabdeckung erläutert</a>. Sie benötigen geeignete Endgeräte, Antennen und einen nutzbaren Dienst. Daraus folgt keine lückenlose Sofortübertragung für einen beliebigen Tracker unter Deck.</p>
+
+
+
+<p class="wp-block-paragraph">Fehlt eine Verbindung, kann der Tracker lokal speichern und später übertragen. Das muss jedoch Bestandteil des Produkts sein. LoRaWAN allein garantiert keinen Ereignisspeicher. Speicherkapazität, Uhr, Stromausfallverhalten und Nachlieferung gehören deshalb ins Lastenheft.</p>
+
+
+
+<h2 class="wp-block-heading" id="warum-internationale-routen-ein-frequenzkonzept-brauchen">Warum internationale Routen ein Frequenzkonzept brauchen</h2>
+
+
+
+<p class="wp-block-paragraph">Ein Gerät für eine europäische Frequenzregion ist nicht automatisch auf jeder Route mit unveränderten Einstellungen nutzbar. Frequenzband, regionale Parameter, Endgeräteausführung und örtliche Zulässigkeit müssen zusammenpassen. Die <a href="https://resources.lora-alliance.org/technical-specifications/rp002-1-0-5-lorawan-regional-parameters" rel="noopener">LoRaWAN Regional Parameters RP002-1.0.5</a> beschreiben die technischen Regionalprofile; nationale Funkvorgaben bleiben zusätzlich zu prüfen.</p>
+
+
+
+<p class="wp-block-paragraph">Roaming setzt außerdem Vereinbarungen und kompatible Netze voraus. Ein erreichbares fremdes Gateway bedeutet nicht, dass der Betreiber Nachrichten dieses Geräts annehmen und zur eigenen Anwendung weiterreichen wird. Die geplante Route wird daher mit konkreten Netzen und Übergaben geprüft.</p>
+
+
+
+<h2 class="wp-block-heading" id="welches-datenmodell-verhindert-eine-falsche-reisehistorie">Welches Datenmodell verhindert eine falsche Reisehistorie?</h2>
+
+
+
+<p class="wp-block-paragraph">Jeder Datensatz braucht mindestens die Zuordnung zu Gerät und Container, Ereigniszeit, Empfangszeit, Datenquelle und Qualitätsstatus. Bei Umladung oder Wiederverwendung des Trackers wird die Zuordnung kontrolliert geändert. Ein Sensor, der noch dem Container der letzten Reise zugeordnet ist, kann sehr zuverlässig falsche Geschichten erzählen.</p>
+
+
+
+<p class="wp-block-paragraph">Die <a href="https://dcsa.org/standards/track-and-trace/standard-documentation-track-and-trace" rel="noopener">DCSA-Standards für Track &amp; Trace</a> definieren gemeinsame Prozess- und Ereignismodelle. Daneben beschreibt DCSA <a href="https://dcsa.org/standards/track-and-trace/documentation-iot-events" rel="noopener">IoT Commercial Events</a>; die dort ausgewiesene Fassung IoT Events 1.0 Beta 1 ist als Beta gekennzeichnet. Für eine Integration müssen die Partner eine konkrete Version und deren Umsetzung vereinbaren.</p>
+
+
+
+<p class="wp-block-paragraph">Standardisierte Datenstrukturen ersetzen keine Messprüfung. Ein Türsensor meldet eine Zustandsänderung. Ob dabei die Ladung manipuliert wurde, bleibt eine zusätzliche Bewertung. Ebenso sind tatsächliche, geplante und geschätzte Transportereignisse getrennt darzustellen.</p>
+
+
+
+<h2 class="wp-block-heading" id="beispiel-ereignis-auf-see-empfang-erst-im-zielhafen">Beispiel: Ereignis auf See, Empfang erst im Zielhafen</h2>
+
+
+
+<p class="wp-block-paragraph">Als Planungsbeispiel registriert ein Tracker auf See eine Erschütterung und speichert sie mit Uhrzeit und Ereignisnummer. Erst bei der Entladung erreicht er wieder ein nutzbares Gateway. Die Anwendung erhält dann mehrere historische Meldungen.</p>
+
+
+
+<p class="wp-block-paragraph">In der Reisehistorie werden diese am ursprünglichen Ereigniszeitpunkt eingeordnet. Der Empfang im Zielhafen bleibt separat sichtbar. Wiederholte Übertragungen dürfen keine doppelten Schadensereignisse erzeugen. Falls die Geräteuhr unsicher ist, wird auch diese Unsicherheit angezeigt.</p>
+
+
+
+<p class="wp-block-paragraph">Für die Bewertung eines möglichen Transportschadens sind zudem Sensorbefestigung, Messbereich und tatsächlicher Befund relevant. Die Übertragung schützt nicht automatisch die gesamte Nachweiskette vom Sensor bis zu einem späteren Bericht.</p>
+
+
+
+<h2 class="wp-block-heading" id="wie-haelt-die-batterie-ueber-die-geplante-nutzung">Wie hält die Batterie über die geplante Nutzung?</h2>
+
+
+
+<p class="wp-block-paragraph">Die Energiebilanz umfasst Sensoren, GNSS-Suche, lokale Speicherung und Funk. Erfolglose wiederholte Positionssuche kann besonders ungünstig sein. Das Gerät sollte daher mit seinen tatsächlich unterstützten Betriebsmodi auf Reisephasen abgestimmt werden.</p>
+
+
+
+<p class="wp-block-paragraph">Ein sinnvoller Plan kann im ruhenden Depot seltene Meldungen und bei Bewegung zusätzliche Ereignisse vorsehen. Speicherinhalte werden bei Kontakt kontrolliert nachgeliefert. Unbegrenzte Wiederholungen bei fehlendem Netz sind keine brauchbare Strategie.</p>
+
+
+
+<p class="wp-block-paragraph">Auch Rückführung und Wartung gehören zum Konzept: Wer entfernt den Tracker, kontrolliert die Halterung, lädt oder tauscht die Batterie und ordnet ihn der nächsten Sendung zu? Ohne diesen Ablauf endet die digitale Reise häufig in einer Schublade.</p>
+
+
+
+<h2 class="wp-block-heading" id="was-muss-eine-testreise-abdecken">Was muss eine Testreise abdecken?</h2>
+
+
+
+<ol class="wp-block-list">
+<li>Zuordnung und Datenübertragung im Depot prüfen.</li>
+
+<li>Gate, Containerstapel und tatsächliche Montageposition im Terminal testen.</li>
+
+<li>Funklücken und lokale Speicherung an Bord bewerten.</li>
+
+<li>Nachlieferung einschließlich Zeitstempeln, Reihenfolge und Duplikaten kontrollieren.</li>
+
+<li>Netz- und Regionalwechsel entlang der vorgesehenen Route prüfen.</li>
+
+<li>Rücknahme, Wartung und Wiederverwendung praktisch durchspielen.</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">Ein erfolgreicher Test auf dem offenen Hof belegt keine Abdeckung im beladenen Schiff. Die Bewertung sollte deshalb zeigen, welche Etappen live sichtbar sind und welche erst nachträglich. Für viele Prozesse ist nachträgliche Transparenz nützlich – solange sie nicht als aktuelle Ortung verkauft wird.</p>
+
+
+
+<h2 class="wp-block-heading" id="quellen-und-fachliche-grundlagen">Quellen und fachliche Grundlagen</h2>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://dcsa.org/standards/track-and-trace/standard-documentation-track-and-trace" rel="noopener">DCSA: Track &amp; Trace</a> – Prozess- und Ereignismodelle.</li>
+
+<li><a href="https://dcsa.org/standards/track-and-trace/documentation-iot-events" rel="noopener">DCSA: IoT Commercial Events</a> – IoT-Ereignisse mit ausgewiesenem Versionsstatus.</li>
+
+<li><a href="https://resources.lora-alliance.org/technical-specifications/rp002-1-0-5-lorawan-regional-parameters" rel="noopener">LoRa Alliance: RP002-1.0.5</a> – regionale Funkparameter.</li>
+
+<li><a href="https://blog.lora-alliance.org/pervasive-lorawan-network-coverage-by-the-lora-alliance-ecosystem" rel="noopener">LoRa Alliance: Pervasive LoRaWAN Network Coverage</a> – satellitengestützte Ansätze, keine individuelle Abdeckungszusage.</li>
+</ul>
+</div>
+
+<footer class="lwc-article-footer wp-block-lorawan-core-article-footer">
+		<p class="lwc-article-footer__feedback">
+		Fehler gefunden oder Ergänzung? Schreiben Sie an <a href="mailto:info@lora-wan.de?subject=Feedback%3A%20Container-Tracking%20auf%20See%20mit%20LoRaWAN%3A%20Netze%2C%20Zeitstempel%20und%20echte%20Sichtbarkeit">info@lora-wan.de</a>.	</p>
+	<p class="lwc-article-footer__share">
+		<span>Teilen:</span>
+					<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.lora-wan.de%2Fcontainer-tracking-see-lorawan%2F" rel="noopener nofollow" target="_blank">LinkedIn</a>
+					<a href="https://x.com/intent/post?url=https%3A%2F%2Fwww.lora-wan.de%2Fcontainer-tracking-see-lorawan%2F&#038;text=Container-Tracking%20auf%20See%20mit%20LoRaWAN%3A%20Netze%2C%20Zeitstempel%20und%20echte%20Sichtbarkeit" rel="noopener nofollow" target="_blank">X</a>
+					<a href="mailto:?subject=Container-Tracking%20auf%20See%20mit%20LoRaWAN%3A%20Netze%2C%20Zeitstempel%20und%20echte%20Sichtbarkeit&#038;body=https%3A%2F%2Fwww.lora-wan.de%2Fcontainer-tracking-see-lorawan%2F" rel="noopener nofollow" target="_blank">E-Mail</a>
+			</p>
+</footer>
+</div>
+</div>
+
+
+
+<section class="wp-block-group alignwide lw-section lw-related is-layout-flow wp-block-group-is-layout-flow">
+<h2 class="wp-block-heading lw-section__title">Weiterlesen</h2>
+
+
+<div style="--lw-cols:3" class="lw-list lw-list--grid wp-block-lorawan-magazin-post-list"><article class="lw-card lw-card--card" style="--lw-card-cat:#0369a1"><a class="lw-card__media lw-cover" href="../geolokalisierung-durch-lorawan/index.html" tabindex="-1" aria-hidden="true"><svg class="lw-cover__svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" role="presentation" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<linearGradient id="lwc56-2-bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#083652"/>
+			<stop offset="1" stop-color="#0A2234"/>
+		</linearGradient>
+		<filter id="lwc56-2-glow" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="7"/></filter>
+	</defs>
+	<rect width="100%" height="100%" fill="url(#lwc56-2-bg)"/>
+	<path d="M0 172.7H1200M0 229.7H1200M0 286.7H1200M0 343.8H1200M0 400.8H1200M0 457.8H1200M0 514.8H1200M0 571.8H1200M0 628.8H1200" stroke="#9FC6DB" stroke-opacity=".09" stroke-width="1" fill="none"/>
+	<path d="M598 584h9M1162 491h5M532 378h3M174 232h2M729 523h9M569 191h3M974 627h8M565 334h5M71 214h5M739 403h8M1134 377h6M1082 573h10M838 369h6M541 242h3M155 194h7M922 547h6M47 242h8M1195 511h6M424 357h2M108 321h7M607 489h10M536 400h9M1054 615h8M518 375h6M184 239h3M56 450h8M984 389h2M184 543h10M889 387h5M485 200h3M391 454h6M833 604h6M598 584h9M1162 491h5M532 378h3M174 232h2M729 523h9M569 191h3M974 627h8M565 334h5M71 214h5M739 403h8M1134 377h6M1082 573h10M838 369h6M541 242h3M155 194h7M922 547h6M47 242h8M1195 511h6M424 357h2M108 321h7M607 489h10M536 400h9M1054 615h8M518 375h6M184 239h3M56 450h8M984 389h2M184 543h10M889 387h5M485 200h3M391 454h6M833 604h6M598 584h9M1162 491h5M532 378h3M174 232h2M729 523h9M569 191h3" stroke="#9FC6DB" stroke-opacity=".22" stroke-width="2" fill="none"/>
+	<path d="M154.7 649.0V661.0M314.4 649.0V661.0M474.0 649.0V661.0M633.7 649.0V661.0M793.4 649.0V661.0M953.1 649.0V661.0M1112.8 649.0V661.0" stroke="#9FC6DB" stroke-opacity=".35" stroke-width="2" fill="none"/>
+	<path d="M-164.7 628.8L-5.0 172.7M-5.0 628.8L154.7 172.7M154.7 628.8L314.4 172.7M314.4 628.8L474.0 172.7M474.0 514.8L593.8 172.7M593.8 628.8L633.7 514.8M633.7 400.8L713.6 172.7M713.6 628.8L793.4 400.8M793.4 172.7L953.1 628.8M953.1 172.7L1112.8 628.8M1112.8 172.7L1152.7 286.7M1152.7 429.3L1242.5 172.7M1242.5 628.8L1312.4 429.3" stroke="#428FB9" stroke-width="9" stroke-linecap="round" fill="none" opacity=".55" filter="url(#lwc56-2-glow)"/>
+	<path d="M-164.7 628.8L-5.0 172.7M-5.0 628.8L154.7 172.7M154.7 628.8L314.4 172.7M314.4 628.8L474.0 172.7M474.0 514.8L593.8 172.7M593.8 628.8L633.7 514.8M633.7 400.8L713.6 172.7M713.6 628.8L793.4 400.8M793.4 172.7L953.1 628.8M953.1 172.7L1112.8 628.8M1112.8 172.7L1152.7 286.7M1152.7 429.3L1242.5 172.7M1242.5 628.8L1312.4 429.3" stroke="#9FC6DB" stroke-width="3" stroke-linecap="round" fill="none"/>
+		<path d="M-47.6 581.6L26.1 667.0M26.1 581.6L99.7 667.0M99.7 581.6L118.1 602.9M118.1 651.0L178.0 581.6M178.0 667.0L191.8 651.0M191.8 651.0L251.6 581.6M251.6 667.0L265.4 651.0M265.4 651.0L325.3 581.6M325.3 667.0L339.1 651.0M339.1 656.3L403.5 581.6M403.5 667.0L412.7 656.3M412.7 613.6L440.3 581.6M440.3 667.0L486.4 613.6M486.4 602.9L504.8 581.6M504.8 667.0L560.0 602.9M560.0 602.9L578.4 581.6M578.4 667.0L633.6 602.9M633.6 624.3L670.5 581.6M670.5 667.0L707.3 624.3M707.3 656.3L771.7 581.6M771.7 667.0L780.9 656.3M780.9 651.0L840.8 581.6M840.8 667.0L854.6 651.0M854.6 602.9L873.0 581.6M873.0 667.0L928.2 602.9M928.2 586.9L932.8 581.6M932.8 667.0L1001.9 586.9M1001.9 608.3L1024.9 581.6M1024.9 667.0L1075.5 608.3M1075.5 624.3L1112.3 581.6M1112.3 667.0L1149.1 624.3M1149.1 635.0L1195.2 581.6M1195.2 667.0L1222.8 635.0" stroke="#9FC6DB" stroke-width="2" stroke-linecap="round" fill="none" opacity=".45"/>
+	</svg></a><div class="lw-card__body"><a class="lw-eyebrow" href="../thema/anwendungen/logistik/index.html">Logistik &amp; Tracking</a><h3 class="lw-card__title"><a href="../geolokalisierung-durch-lorawan/index.html">Geolokalisierung durch LoRaWAN</a></h3><p class="lw-card__excerpt">Ein Gerät sendet ein LoRaWAN-Paket. Mehrere Gateways empfangen es – mit winzigen Unterschieden im Ankunftszeitpunkt. Diese Unterschiede lassen sich nutzen …</p><p class="lw-meta"><span class="lw-meta__time"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>5 Min. Lesezeit</span></p></div></article><article class="lw-card lw-card--card" style="--lw-card-cat:#0369a1"><a class="lw-card__media lw-cover" href="../indoor-tracking-mit-lorawan/index.html" tabindex="-1" aria-hidden="true"><svg class="lw-cover__svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" role="presentation" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<linearGradient id="lwc55-3-bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#083652"/>
+			<stop offset="1" stop-color="#0A2234"/>
+		</linearGradient>
+		<filter id="lwc55-3-glow" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="7"/></filter>
+	</defs>
+	<rect width="100%" height="100%" fill="url(#lwc55-3-bg)"/>
+	<path d="M0 153.7H1200M0 197.0H1200M0 240.4H1200M0 283.8H1200M0 327.2H1200M0 370.6H1200M0 413.9H1200M0 457.3H1200M0 500.7H1200" stroke="#9FC6DB" stroke-opacity=".09" stroke-width="1" fill="none"/>
+	<path d="M522 347h3M508 182h3M998 476h2M504 252h4M725 241h7M1054 365h8M598 494h6M391 498h5M786 494h5M974 318h3M814 160h5M668 178h5M99 194h9M1115 158h5M339 253h7M301 375h9M729 410h6M1176 313h5M1191 299h7M1176 265h8M569 180h7M24 305h6M85 301h3M141 442h9M14 299h4M344 363h4M767 459h7M885 326h10M551 267h10M504 381h10M386 435h6M89 389h2M522 347h3M508 182h3M998 476h2M504 252h4M725 241h7M1054 365h8M598 494h6M391 498h5M786 494h5M974 318h3M814 160h5M668 178h5M99 194h9M1115 158h5M339 253h7M301 375h9M729 410h6M1176 313h5M1191 299h7M1176 265h8M569 180h7M24 305h6M85 301h3M141 442h9M14 299h4M344 363h4M767 459h7M885 326h10M551 267h10M504 381h10M386 435h6M89 389h2M522 347h3M508 182h3M998 476h2M504 252h4M725 241h7M1054 365h8" stroke="#9FC6DB" stroke-opacity=".22" stroke-width="2" fill="none"/>
+	<path d="M96.0 649.0V661.0M245.6 649.0V661.0M395.3 649.0V661.0M544.9 649.0V661.0M694.6 649.0V661.0M844.2 649.0V661.0M993.9 649.0V661.0M1143.5 649.0V661.0" stroke="#9FC6DB" stroke-opacity=".35" stroke-width="2" fill="none"/>
+	<path d="M-53.6 500.7L96.0 153.7M96.0 500.7L245.6 153.7M245.6 413.9L357.9 153.7M357.9 500.7L395.3 413.9M395.3 327.2L470.1 153.7M470.1 500.7L544.9 327.2M544.9 153.7L694.6 500.7M694.6 153.7L844.2 500.7M844.2 153.7L881.6 240.4M881.6 197.0L900.4 153.7M900.4 500.7L1031.3 197.0M1031.3 479.0L1171.6 153.7M1171.6 500.7L1180.9 479.0M1180.9 348.9L1265.1 153.7M1265.1 500.7L1330.6 348.9" stroke="#428FB9" stroke-width="9" stroke-linecap="round" fill="none" opacity=".55" filter="url(#lwc55-3-glow)"/>
+	<path d="M-53.6 500.7L96.0 153.7M96.0 500.7L245.6 153.7M245.6 413.9L357.9 153.7M357.9 500.7L395.3 413.9M395.3 327.2L470.1 153.7M470.1 500.7L544.9 327.2M544.9 153.7L694.6 500.7M694.6 153.7L844.2 500.7M844.2 153.7L881.6 240.4M881.6 197.0L900.4 153.7M900.4 500.7L1031.3 197.0M1031.3 479.0L1171.6 153.7M1171.6 500.7L1180.9 479.0M1180.9 348.9L1265.1 153.7M1265.1 500.7L1330.6 348.9" stroke="#9FC6DB" stroke-width="3" stroke-linecap="round" fill="none"/>
+	</svg></a><div class="lw-card__body"><a class="lw-eyebrow" href="../thema/anwendungen/logistik/index.html">Logistik &amp; Tracking</a><h3 class="lw-card__title"><a href="../indoor-tracking-mit-lorawan/index.html">Indoor-Tracking mit LoRaWAN</a></h3><p class="lw-card__excerpt">Ein mobiles Röntgengerät wird auf einer Station gebraucht. Es steht irgendwo im Gebäude, nur ist sein letzter Einsatzort nicht mehr aktuell. Ein …</p><p class="lw-meta"><span class="lw-meta__time"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>5 Min. Lesezeit</span></p></div></article><article class="lw-card lw-card--card" style="--lw-card-cat:#0369a1"><a class="lw-card__media lw-cover" href="../lorawan-tracking-gps/index.html" tabindex="-1" aria-hidden="true"><svg class="lw-cover__svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" role="presentation" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<linearGradient id="lwc54-4-bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#083652"/>
+			<stop offset="1" stop-color="#0A2234"/>
+		</linearGradient>
+		<filter id="lwc54-4-glow" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="7"/></filter>
+	</defs>
+	<rect width="100%" height="100%" fill="url(#lwc54-4-bg)"/>
+	<path d="M0 74.8H1200M0 126.1H1200M0 177.4H1200M0 228.7H1200M0 280.1H1200M0 331.4H1200M0 382.7H1200M0 434.0H1200M0 485.3H1200" stroke="#9FC6DB" stroke-opacity=".09" stroke-width="1" fill="none"/>
+	<path d="M998 187h6M89 205h5M965 358h4M264 165h6M1101 461h9M532 191h6M466 450h5M1172 408h5M424 360h8M184 115h7M282 456h9M329 297h3M381 231h8M828 152h4M264 300h9M1129 429h6M339 257h5M1096 207h10M974 234h5M833 406h3M118 352h4M1115 416h4M649 105h5M456 405h8M226 165h4M659 452h10M1035 257h4M532 234h9M386 476h8M466 220h8M969 138h3M809 171h9M998 187h6M89 205h5M965 358h4M264 165h6M1101 461h9M532 191h6M466 450h5M1172 408h5M424 360h8M184 115h7M282 456h9M329 297h3M381 231h8M828 152h4M264 300h9M1129 429h6M339 257h5M1096 207h10M974 234h5M833 406h3M118 352h4M1115 416h4M649 105h5M456 405h8M226 165h4M659 452h10M1035 257h4M532 234h9M386 476h8M466 220h8M969 138h3M809 171h9M998 187h6M89 205h5M965 358h4M264 165h6M1101 461h9M532 191h6" stroke="#9FC6DB" stroke-opacity=".22" stroke-width="2" fill="none"/>
+	<path d="M128.6 649.0V661.0M341.6 649.0V661.0M554.7 649.0V661.0M767.7 649.0V661.0M980.7 649.0V661.0M1193.7 649.0V661.0" stroke="#9FC6DB" stroke-opacity=".35" stroke-width="2" fill="none"/>
+	<path d="M-84.4 382.7L75.4 74.8M75.4 485.3L128.6 382.7M128.6 280.1L235.1 74.8M235.1 485.3L341.6 280.1M341.6 74.8L554.7 485.3M554.7 74.8L767.7 485.3M767.7 74.8L820.9 177.4M820.9 203.1L887.5 74.8M887.5 485.3L1034.0 203.1M1034.0 382.7L1193.7 74.8M1193.7 485.3L1247.0 382.7" stroke="#428FB9" stroke-width="9" stroke-linecap="round" fill="none" opacity=".55" filter="url(#lwc54-4-glow)"/>
+	<path d="M-84.4 382.7L75.4 74.8M75.4 485.3L128.6 382.7M128.6 280.1L235.1 74.8M235.1 485.3L341.6 280.1M341.6 74.8L554.7 485.3M554.7 74.8L767.7 485.3M767.7 74.8L820.9 177.4M820.9 203.1L887.5 74.8M887.5 485.3L1034.0 203.1M1034.0 382.7L1193.7 74.8M1193.7 485.3L1247.0 382.7" stroke="#9FC6DB" stroke-width="3" stroke-linecap="round" fill="none"/>
+		<path d="M-103.4 553.4L-52.7 503.3M-52.7 603.4L-2.1 553.4M-2.1 503.3L99.1 603.4M99.1 503.3L200.4 603.4M200.4 503.3L225.7 528.4M225.7 578.4L301.6 503.3M301.6 603.4L326.9 578.4M326.9 578.4L402.9 503.3M402.9 603.4L428.2 578.4M428.2 578.4L504.1 503.3M504.1 603.4L529.4 578.4M529.4 547.1L573.7 503.3M573.7 603.4L630.7 547.1M630.7 515.8L643.3 503.3M643.3 603.4L731.9 515.8M731.9 515.8L744.6 503.3M744.6 603.4L833.2 515.8M833.2 522.1L852.2 503.3M852.2 603.4L934.4 522.1M934.4 559.6L991.4 503.3M991.4 603.4L1035.7 559.6M1035.7 572.1L1105.3 503.3M1105.3 603.4L1136.9 572.1M1136.9 559.6L1193.9 503.3M1193.9 603.4L1238.2 559.6" stroke="#9FC6DB" stroke-width="2" stroke-linecap="round" fill="none" opacity=".45"/>
+	</svg></a><div class="lw-card__body"><a class="lw-eyebrow" href="../thema/anwendungen/logistik/index.html">Logistik &amp; Tracking</a><h3 class="lw-card__title"><a href="../lorawan-tracking-gps/index.html">LoRaWAN-Tracking ohne GPS</a></h3><p class="lw-card__excerpt">Einen Behälter, ein Werkzeug oder ein Fahrzeug wiederfinden, ohne in jedem Gerät einen GPS-Empfänger zu betreiben: Genau darum geht es beim LoRaWAN-Tracking …</p><p class="lw-meta"><span class="lw-meta__time"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>5 Min. Lesezeit</span></p></div></article></div></section>
+
+
+<section class="lw-newsletter lw-newsletter--box alignwide wp-block-lorawan-magazin-newsletter" aria-labelledby="lw-nl-3-t">
+	<div class="lw-newsletter__text">
+		<p class="lw-kicker"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>Newsletter</p>
+		<h2 id="lw-nl-3-t" class="lw-newsletter__title">Neue Artikel, einmal im Monat</h2>
+		<p class="lw-newsletter__lead">Praxisberichte, Protokoll-Details und Neuigkeiten rund um LoRaWAN. Kostenlos, jederzeit abbestellbar.</p>
+	</div>
+	<div class="lw-newsletter__form">
+					<form class="lw-nl-form" action="#" method="post" data-lw-demo-form>
+				<label class="screen-reader-text" for="lw-nl-3-email">E-Mail-Adresse</label>
+				<input id="lw-nl-3-email" type="email" name="email" placeholder="name@firma.de" autocomplete="email" required>
+				<button type="submit" class="wp-element-button">Anmelden</button>
+				<p class="lw-nl-form__note">
+					Mit der Anmeldung akzeptieren Sie die <a href="../datenschutz/index.html">Datenschutzerklärung</a>. Double-Opt-in per E-Mail.				</p>
+				<p class="lw-nl-form__status" role="status" hidden></p>
+			</form>
+				</div>
+</section>
+</main>
+
+
+<div class="wp-block-template-part">
+<footer class="wp-block-group lw-footer has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+<div class="wp-block-group alignwide lw-footer__grid is-layout-flow wp-block-group-is-layout-flow">
+<div class="wp-block-group lw-footer__about is-layout-flow wp-block-group-is-layout-flow"><p class="lw-brand__name wp-block-site-title"><a href="../index.html" target="_self" rel="home">lora-wan.de</a></p>
+
+
+<p class="wp-block-paragraph">Das deutschsprachige Fachmagazin zu LoRa, LoRaWAN und dem Internet der Dinge: Grundlagen, Protokoll-Details und Praxisbeispiele aus Industrie, Stadt und Gebäude.</p>
+</div>
+
+
+
+<div class="wp-block-group lw-footer__col is-layout-flow wp-block-group-is-layout-flow">
+<h2 class="wp-block-heading lw-footer__title">Ressorts</h2>
+
+
+
+<ul class="wp-block-list lw-footer__links">
+<li><a href="../thema/grundlagen/index.html">Grundlagen</a></li>
+
+
+
+<li><a href="../thema/technik/index.html">Technik &amp; Protokoll</a></li>
+
+
+
+<li><a href="../thema/anwendungen/index.html">Anwendungen</a></li>
+
+
+
+<li><a href="../thema/netze-anbieter/index.html">Netze &amp; Anbieter</a></li>
+
+
+
+<li><a href="../glossar/index.html">Glossar</a></li>
+</ul>
+</div>
+
+
+
+<div class="wp-block-group lw-footer__col is-layout-flow wp-block-group-is-layout-flow">
+<h2 class="wp-block-heading lw-footer__title">Anwendungen</h2>
+
+
+
+<ul class="wp-block-list lw-footer__links">
+<li><a href="../thema/anwendungen/industrie/index.html">Industrie &amp; Bergbau</a></li>
+
+
+
+<li><a href="../thema/anwendungen/logistik/index.html">Logistik &amp; Tracking</a></li>
+
+
+
+<li><a href="../thema/anwendungen/bau-infrastruktur/index.html">Bau &amp; Infrastruktur</a></li>
+
+
+
+<li><a href="../thema/anwendungen/energie/index.html">Energie</a></li>
+
+
+
+<li><a href="../thema/anwendungen/smart-city/index.html">Smart City</a></li>
+
+
+
+<li><a href="../thema/anwendungen/gebaeude/index.html">Gebäude &amp; Smart Home</a></li>
+</ul>
+</div>
+
+
+
+<div class="wp-block-group lw-footer__col is-layout-flow wp-block-group-is-layout-flow">
+<h2 class="wp-block-heading lw-footer__title">Service</h2>
+
+
+
+<ul class="wp-block-list lw-footer__links">
+<li><a href="../index.html#newsletter">Newsletter</a></li>
+
+
+
+<li><a href="../impressum/index.html">Impressum</a></li>
+
+
+
+<li><a href="../datenschutz/index.html">Datenschutz</a></li>
+
+
+
+<li><a href="/feed/">RSS-Feed</a></li>
+</ul>
+</div>
+</div>
+
+
+
+<div class="wp-block-group alignwide lw-footer__bottom is-content-justification-space-between is-layout-flex wp-container-core-group-is-layout-5f78a805 wp-block-group-is-layout-flex">
+<p class="wp-block-paragraph">© 2026 lora-wan.de · growth with attitude UG (haftungsbeschränkt), Stuttgart</p>
+
+
+
+<p class="wp-block-paragraph"><a href="#top">Nach oben ↑</a></p>
+</div>
+</footer>
+
+</div>
+</div>
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/lorawan-magazin/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script data-wp-router-options="{&quot;loadOnClientNavigation&quot;:true}" fetchpriority="low" id="@wordpress/block-library/navigation/view-js-module" src="../wp-includes/js/dist/script-modules/block-library/navigation/view.min.js" type="module"></script>
+<script data-wp-router-options="{&quot;loadOnClientNavigation&quot;:true}" fetchpriority="low" id="@wordpress/block-library/search/view-js-module" src="../wp-includes/js/dist/script-modules/block-library/search/view.min.js" type="module"></script>
+<script data-wp-strategy="defer" defer id="lorawan-magazin-js" src="../wp-content/themes/lorawan-magazin/assets/js/theme.js"></script>
+<script>window.LW_STATIC_ROOT="../";</script><script src="../static-search.js" defer></script>
+</body>
+</html>

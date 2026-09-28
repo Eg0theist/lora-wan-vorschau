@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8" />
+	<script>(function(){try{var t=localStorage.getItem('lw-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<meta name="theme-color" content="#F6F7F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1622" media="(prefers-color-scheme: dark)">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name='robots' content='noindex, nofollow' />
+<title>TinyML und LoRaWAN: Lokale Modelle, kleine Funkpakete, belastbare Ergebnisse – lora-wan.de</title>
+<link rel='dns-prefetch' href='//localhost' />
+<link rel="icon" href="../wp-content/themes/lorawan-magazin/assets/img/favicon.svg" type="image/svg+xml">
+<meta name="description" content="Ein Vibrationssensor sammelt tausende Messwerte. Für die Wartung ist oft nur interessant, ob sich ein bekanntes Muster verändert hat. Diese Auswertung kann …">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="lora-wan.de">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TinyML und LoRaWAN: Lokale Modelle, kleine Funkpakete, belastbare Ergebnisse – lora-wan.de">
+<meta property="og:description" content="Ein Vibrationssensor sammelt tausende Messwerte. Für die Wartung ist oft nur interessant, ob sich ein bekanntes Muster verändert hat. Diese Auswertung kann …">
+<meta property="og:url" content="./index.html">
+<meta property="og:image" content="../wp-content/themes/lorawan-magazin/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="wp-block-site-title-inline-css">
+.wp-block-site-title{box-sizing:border-box}.wp-block-site-title :where(a){color:inherit;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;text-decoration:inherit}
+/*# sourceURL=../wp-includes/blocks/site-title/style.min.css */
+</style>
+<style id="wp-block-site-tagline-inline-css">
+.wp-block-site-tagline{box-sizing:border-box}
+/*# sourceURL=../wp-includes/blocks/site-tagline/style.min.css */
+</style>
+<style id="wp-block-group-inline-css">
+.wp-block-group{box-sizing:border-box}:where(.wp-block-group.wp-block-group-is-layout-constrained){position:relative}
+/*# sourceURL=../wp-includes/blocks/group/style.min.css */
+</style>
+<style id="wp-block-navigation-link-inline-css">
+.wp-block-navigation .wp-block-navigation-item__label{overflow-wrap:break-word}.wp-block-navigation .wp-block-navigation-item__description{display:none}.link-ui-tools{outline:1px solid #f0f0f0;padding:8px}.link-ui-block-inserter{padding-top:8px}.link-ui-block-inserter__back{margin-left:8px;text-transform:uppercase}
+/*# sourceURL=../wp-includes/blocks/navigation-link/style.min.css */
+</style>
+<style id="wp-block-navigation-inline-css">
+.wp-block-navigation{position:relative}.wp-block-navigation ul{margin-bottom:0;margin-left:0;margin-top:0;padding-left:0}.wp-block-navigation ul,.wp-block-navigation ul li{list-style:none}.wp-block-navigation .wp-block-navigation-item{align-items:center;background-color:inherit;display:flex;position:relative}.wp-block-navigation .wp-block-navigation-item .wp-block-navigation__submenu-container:empty{display:none}.wp-block-navigation .wp-block-navigation-item__content{display:block;z-index:1}.wp-block-navigation .wp-block-navigation-item__content.wp-block-navigation-item__content{color:inherit}.wp-block-navigation.has-text-decoration-underline .wp-block-navigation-item__content,.wp-block-navigation.has-text-decoration-underline .wp-block-navigation-item__content:active,.wp-block-navigation.has-text-decoration-underline .wp-block-navigation-item__content:focus{text-decoration:underline}.wp-block-navigation.has-text-decoration-line-through .wp-block-navigation-item__content,.wp-block-navigation.has-text-decoration-line-through .wp-block-navigation-item__content:active,.wp-block-navigation.has-text-decoration-line-through .wp-block-navigation-item__content:focus{text-decoration:line-through}.wp-block-navigation :where(a),.wp-block-navigation :where(a:active),.wp-block-navigation :where(a:focus){text-decoration:none}.wp-block-navigation .wp-block-navigation__submenu-icon{align-self:center;background-color:inherit;border:none;color:currentColor;display:inline-block;font-size:inherit;height:.6em;line-height:0;margin-left:.25em;padding:0;width:.6em}.wp-block-navigation .wp-block-navigation__submenu-icon svg{stroke:currentColor;display:inline-block;height:inherit;margin-top:.075em;width:inherit}.wp-block-navigation{--navigation-layout-justification-setting:flex-start;--navigation-layout-direction:row;--navigation-layout-wrap:wrap;--navigation-layout-justify:flex-start;--navigation-layout-align:center}.wp-block-navigation.is-vertical{--navigation-layout-direction:column;--navigation-layout-justify:initial;--navigation-layout-align:flex-start}.wp-block-navigation.no-wrap{--navigation-layout-wrap:nowrap}.wp-block-navigation.items-justified-center{--navigation-layout-justification-setting:center;--navigation-layout-justify:center}.wp-block-navigation.items-justified-center.is-vertical{--navigation-layout-align:center}.wp-block-navigation.items-justified-right{--navigation-layout-justification-setting:flex-end;--navigation-layout-justify:flex-end}.wp-block-navigation.items-justified-right.is-vertical{--navigation-layout-align:flex-end}.wp-block-navigation.items-justified-space-between{--navigation-layout-justification-setting:space-between;--navigation-layout-justify:space-between}:where(.wp-block-navigation) ul li{padding:0}.wp-block-navigation .has-child .wp-block-navigation__submenu-container{align-items:normal;background-color:inherit;color:inherit;display:flex;flex-direction:column;opacity:0;position:absolute;z-index:2}@media not (prefers-reduced-motion){.wp-block-navigation .has-child .wp-block-navigation__submenu-container{transition:opacity .1s linear}}.wp-block-navigation .has-child .wp-block-navigation__submenu-container{height:0;overflow:hidden;visibility:hidden;width:0}.wp-block-navigation .has-child .wp-block-navigation__submenu-container>.wp-block-navigation-item>.wp-block-navigation-item__content{display:flex;flex-grow:1;padding:.5em 1em}.wp-block-navigation .has-child .wp-block-navigation__submenu-container>.wp-block-navigation-item>.wp-block-navigation-item__content .wp-block-navigation__submenu-icon{margin-left:auto;margin-right:0}.wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation-item__content{margin:0}.wp-block-navigation .has-child .wp-block-navigation__submenu-container{left:-1px;top:100%}@media (min-width:782px){.wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container{left:100%;top:-1px}.wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container:before{background:transparent;content:"";display:block;height:100%;position:absolute;right:100%;width:.5em}.wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-icon{margin-right:.25em}.wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-icon svg{transform:rotate(-90deg)}}@media (hover:hover){.wp-block-navigation .has-child:not(.open-on-click):hover>.wp-block-navigation__submenu-container{height:auto;min-width:200px;opacity:1;overflow:visible;visibility:visible;width:auto}}.wp-block-navigation .has-child .wp-block-navigation-submenu__toggle[aria-expanded=true]~.wp-block-navigation__submenu-container,.wp-block-navigation .has-child:not(.open-on-click):not(.open-on-hover-click):focus-within>.wp-block-navigation__submenu-container{height:auto;min-width:200px;opacity:1;overflow:visible;visibility:visible;width:auto}.wp-block-navigation .has-child.open-always{align-items:var(--navigation-layout-align,initial);flex-direction:var(--navigation-layout-direction,initial);flex-wrap:var(--navigation-layout-wrap,wrap);gap:var(--wp--style--block-gap,2em)}.wp-block-navigation .has-child.open-always,.wp-block-navigation .has-child.open-always .wp-block-navigation-item{justify-content:var(--navigation-layout-justify,initial)}.wp-block-navigation .has-child.open-always .wp-block-navigation__submenu-container,.wp-block-navigation .has-child.open-always.wp-block-navigation-submenu{gap:var(--wp--style--block-gap,2em)}.wp-block-navigation .has-child.open-always .wp-block-navigation-item,.wp-block-navigation .has-child.open-always .wp-block-navigation__submenu-container,.wp-block-navigation .has-child.open-always.wp-block-navigation-submenu{padding-bottom:0;padding-top:0}.wp-block-navigation .has-child.open-always .wp-block-navigation__submenu-container{padding-left:var(--wp--style--block-gap,2em);padding-right:var(--wp--style--block-gap,2em)}.wp-block-navigation .has-child.open-always .wp-block-navigation__submenu-container .wp-block-navigation-item__content{padding:0}.wp-block-navigation .has-child.open-always .wp-block-navigation__submenu-container>.wp-block-navigation-item>.wp-block-navigation-item__content,.wp-block-navigation .has-child.open-always>.wp-block-navigation-item__content{flex-grow:0}.wp-block-navigation .has-child.open-always>.wp-block-navigation__submenu-container{background-color:transparent;border:none;color:inherit;flex-basis:100%;height:auto;opacity:1;overflow:visible;position:static;visibility:visible;width:auto}.wp-block-navigation.has-background .has-child .wp-block-navigation__submenu-container{left:0;top:100%}@media (min-width:782px){.wp-block-navigation.has-background .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container{left:100%;top:0}}.wp-block-navigation-submenu{display:flex;position:relative}.wp-block-navigation-submenu .wp-block-navigation__submenu-icon svg{stroke:currentColor}button.wp-block-navigation-item__content{background-color:transparent;border:none;color:currentColor;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;text-align:left;text-transform:inherit}.wp-block-navigation-submenu__toggle{cursor:pointer}.wp-block-navigation-submenu__toggle[aria-expanded=true]+.wp-block-navigation__submenu-icon>svg,.wp-block-navigation-submenu__toggle[aria-expanded=true]>svg{transform:rotate(180deg)}.wp-block-navigation-item.open-on-click .wp-block-navigation-submenu__toggle{padding-left:0;padding-right:.85em}.wp-block-navigation-item.open-on-click .wp-block-navigation-submenu__toggle+.wp-block-navigation__submenu-icon{margin-left:-.6em;pointer-events:none}.wp-block-navigation-item.open-on-click button.wp-block-navigation-item__content:not(.wp-block-navigation-submenu__toggle){padding:0}.wp-block-navigation .wp-block-page-list,.wp-block-navigation__container,.wp-block-navigation__responsive-close,.wp-block-navigation__responsive-container,.wp-block-navigation__responsive-container-content,.wp-block-navigation__responsive-dialog{gap:inherit}:where(.wp-block-navigation.has-background .wp-block-navigation-item a:not(.wp-element-button)),:where(.wp-block-navigation.has-background .wp-block-navigation-submenu a:not(.wp-element-button)){padding:.5em 1em}:where(.wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item a:not(.wp-element-button)),:where(.wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-submenu a:not(.wp-element-button)),:where(.wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-submenu button.wp-block-navigation-item__content),:where(.wp-block-navigation .wp-block-navigation__submenu-container .wp-block-pages-list__item button.wp-block-navigation-item__content){padding:.5em 1em}.wp-block-navigation.items-justified-right .wp-block-navigation__container .has-child .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-right .wp-block-page-list>.has-child .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-space-between .wp-block-page-list>.has-child:last-child .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-space-between>.wp-block-navigation__container>.has-child:last-child .wp-block-navigation__submenu-container{left:auto;right:0}.wp-block-navigation.items-justified-right .wp-block-navigation__container .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-right .wp-block-page-list>.has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-space-between .wp-block-page-list>.has-child:last-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-space-between>.wp-block-navigation__container>.has-child:last-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container{left:-1px;right:-1px}@media (min-width:782px){.wp-block-navigation.items-justified-right .wp-block-navigation__container .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-right .wp-block-page-list>.has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-space-between .wp-block-page-list>.has-child:last-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container,.wp-block-navigation.items-justified-space-between>.wp-block-navigation__container>.has-child:last-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container{left:auto;right:100%}}.wp-block-navigation:not(.has-background) .wp-block-navigation__submenu-container{background-color:#fff;border:1px solid rgba(0,0,0,.15)}.wp-block-navigation.has-background .wp-block-navigation__submenu-container{background-color:inherit}.wp-block-navigation:not(.has-text-color) .wp-block-navigation__submenu-container{color:#000}.wp-block-navigation__container{align-items:var(--navigation-layout-align,initial);display:flex;flex-direction:var(--navigation-layout-direction,initial);flex-wrap:var(--navigation-layout-wrap,wrap);justify-content:var(--navigation-layout-justify,initial);list-style:none;margin:0;padding-left:0}.wp-block-navigation__container .is-responsive{display:none}.wp-block-navigation__container:only-child,.wp-block-page-list:only-child{flex-grow:1}@keyframes overlay-menu__fade-in-animation{0%{opacity:0;transform:translateY(.5em)}to{opacity:1;transform:translateY(0)}}.wp-block-navigation__responsive-container{bottom:0;display:none;left:0;position:fixed;right:0;top:0}.wp-block-navigation__responsive-container :where(.wp-block-navigation-item a){color:inherit}.wp-block-navigation__responsive-container .wp-block-navigation__responsive-container-content{align-items:var(--navigation-layout-align,initial);display:flex;flex-direction:var(--navigation-layout-direction,initial);flex-wrap:var(--navigation-layout-wrap,wrap);justify-content:var(--navigation-layout-justify,initial)}.wp-block-navigation__responsive-container:not(.is-menu-open.is-menu-open){background-color:inherit!important;color:inherit!important}.wp-block-navigation__responsive-container.is-menu-open{background-color:inherit;display:flex;flex-direction:column}@media not (prefers-reduced-motion){.wp-block-navigation__responsive-container.is-menu-open{animation:overlay-menu__fade-in-animation .1s ease-out;animation-fill-mode:forwards}}.wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay){padding:clamp(1rem,var(--wp--style--root--padding-top),20rem) clamp(1rem,var(--wp--style--root--padding-right),20rem) clamp(1rem,var(--wp--style--root--padding-bottom),20rem) clamp(1rem,var(--wp--style--root--padding-left),20rem)}.wp-block-navigation__responsive-container.is-menu-open{overflow:auto;z-index:100000}.wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay) .wp-block-navigation__responsive-container-content{padding-top:calc(2rem + 24px)}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content{align-items:var(--navigation-layout-justification-setting,inherit);display:flex;flex-direction:column;flex-wrap:nowrap;overflow:visible}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation__container,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-page-list{justify-content:flex-start}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation__submenu-icon{display:none}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .has-child .wp-block-navigation__submenu-container{border:none;height:auto;min-width:200px;opacity:1;overflow:initial;padding-left:2rem;padding-right:2rem;position:static;visibility:visible;width:auto}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation__container,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation__submenu-container{gap:inherit}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation__submenu-container{padding-top:var(--wp--style--block-gap,2em)}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation-item__content{padding:0}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation-item,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-navigation__container,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-container-content .wp-block-page-list{align-items:var(--navigation-layout-justification-setting,initial);display:flex;flex-direction:column}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation-item,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation-item .wp-block-navigation__submenu-container,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__container,.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-page-list{background:transparent!important;color:inherit!important}.wp-block-navigation__responsive-container.is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__submenu-container.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container{left:auto;right:auto}.wp-block-navigation__responsive-container.disable-default-overlay .wp-block-navigation__overlay-container{display:none;width:100%}.wp-block-navigation__responsive-container.disable-default-overlay .wp-block-navigation__responsive-close{max-width:none}.wp-block-navigation__responsive-container.disable-default-overlay.is-menu-open .wp-block-navigation__responsive-container-content>:not(.wp-block-navigation__overlay-container){display:none}.wp-block-navigation__responsive-container.disable-default-overlay.is-menu-open .wp-block-navigation__responsive-container-content .wp-block-navigation__overlay-container{display:block}.wp-block-navigation__responsive-container.disable-default-overlay.is-menu-open .wp-block-navigation__responsive-container-content .wp-block-navigation__overlay-container .wp-block-navigation__submenu-container{left:0;right:auto}@media (min-width:600px){.wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open){background-color:inherit;display:block;position:relative;width:100%;z-index:auto}.wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open) .wp-block-navigation__responsive-container-close{display:none}.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__submenu-container.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container.wp-block-navigation__submenu-container{left:0}}.wp-block-navigation:not(.has-background) .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay){background-color:#fff}.wp-block-navigation:not(.has-text-color) .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay){color:#000}.wp-block-navigation__toggle_button_label{font-size:1rem;font-weight:700}.wp-block-navigation__responsive-container-close,.wp-block-navigation__responsive-container-open{background:transparent;border:none;color:currentColor;cursor:pointer;margin:0;padding:0;text-transform:inherit;vertical-align:middle}.wp-block-navigation__responsive-container-close svg,.wp-block-navigation__responsive-container-open svg{fill:currentColor;display:block;height:24px;pointer-events:none;width:24px}.wp-block-navigation__responsive-container-open{display:flex}.wp-block-navigation__responsive-container-open.wp-block-navigation__responsive-container-open.wp-block-navigation__responsive-container-open{font-family:inherit;font-size:inherit;font-weight:inherit}@media (min-width:600px){.wp-block-navigation__responsive-container-open:not(.always-shown){display:none}}.wp-block-navigation__responsive-container-close{position:absolute;right:0;top:0;z-index:2}.wp-block-navigation__responsive-container-close.wp-block-navigation__responsive-container-close.wp-block-navigation__responsive-container-close{font-family:inherit;font-size:inherit;font-weight:inherit}.disable-default-overlay .wp-block-navigation__responsive-container-close{right:clamp(1rem,var(--wp--style--root--padding-left),20rem);top:clamp(1rem,var(--wp--style--root--padding-left),20rem)}.wp-block-navigation__responsive-close{width:100%}.has-modal-open .wp-block-navigation__responsive-close{margin-left:auto;margin-right:auto;max-width:var(--wp--style--global--wide-size,100%)}.wp-block-navigation__responsive-close:focus{outline:none}.is-menu-open .wp-block-navigation__responsive-close,.is-menu-open .wp-block-navigation__responsive-container-content,.is-menu-open .wp-block-navigation__responsive-dialog{box-sizing:border-box}.wp-block-navigation__responsive-dialog{position:relative}.has-modal-open .admin-bar .is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-dialog{margin-top:46px}@media (min-width:782px){.has-modal-open .admin-bar .is-menu-open:where(:not(.disable-default-overlay)) .wp-block-navigation__responsive-dialog{margin-top:32px}}html.has-modal-open{overflow:hidden}
+/*# sourceURL=../wp-includes/blocks/navigation/style.min.css */
+</style>
+<style id="wp-block-search-inline-css">
+.wp-block-search__button{margin-left:10px;word-break:normal}.wp-block-search__button.has-icon{line-height:0}.wp-block-search__button svg{fill:currentColor;height:1.25em;min-height:24px;min-width:24px;vertical-align:text-bottom;width:1.25em}:where(.wp-block-search__button){border:1px solid #ccc;padding:6px 10px}.wp-block-search__inside-wrapper{display:flex;flex:auto;flex-wrap:nowrap;max-width:100%}.wp-block-search__label{width:100%}.wp-block-search.wp-block-search__button-only .wp-block-search__button{box-sizing:border-box;display:flex;flex-shrink:0;justify-content:center;margin-left:0;max-width:100%}.wp-block-search.wp-block-search__button-only .wp-block-search__inside-wrapper{min-width:0!important;transition-property:width}.wp-block-search.wp-block-search__button-only .wp-block-search__input{flex-basis:100%;transition-duration:.3s}.wp-block-search.wp-block-search__button-only.wp-block-search__searchfield-hidden,.wp-block-search.wp-block-search__button-only.wp-block-search__searchfield-hidden .wp-block-search__inside-wrapper{overflow:hidden}.wp-block-search.wp-block-search__button-only.wp-block-search__searchfield-hidden .wp-block-search__input{border-left-width:0!important;border-right-width:0!important;flex-basis:0;flex-grow:0;margin:0;min-width:0!important;padding-left:0!important;padding-right:0!important;width:0!important}:where(.wp-block-search__input){-webkit-appearance:initial;-moz-appearance:initial;appearance:none;border:1px solid #949494;flex-grow:1;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;margin-left:0;margin-right:0;min-width:3rem;padding:8px;text-decoration:unset!important;text-transform:inherit}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper){background-color:#fff;border:1px solid #949494;box-sizing:border-box;padding:4px}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper) .wp-block-search__input{border:none;border-radius:0;padding:0 4px}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper) .wp-block-search__input:focus{outline:none}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper) :where(.wp-block-search__button){padding:4px 8px}.wp-block-search.aligncenter .wp-block-search__inside-wrapper{margin:auto}.wp-block[data-align=right] .wp-block-search.wp-block-search__button-only .wp-block-search__inside-wrapper{float:right}
+/*# sourceURL=../wp-includes/blocks/search/style.min.css */
+</style>
+<style id="wp-block-post-title-inline-css">
+.wp-block-post-title{box-sizing:border-box;word-break:break-word}.wp-block-post-title :where(a){display:inline-block;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;text-decoration:inherit}
+/*# sourceURL=../wp-includes/blocks/post-title/style.min.css */
+</style>
+<style id="wp-block-paragraph-inline-css">
+.is-small-text{font-size:.875em}.is-regular-text{font-size:1em}.is-large-text{font-size:2.25em}.is-larger-text{font-size:3em}.has-drop-cap:not(:focus):first-letter{float:left;font-size:8.4em;font-style:normal;font-weight:100;line-height:.68;margin:.05em .1em 0 0;text-transform:uppercase}body.rtl .has-drop-cap:not(:focus):first-letter{float:none;margin-left:.1em}p.has-drop-cap.has-background{overflow:hidden}:root :where(p.has-background){padding:1.25em 2.375em}:where(p.has-text-color:not(.has-link-color)) a{color:inherit}p.has-text-align-left[style*="writing-mode:vertical-lr"],p.has-text-align-right[style*="writing-mode:vertical-rl"]{rotate:180deg}
+/*# sourceURL=../wp-includes/blocks/paragraph/style.min.css */
+</style>
+<style id="wp-block-heading-inline-css">
+h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-background,h3:where(.wp-block-heading).has-background,h4:where(.wp-block-heading).has-background,h5:where(.wp-block-heading).has-background,h6:where(.wp-block-heading).has-background{padding:1.25em 2.375em}h1.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h1.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h2.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h2.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h3.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h3.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h4.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h4.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h5.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h5.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h6.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h6.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]){rotate:180deg}
+/*# sourceURL=../wp-includes/blocks/heading/style.min.css */
+</style>
+<style id="wp-block-table-inline-css">
+.wp-block-table{overflow-x:auto}.wp-block-table table{border-collapse:collapse;width:100%}.wp-block-table thead{border-bottom:3px solid}.wp-block-table tfoot{border-top:3px solid}.wp-block-table td,.wp-block-table th{border:1px solid;padding:.5em}.wp-block-table .has-fixed-layout{table-layout:fixed;width:100%}.wp-block-table .has-fixed-layout td,.wp-block-table .has-fixed-layout th{word-break:break-word}.wp-block-table.aligncenter,.wp-block-table.alignleft,.wp-block-table.alignright{display:table;width:auto}.wp-block-table.aligncenter td,.wp-block-table.aligncenter th,.wp-block-table.alignleft td,.wp-block-table.alignleft th,.wp-block-table.alignright td,.wp-block-table.alignright th{word-break:break-word}.wp-block-table .has-subtle-light-gray-background-color{background-color:#f3f4f5}.wp-block-table .has-subtle-pale-green-background-color{background-color:#e9fbe5}.wp-block-table .has-subtle-pale-blue-background-color{background-color:#e7f5fe}.wp-block-table .has-subtle-pale-pink-background-color{background-color:#fcf0ef}.wp-block-table.is-style-stripes{background-color:transparent;border-collapse:inherit;border-spacing:0}.wp-block-table.is-style-stripes tbody tr:nth-child(odd){background-color:#f0f0f0}.wp-block-table.is-style-stripes.has-subtle-light-gray-background-color tbody tr:nth-child(odd){background-color:#f3f4f5}.wp-block-table.is-style-stripes.has-subtle-pale-green-background-color tbody tr:nth-child(odd){background-color:#e9fbe5}.wp-block-table.is-style-stripes.has-subtle-pale-blue-background-color tbody tr:nth-child(odd){background-color:#e7f5fe}.wp-block-table.is-style-stripes.has-subtle-pale-pink-background-color tbody tr:nth-child(odd){background-color:#fcf0ef}.wp-block-table.is-style-stripes td,.wp-block-table.is-style-stripes th{border-color:transparent}.wp-block-table.is-style-stripes{border-bottom:1px solid #f0f0f0}.wp-block-table .has-border-color td,.wp-block-table .has-border-color th,.wp-block-table .has-border-color tr,.wp-block-table .has-border-color>*{border-color:inherit}.wp-block-table table[style*=border-top-color] tr:first-child,.wp-block-table table[style*=border-top-color] tr:first-child td,.wp-block-table table[style*=border-top-color] tr:first-child th,.wp-block-table table[style*=border-top-color]>*,.wp-block-table table[style*=border-top-color]>* td,.wp-block-table table[style*=border-top-color]>* th{border-top-color:inherit}.wp-block-table table[style*=border-top-color] tr:not(:first-child){border-top-color:currentColor}.wp-block-table table[style*=border-right-color] td:last-child,.wp-block-table table[style*=border-right-color] th,.wp-block-table table[style*=border-right-color] tr,.wp-block-table table[style*=border-right-color]>*{border-right-color:inherit}.wp-block-table table[style*=border-bottom-color] tr:last-child,.wp-block-table table[style*=border-bottom-color] tr:last-child td,.wp-block-table table[style*=border-bottom-color] tr:last-child th,.wp-block-table table[style*=border-bottom-color]>*,.wp-block-table table[style*=border-bottom-color]>* td,.wp-block-table table[style*=border-bottom-color]>* th{border-bottom-color:inherit}.wp-block-table table[style*=border-bottom-color] tr:not(:last-child){border-bottom-color:currentColor}.wp-block-table table[style*=border-left-color] td:first-child,.wp-block-table table[style*=border-left-color] th,.wp-block-table table[style*=border-left-color] tr,.wp-block-table table[style*=border-left-color]>*{border-left-color:inherit}.wp-block-table table[style*=border-style] td,.wp-block-table table[style*=border-style] th,.wp-block-table table[style*=border-style] tr,.wp-block-table table[style*=border-style]>*{border-style:inherit}.wp-block-table table[style*=border-width] td,.wp-block-table table[style*=border-width] th,.wp-block-table table[style*=border-width] tr,.wp-block-table table[style*=border-width]>*{border-style:inherit;border-width:inherit}
+/*# sourceURL=../wp-includes/blocks/table/style.min.css */
+</style>
+<style id="wp-block-list-inline-css">
+ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:1.25em 2.375em}
+/*# sourceURL=../wp-includes/blocks/list/style.min.css */
+</style>
+<style id="wp-block-post-content-inline-css">
+.wp-block-post-content{display:flow-root}
+/*# sourceURL=../wp-includes/blocks/post-content/style.min.css */
+</style>
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-break:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style^=border-color],[style*=";border-color"],[style*="; border-color"]){border-style:solid}html :where([style^=border-top-color],[style*=";border-top-color"],[style*="; border-top-color"]){border-top-style:solid}html :where([style^=border-right-color],[style*=";border-right-color"],[style*="; border-right-color"]){border-right-style:solid}html :where([style^=border-bottom-color],[style*=";border-bottom-color"],[style*="; border-bottom-color"]){border-bottom-style:solid}html :where([style^=border-left-color],[style*=";border-left-color"],[style*="; border-left-color"]){border-left-style:solid}html :where([style^=border-width],[style*=";border-width"],[style*="; border-width"]){border-style:solid}html :where([style^=border-top-width],[style*=";border-top-width"],[style*="; border-top-width"]){border-top-style:solid}html :where([style^=border-right-width],[style*=";border-right-width"],[style*="; border-right-width"]){border-right-style:solid}html :where([style^=border-bottom-width],[style*=";border-bottom-width"],[style*="; border-bottom-width"]){border-bottom-style:solid}html :where([style^=border-left-width],[style*=";border-left-width"],[style*="; border-left-width"]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
+</style>
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--paper: #F6F7F4;--wp--preset--color--surface: #FFFFFF;--wp--preset--color--sunken: #ECEFEA;--wp--preset--color--ink: #0E1B2B;--wp--preset--color--muted: #566270;--wp--preset--color--line: #D9DED8;--wp--preset--color--accent: #D9481A;--wp--preset--color--accent-soft: #FBE3D8;--wp--preset--color--night: #0B1622;--wp--preset--color--night-text: #E4E9EE;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: clamp(14px, 0.875rem + ((1vw - 3.2px) * 0.625), 20px);--wp--preset--font-size--large: clamp(22.041px, 1.378rem + ((1vw - 3.2px) * 1.454), 36px);--wp--preset--font-size--x-large: clamp(25.014px, 1.563rem + ((1vw - 3.2px) * 1.769), 42px);--wp--preset--font-size--xs: 0.8125rem;--wp--preset--font-size--sm: 0.9375rem;--wp--preset--font-size--md: clamp(1.0625rem, 1.063rem + ((1vw - 0.2rem) * 0.208), 1.1875rem);--wp--preset--font-size--lg: clamp(1.1875rem, 1.188rem + ((1vw - 0.2rem) * 0.52), 1.5rem);--wp--preset--font-size--xl: clamp(1.5rem, 1.5rem + ((1vw - 0.2rem) * 1.25), 2.25rem);--wp--preset--font-size--xxl: clamp(2.125rem, 2.125rem + ((1vw - 0.2rem) * 2.292), 3.5rem);--wp--preset--font-size--display: clamp(2.5rem, 2.5rem + ((1vw - 0.2rem) * 3.75), 4.75rem);--wp--preset--font-family--display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;--wp--preset--font-family--serif: "Source Serif 4", Georgia, "Times New Roman", serif;--wp--preset--font-family--mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;--wp--preset--spacing--20: 0.5rem;--wp--preset--spacing--30: 1rem;--wp--preset--spacing--40: clamp(1.25rem, 2.5vw, 1.75rem);--wp--preset--spacing--50: clamp(1.75rem, 4vw, 2.75rem);--wp--preset--spacing--60: clamp(2.5rem, 6vw, 4.5rem);--wp--preset--spacing--70: clamp(3.5rem, 9vw, 7rem);--wp--preset--spacing--80: 5.06rem;--wp--preset--spacing--10: 0.25rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);--wp--custom--radius: 6px;--wp--custom--measure: 68ch;}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:root { --wp--style--global--content-size: 44rem;--wp--style--global--wide-size: 80rem; }:where(body) { margin: 0; }.wp-site-blocks { padding-top: var(--wp--style--root--padding-top); padding-bottom: var(--wp--style--root--padding-bottom); }.has-global-padding { padding-right: var(--wp--style--root--padding-right); padding-left: var(--wp--style--root--padding-left); }.has-global-padding > .alignfull { margin-right: calc(var(--wp--style--root--padding-right) * -1); margin-left: calc(var(--wp--style--root--padding-left) * -1); }.has-global-padding :where(:not(.alignfull.is-layout-flow) > .has-global-padding:not(.wp-block-block, .alignfull)) { padding-right: 0; padding-left: 0; }.has-global-padding :where(:not(.alignfull.is-layout-flow) > .has-global-padding:not(.wp-block-block, .alignfull)) > .alignfull { margin-left: 0; margin-right: 0; }.wp-site-blocks > .alignleft { float: left; margin-right: 2em; }.wp-site-blocks > .alignright { float: right; margin-left: 2em; }.wp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }:where(.wp-site-blocks) > * { margin-block-start: 1.25rem; margin-block-end: 0; }:where(.wp-site-blocks) > :first-child { margin-block-start: 0; }:where(.wp-site-blocks) > :last-child { margin-block-end: 0; }:root { --wp--style--block-gap: 1.25rem; }:root :where(.is-layout-flow) > :first-child{margin-block-start: 0;}:root :where(.is-layout-flow) > :last-child{margin-block-end: 0;}:root :where(.is-layout-flow) > *{margin-block-start: 1.25rem;margin-block-end: 0;}:root :where(.is-layout-constrained) > :first-child{margin-block-start: 0;}:root :where(.is-layout-constrained) > :last-child{margin-block-end: 0;}:root :where(.is-layout-constrained) > *{margin-block-start: 1.25rem;margin-block-end: 0;}:root :where(.is-layout-flex){gap: 1.25rem;}:root :where(.is-layout-grid){gap: 1.25rem;}.is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{background-color: var(--wp--preset--color--paper);color: var(--wp--preset--color--ink);font-family: var(--wp--preset--font-family--display);font-size: var(--wp--preset--font-size--md);font-weight: 400;line-height: 1.55;--wp--style--root--padding-top: 0px;--wp--style--root--padding-right: clamp(1rem, 4vw, 2.5rem);--wp--style--root--padding-bottom: 0px;--wp--style--root--padding-left: clamp(1rem, 4vw, 2.5rem);}a:where(:not(.wp-element-button)){color: currentColor;text-decoration: underline;}:root :where(a:where(:not(.wp-element-button)):hover){color: var(--wp--preset--color--accent);}h1, h2, h3, h4, h5, h6{font-family: var(--wp--preset--font-family--display);font-weight: 700;letter-spacing: -0.015em;line-height: 1.12;}h1{font-size: var(--wp--preset--font-size--xxl);font-weight: 800;letter-spacing: -0.025em;}h2{font-size: var(--wp--preset--font-size--xl);}h3{font-size: var(--wp--preset--font-size--lg);}h4{font-size: var(--wp--preset--font-size--md);}:root :where(.wp-element-button, .wp-block-button__link){background-color: var(--wp--preset--color--ink);border-radius: 999px;border-width: 0;color: var(--wp--preset--color--paper);font-family: inherit;font-size: var(--wp--preset--font-size--sm);font-style: inherit;font-weight: 600;letter-spacing: inherit;line-height: inherit;padding-top: 0.7rem;padding-right: 1.3rem;padding-bottom: 0.7rem;padding-left: 1.3rem;text-decoration: none;text-transform: inherit;}:root :where(.wp-element-button:hover, .wp-block-button__link:hover){background-color: var(--wp--preset--color--accent);color: #FFFFFF;}:root :where(.wp-element-caption, .wp-block-audio figcaption, .wp-block-embed figcaption, .wp-block-gallery figcaption, .wp-block-image figcaption, .wp-block-table figcaption, .wp-block-video figcaption){color: var(--wp--preset--color--muted);font-size: var(--wp--preset--font-size--xs);}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-paper-color{color: var(--wp--preset--color--paper) !important;}.has-surface-color{color: var(--wp--preset--color--surface) !important;}.has-sunken-color{color: var(--wp--preset--color--sunken) !important;}.has-ink-color{color: var(--wp--preset--color--ink) !important;}.has-muted-color{color: var(--wp--preset--color--muted) !important;}.has-line-color{color: var(--wp--preset--color--line) !important;}.has-accent-color{color: var(--wp--preset--color--accent) !important;}.has-accent-soft-color{color: var(--wp--preset--color--accent-soft) !important;}.has-night-color{color: var(--wp--preset--color--night) !important;}.has-night-text-color{color: var(--wp--preset--color--night-text) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-paper-background-color{background-color: var(--wp--preset--color--paper) !important;}.has-surface-background-color{background-color: var(--wp--preset--color--surface) !important;}.has-sunken-background-color{background-color: var(--wp--preset--color--sunken) !important;}.has-ink-background-color{background-color: var(--wp--preset--color--ink) !important;}.has-muted-background-color{background-color: var(--wp--preset--color--muted) !important;}.has-line-background-color{background-color: var(--wp--preset--color--line) !important;}.has-accent-background-color{background-color: var(--wp--preset--color--accent) !important;}.has-accent-soft-background-color{background-color: var(--wp--preset--color--accent-soft) !important;}.has-night-background-color{background-color: var(--wp--preset--color--night) !important;}.has-night-text-background-color{background-color: var(--wp--preset--color--night-text) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-paper-border-color{border-color: var(--wp--preset--color--paper) !important;}.has-surface-border-color{border-color: var(--wp--preset--color--surface) !important;}.has-sunken-border-color{border-color: var(--wp--preset--color--sunken) !important;}.has-ink-border-color{border-color: var(--wp--preset--color--ink) !important;}.has-muted-border-color{border-color: var(--wp--preset--color--muted) !important;}.has-line-border-color{border-color: var(--wp--preset--color--line) !important;}.has-accent-border-color{border-color: var(--wp--preset--color--accent) !important;}.has-accent-soft-border-color{border-color: var(--wp--preset--color--accent-soft) !important;}.has-night-border-color{border-color: var(--wp--preset--color--night) !important;}.has-night-text-border-color{border-color: var(--wp--preset--color--night-text) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-xs-font-size{font-size: var(--wp--preset--font-size--xs) !important;}.has-sm-font-size{font-size: var(--wp--preset--font-size--sm) !important;}.has-md-font-size{font-size: var(--wp--preset--font-size--md) !important;}.has-lg-font-size{font-size: var(--wp--preset--font-size--lg) !important;}.has-xl-font-size{font-size: var(--wp--preset--font-size--xl) !important;}.has-xxl-font-size{font-size: var(--wp--preset--font-size--xxl) !important;}.has-display-font-size{font-size: var(--wp--preset--font-size--display) !important;}.has-display-font-family{font-family: var(--wp--preset--font-family--display) !important;}.has-serif-font-family{font-family: var(--wp--preset--font-family--serif) !important;}.has-mono-font-family{font-family: var(--wp--preset--font-family--mono) !important;}
+:root :where(.wp-block-post-content){font-family: var(--wp--preset--font-family--serif);font-size: var(--wp--preset--font-size--md);line-height: 1.7;}
+:root :where(.wp-block-table > table){font-family: var(--wp--preset--font-family--display);font-size: var(--wp--preset--font-size--sm);line-height: 1.45;}
+:root :where(.wp-block-search){font-size: var(--wp--preset--font-size--sm);}
+:root :where(.wp-block-navigation){font-size: var(--wp--preset--font-size--sm);font-weight: 600;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+<style id="core-block-supports-inline-css">
+.wp-container-core-group-is-layout-50740f72{flex-wrap:nowrap;align-items:center;}.wp-container-core-navigation-is-layout-a904f976{justify-content:flex-end;}.wp-container-core-group-is-layout-2f20ec05{flex-wrap:nowrap;justify-content:space-between;}.wp-container-core-group-is-layout-5f78a805{justify-content:space-between;}
+/*# sourceURL=core-block-supports-inline-css */
+</style>
+<style id="wp-block-template-skip-link-inline-css">
+/*! This file is auto-generated */
+.skip-link.screen-reader-text{border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute!important;width:1px;word-wrap:normal!important;word-break:normal!important}.skip-link.screen-reader-text:focus{background-color:#eee;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}
+/*# sourceURL=/wp-includes/css/wp-block-template-skip-link.min.css */
+</style>
+<style id="lwc-staging-inline-css">
+.lwc-staging-bar{position:relative;z-index:70;padding:.45rem clamp(1rem,4vw,2.5rem);background:repeating-linear-gradient(135deg,#FFD166 0 14px,#FFC53D 14px 28px);color:#1A1300;font:500 .8125rem/1.4 var(--wp--preset--font-family--mono,monospace);text-align:center}.lwc-staging-bar strong{margin-right:.4rem;text-transform:uppercase;letter-spacing:.05em}
+/*# sourceURL=lwc-staging-inline-css */
+</style>
+<link rel='stylesheet' id='lorawan-magazin-css' href='../wp-content/themes/lorawan-magazin/style.css' media='all' />
+<link rel="canonical" href="./index.html" />
+<script id="wp-importmap" type="importmap">
+{"imports":{"@wordpress/interactivity":"../wp-includes/js/dist/script-modules/interactivity/index.min.js"}}
+</script>
+<link rel="modulepreload" href="../wp-includes/js/dist/script-modules/interactivity/index.min.js" id="@wordpress/interactivity-js-modulepreload" fetchpriority="low">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"../index.html#organization","name":"growth with attitude UG (haftungsbeschränkt)","url":"../index.html","logo":{"@type":"ImageObject","url":"../wp-content/themes/lorawan-magazin/assets/img/logo-512.png"}},{"@type":"WebSite","@id":"../index.html#website","url":"../index.html","name":"lora-wan.de","description":"Das LoRaWAN-Magazin","inLanguage":"de-DE","publisher":{"@id":"../index.html#organization"},"potentialAction":{"@type":"SearchAction","target":"http://localhost:8080/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"TechArticle","@id":"./index.html#article","headline":"TinyML und LoRaWAN: Lokale Modelle, kleine Funkpakete, belastbare Ergebnisse","description":"Ein Vibrationssensor sammelt tausende Messwerte. Für die Wartung ist oft nur interessant, ob sich ein bekanntes Muster verändert hat. Diese Auswertung kann …","inLanguage":"de-DE","wordCount":1653,"articleSection":["Technik &amp; Protokoll"],"author":{"@id":"../index.html#organization"},"publisher":{"@id":"../index.html#organization"},"isPartOf":{"@id":"../index.html#website"},"mainEntityOfPage":"./index.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Magazin","item":"../index.html"},{"@type":"ListItem","position":2,"name":"Technik &amp; Protokoll","item":"../thema/technik/index.html"},{"@type":"ListItem","position":3,"name":"TinyML und LoRaWAN: Lokale Modelle, kleine Funkpakete, belastbare Ergebnisse","item":"./index.html"}]}]}</script>
+<style class="wp-fonts-local">
+@font-face{font-family:"Schibsted Grotesk";font-style:normal;font-weight:400 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/schibsted-grotesk-latin-wght-normal.woff2') format('woff2');}
+@font-face{font-family:"Schibsted Grotesk";font-style:italic;font-weight:400 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/schibsted-grotesk-latin-wght-italic.woff2') format('woff2');}
+@font-face{font-family:"Source Serif 4";font-style:normal;font-weight:200 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/source-serif-4-latin-wght-normal.woff2') format('woff2');}
+@font-face{font-family:"Source Serif 4";font-style:italic;font-weight:200 900;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/source-serif-4-latin-wght-italic.woff2') format('woff2');}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2');}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:url('../wp-content/themes/lorawan-magazin/assets/fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2');}
+</style>
+</head>
+
+<body class="wp-singular post-template-default single single-post postid-14 single-format-standard wp-embed-responsive wp-theme-lorawan-magazin lw-ressort-technik">
+<div class="lwc-staging-bar" role="note"><strong>Staging-Vorschau</strong> Neue Version von lora-wan.de, nicht öffentlich und nicht indexiert. Inhalte übernommen von der Live-Seite.</div><style>:root{--lw-cat:#4338ca}</style>
+<a class="skip-link screen-reader-text" id="wp-skip-link" href="#inhalt">Zum Inhalt springen</a><div class="wp-site-blocks"><div class="wp-block-template-part">
+<header class="wp-block-group lw-header has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+<div class="wp-block-group alignwide lw-header__bar is-content-justification-space-between is-nowrap is-layout-flex wp-container-core-group-is-layout-2f20ec05 wp-block-group-is-layout-flex">
+<div class="wp-block-group lw-brand is-nowrap is-layout-flex wp-container-core-group-is-layout-50740f72 wp-block-group-is-layout-flex"><p class="lw-brand__name wp-block-site-title"><a href="../index.html" target="_self" rel="home">lora-wan.de</a></p>
+
+<p class="lw-brand__tag wp-block-site-tagline">Das LoRaWAN-Magazin</p></div>
+
+
+
+<div class="wp-block-group lw-header__nav is-nowrap is-layout-flex wp-container-core-group-is-layout-50740f72 wp-block-group-is-layout-flex"><nav class="is-responsive items-justified-right lw-nav wp-block-navigation is-content-justification-right is-layout-flex wp-container-core-navigation-is-layout-a904f976 wp-block-navigation-is-layout-flex" 
+		 data-wp-interactive="core/navigation" data-wp-context='{"overlayOpenedBy":{"click":false,"hover":false,"focus":false},"type":"overlay","roleAttribute":"","ariaLabel":"Men\u00fc"}'><button aria-haspopup="dialog" aria-label="Menü öffnen" class="wp-block-navigation__responsive-container-open" 
+				data-wp-on--click="actions.openMenuOnClick"
+				data-wp-on--keydown="actions.handleMenuKeydown"
+			><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 5v1.5h14V5H5z"></path><path d="M5 12.8h14v-1.5H5v1.5z"></path><path d="M5 19h14v-1.5H5V19z"></path></svg></button>
+				<div class="wp-block-navigation__responsive-container"  id="modal-1" 
+				data-wp-class--has-modal-open="state.isMenuOpen"
+				data-wp-class--is-menu-open="state.isMenuOpen"
+				data-wp-watch="callbacks.initMenu"
+				data-wp-on--keydown="actions.handleMenuKeydown"
+				data-wp-on--focusout="actions.handleMenuFocusout"
+				tabindex="-1"
+			>
+					<div class="wp-block-navigation__responsive-close" tabindex="-1">
+						<div class="wp-block-navigation__responsive-dialog" 
+				data-wp-bind--aria-modal="state.ariaModal"
+				data-wp-bind--aria-label="state.ariaLabel"
+				data-wp-bind--role="state.roleAttribute"
+			>
+							<button aria-label="Menü schließen" class="wp-block-navigation__responsive-container-close" 
+				data-wp-on--click="actions.closeMenuOnClick"
+			><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z"></path></svg></button>
+							<div class="wp-block-navigation__responsive-container-content" 
+				data-wp-watch="callbacks.focusFirstElement"
+			 id="modal-1-content">
+								<ul class="wp-block-navigation__container is-responsive items-justified-right lw-nav wp-block-navigation"><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/grundlagen/index.html"><span class="wp-block-navigation-item__label">Grundlagen</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/technik/index.html"><span class="wp-block-navigation-item__label">Technik</span></a></li><li data-wp-context="{ &quot;submenuOpenedBy&quot;: { &quot;click&quot;: false, &quot;hover&quot;: false, &quot;focus&quot;: false }, &quot;type&quot;: &quot;submenu&quot;, &quot;modal&quot;: null, &quot;previousFocus&quot;: null }" data-wp-interactive="core/navigation" data-wp-on--focusout="actions.handleMenuFocusout" data-wp-on--keydown="actions.handleMenuKeydown" data-wp-on--pointerenter="actions.openMenuOnHover" data-wp-on--pointerleave="actions.closeMenuOnHover" data-wp-watch="callbacks.initMenu" tabindex="-1" class="wp-block-navigation-item has-child open-on-hover-click wp-block-navigation-submenu"><a class="wp-block-navigation-item__content" href="../thema/anwendungen/index.html"><span class="wp-block-navigation-item__label">Anwendungen</span></a><button data-wp-bind--aria-expanded="state.isSubmenuOpen" data-wp-on--click="actions.toggleMenuOnClick" aria-label="Untermenü von Anwendungen" class="wp-block-navigation__submenu-icon wp-block-navigation-submenu__toggle" ><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></button><ul data-wp-on--focus="actions.openMenuOnFocus" class="wp-block-navigation__submenu-container wp-block-navigation-submenu"><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/index.html"><span class="wp-block-navigation-item__label">Alle Anwendungen</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/industrie/index.html"><span class="wp-block-navigation-item__label">Industrie &amp; Bergbau</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/logistik/index.html"><span class="wp-block-navigation-item__label">Logistik &amp; Tracking</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/bau-infrastruktur/index.html"><span class="wp-block-navigation-item__label">Bau &amp; Infrastruktur</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/energie/index.html"><span class="wp-block-navigation-item__label">Energie</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/umwelt-landwirtschaft/index.html"><span class="wp-block-navigation-item__label">Umwelt &amp; Landwirtschaft</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/smart-city/index.html"><span class="wp-block-navigation-item__label">Smart City</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/gebaeude/index.html"><span class="wp-block-navigation-item__label">Gebäude &amp; Smart Home</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/gesundheit/index.html"><span class="wp-block-navigation-item__label">Gesundheit &amp; Pflege</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/anwendungen/handel/index.html"><span class="wp-block-navigation-item__label">Handel &amp; Finanzen</span></a></li></ul></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../thema/netze-anbieter/index.html"><span class="wp-block-navigation-item__label">Netze &amp; Anbieter</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="../glossar/index.html"><span class="wp-block-navigation-item__label">Glossar</span></a></li></ul>
+								
+							</div>
+						</div>
+					</div>
+				</div></nav>
+
+<form role="search" method="get" action="../index.html" class="wp-block-search__button-only wp-block-search__searchfield-hidden wp-block-search__icon-button lw-header__search wp-block-search" 
+		 data-wp-interactive="core/search"
+		 data-wp-context='{"isSearchInputVisible":false,"inputId":"wp-block-search__input-2","ariaLabelExpanded":"Suche starten","ariaLabelCollapsed":"Suchfeld erweitern"}'
+		 data-wp-class--wp-block-search__searchfield-hidden="!context.isSearchInputVisible"
+		 data-wp-on--keydown="actions.handleSearchKeydown"
+		 data-wp-on--focusout="actions.handleSearchFocusout"
+		><label class="wp-block-search__label screen-reader-text" for="wp-block-search__input-2" >Suche</label><div class="wp-block-search__inside-wrapper" ><input aria-hidden="true" class="wp-block-search__input" data-wp-bind--aria-hidden="!context.isSearchInputVisible" data-wp-bind--tabindex="state.tabindex" id="wp-block-search__input-2" placeholder="Artikel durchsuchen …"  value="" type="search" name="s" required /><button  aria-expanded="false"  class="wp-block-search__button has-icon wp-element-button" data-wp-bind--aria-controls="state.ariaControls" data-wp-bind--aria-expanded="context.isSearchInputVisible" data-wp-bind--aria-label="state.ariaLabel" data-wp-bind--type="state.type" data-wp-on--click="actions.openSearchInput"  ><svg class="search-icon" viewBox="0 0 24 24" width="24" height="24">
+					<path d="M13 5c-3.3 0-6 2.7-6 6 0 1.4.5 2.7 1.3 3.7l-3.8 3.8 1.1 1.1 3.8-3.8c1 .8 2.3 1.3 3.7 1.3 3.3 0 6-2.7 6-6S16.3 5 13 5zm0 10.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z"></path>
+				</svg></button></div></form>
+
+<button type="button" class="lw-theme-toggle wp-block-lorawan-magazin-theme-toggle" data-lw-theme-toggle aria-label="Dunkles Farbschema umschalten" aria-pressed="false">
+	<span class="lw-theme-toggle__moon"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg></span>
+	<span class="lw-theme-toggle__sun"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg></span>
+</button>
+</div>
+</div>
+</header>
+
+</div>
+
+
+<main class="wp-block-group lw-main lw-article has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" id="inhalt">
+<div class="wp-block-group alignwide lw-article__head is-layout-flow wp-block-group-is-layout-flow"><nav class="lw-breadcrumbs wp-block-lorawan-magazin-breadcrumbs" aria-label="Brotkrümelnavigation">
+	<ol>
+					<li><a href="../index.html">Magazin</a></li>
+					<li><a href="../thema/technik/index.html">Technik &amp; Protokoll</a></li>
+			</ol>
+</nav>
+
+
+<p class="lw-eyebrow-row wp-block-lorawan-magazin-eyebrow">
+		<a class="lw-eyebrow" href="../thema/technik/index.html">Technik &amp; Protokoll</a>
+</p>
+
+
+<h1 class="lw-article__title wp-block-post-title">TinyML und LoRaWAN: Lokale Modelle, kleine Funkpakete, belastbare Ergebnisse</h1>
+
+<div class="lw-post-meta wp-block-lorawan-magazin-post-meta">
+	<p class="lw-meta"><span class="lw-meta__time"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>9 Min. Lesezeit</span></p></div>
+</div>
+
+
+<figure class="lw-cover lw-cover--wide alignwide lw-article__cover wp-block-lorawan-magazin-cover">
+	<svg class="lw-cover__svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" role="presentation" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<linearGradient id="lwc14-1-bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#202362"/>
+			<stop offset="1" stop-color="#131B3A"/>
+		</linearGradient>
+		<filter id="lwc14-1-glow" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="7"/></filter>
+	</defs>
+	<rect width="100%" height="100%" fill="url(#lwc14-1-bg)"/>
+	<path d="M0 123.0H1200M0 169.0H1200M0 215.0H1200M0 261.0H1200M0 307.1H1200M0 353.1H1200M0 399.1H1200M0 445.1H1200M0 491.2H1200" stroke="#B8B3EB" stroke-opacity=".09" stroke-width="1" fill="none"/>
+	<path d="M1092 319h4M329 169h8M546 368h5M828 379h4M1172 145h8M381 415h8M824 230h8M122 363h10M428 393h9M1181 374h5M1144 458h9M640 207h4M151 405h6M800 249h8M833 236h10M71 402h5M951 420h7M348 390h3M781 480h5M880 433h10M819 251h10M1092 458h6M273 224h3M918 290h7M409 377h8M367 482h2M908 240h8M969 376h4M871 160h7M1162 254h8M1012 485h7M419 474h9M1092 319h4M329 169h8M546 368h5M828 379h4M1172 145h8M381 415h8M824 230h8M122 363h10M428 393h9M1181 374h5M1144 458h9M640 207h4M151 405h6M800 249h8M833 236h10M71 402h5M951 420h7M348 390h3M781 480h5M880 433h10M819 251h10M1092 458h6M273 224h3M918 290h7M409 377h8M367 482h2M908 240h8M969 376h4M871 160h7M1162 254h8M1012 485h7M419 474h9M1092 319h4M329 169h8M546 368h5M828 379h4M1172 145h8M381 415h8" stroke="#B8B3EB" stroke-opacity=".22" stroke-width="2" fill="none"/>
+	<path d="M76.9 649.0V661.0M302.4 649.0V661.0M528.0 649.0V661.0M753.6 649.0V661.0M979.1 649.0V661.0" stroke="#B8B3EB" stroke-opacity=".35" stroke-width="2" fill="none"/>
+	<path d="M-148.7 491.2L76.9 123.0M76.9 399.1L246.0 123.0M246.0 491.2L302.4 399.1M302.4 307.1L415.2 123.0M415.2 491.2L528.0 307.1M528.0 123.0L753.6 491.2M753.6 123.0L979.1 491.2M979.1 123.0L1035.5 215.0M1035.5 261.0L1120.1 123.0M1120.1 491.2L1261.1 261.0" stroke="#726AD7" stroke-width="9" stroke-linecap="round" fill="none" opacity=".55" filter="url(#lwc14-1-glow)"/>
+	<path d="M-148.7 491.2L76.9 123.0M76.9 399.1L246.0 123.0M246.0 491.2L302.4 399.1M302.4 307.1L415.2 123.0M415.2 491.2L528.0 307.1M528.0 123.0L753.6 491.2M753.6 123.0L979.1 491.2M979.1 123.0L1035.5 215.0M1035.5 261.0L1120.1 123.0M1120.1 491.2L1261.1 261.0" stroke="#B8B3EB" stroke-width="3" stroke-linecap="round" fill="none"/>
+	</svg></figure>
+
+
+
+<div class="wp-block-group alignwide lw-article__grid is-layout-flow wp-block-group-is-layout-flow">
+<aside class="wp-block-group lw-article__aside is-layout-flow wp-block-group-is-layout-flow"><nav class="lw-toc wp-block-lorawan-magazin-toc" aria-labelledby="lw-toc-title-14">
+	<details open>
+		<summary id="lw-toc-title-14" class="lw-toc__title">In diesem Artikel</summary>
+		<ol class="lw-toc__list">
+							<li><a href="#was-tinyml-technisch-bedeutet">Was TinyML technisch bedeutet</a></li>
+							<li><a href="#wie-wird-aus-rohdaten-eine-kleine-meldung">Wie wird aus Rohdaten eine kleine Meldung?</a></li>
+							<li><a href="#warum-lorawan-gut-zu-edge-ai-passt">Warum LoRaWAN gut zu Edge AI passt</a></li>
+							<li><a href="#was-muss-auf-der-zielhardware-gemessen-werden">Was muss auf der Zielhardware gemessen werden?</a></li>
+							<li><a href="#wie-wird-verhindert-dass-der-test-zu-gut-aussieht">Wie wird verhindert, dass der Test zu gut aussieht?</a></li>
+							<li><a href="#anomalieerkennung-und-klassifikation-trennen">Anomalieerkennung und Klassifikation trennen</a></li>
+							<li><a href="#modell-und-konzeptdrift-im-feld">Modell- und Konzeptdrift im Feld</a></li>
+							<li><a href="#wie-kommen-neue-modelle-sicher-auf-das-geraet">Wie kommen neue Modelle sicher auf das Gerät?</a></li>
+							<li><a href="#security-vom-sensor-bis-zum-modell">Security vom Sensor bis zum Modell</a></li>
+							<li><a href="#fallback-und-sichere-wirkung">Fallback und sichere Wirkung</a></li>
+							<li><a href="#welche-schritte-fuehren-zu-einem-belastbaren-feldtest">Welche Schritte führen zu einem belastbaren Feldtest?</a></li>
+							<li><a href="#kennzahlen-fuer-tinyml-plus-lorawan">Kennzahlen für TinyML plus LoRaWAN</a></li>
+							<li><a href="#modellflotten-beobachtbar-und-gestuft-ausrollen">Modellflotten beobachtbar und gestuft ausrollen</a></li>
+							<li><a href="#wer-bestaetigt-die-trainingsdaten-der-naechsten-version">Wer bestätigt die Trainingsdaten der nächsten Version?</a></li>
+							<li><a href="#haeufige-fragen">Häufige Fragen</a></li>
+							<li><a href="#quellen-und-einordnung">Quellen und Einordnung</a></li>
+					</ol>
+	</details>
+</nav>
+</aside>
+
+
+
+<div class="wp-block-group lw-article-body is-layout-flow wp-block-group-is-layout-flow"><div class="entry-content lw-prose wp-block-post-content is-layout-flow wp-block-post-content-is-layout-flow">
+<p class="wp-block-paragraph">Ein Vibrationssensor sammelt tausende Messwerte. Für die Wartung ist oft nur interessant, ob sich ein bekanntes Muster verändert hat. Diese Auswertung kann direkt am Sensor stattfinden. TinyML bringt dafür kleine Machine-Learning-Modelle auf Mikrocontroller; LoRaWAN übermittelt das kompakte Ergebnis.</p>
+
+
+
+<p class="wp-block-paragraph">Das spart Übertragung, verlangt aber mehr Sorgfalt in der Firmware. Filter, Modell und Sensor müssen zusammenpassen. Eine einfache Regel bleibt ein ernstzunehmender Vergleich: Ein neuronales Netz erhält keinen Bonuspunkt dafür, dass es eines ist.</p>
+
+
+
+<h2 class="wp-block-heading" id="was-tinyml-technisch-bedeutet">Was TinyML technisch bedeutet</h2>
+
+
+
+<p class="wp-block-paragraph">Das offizielle Projekt <a href="https://github.com/tensorflow/tflite-micro" rel="noopener">TensorFlow Lite for Microcontrollers</a> beschreibt eine Laufzeit für Machine-Learning-Modelle auf ressourcenbegrenzten Mikrocontrollern und DSPs. Die <a href="https://developers.google.com/edge/litert/microcontrollers/get_started" rel="noopener">Google-Anleitung für LiteRT auf Mikrocontrollern</a> zeigt den typischen Ablauf aus Training, Konvertierung und Inferenz in eingebettetem C++. Das Training findet meist außerhalb des Endgeräts statt; im Feld führt der Knoten das fertige Modell aus.</p>
+
+
+
+<p class="wp-block-paragraph">Ob lokale Auswertung insgesamt Energie spart, muss am konkreten Gerät gemessen werden. Weniger Funkverkehr kann helfen; Sensorbetrieb, Abtastung, Rechenzeit und Speicherzugriffe verbrauchen ebenfalls Energie. Ein kleines Modell ist deshalb noch keine Zusage für jahrelangen Batteriebetrieb.</p>
+
+
+
+<figure class="wp-block-table"><table><thead><tr><th>Stufe</th><th>Aufgabe am Edge-Knoten</th><th>LoRaWAN-Nachricht</th><th>Prüffrage</th></tr></thead><tbody><tr><td>Erfassung</td><td>Vibration, Strom, Audio oder Prozesssignal abtasten</td><td>Noch keine</td><td>Ist Sensorposition stabil?</td></tr><tr><td>Vorverarbeitung</td><td>Filtern, normalisieren, Fenster bilden</td><td>Diagnosestatus</td><td>Ist die Implementierung identisch zum Training?</td></tr><tr><td>Feature/Modell</td><td>Merkmale oder Inferenz berechnen</td><td>Score, Klasse, Kennwerte</td><td>Gilt das Modell für den Betriebsmodus?</td></tr><tr><td>Ereignis</td><td>Schwelle, Hysterese und lokale Speicherung</td><td>Alarm plus Kontext</td><td>Wie werden Fehlalarme behandelt?</td></tr><tr><td>Lernen/Betrieb</td><td>Rohfenster stichprobenartig sichern</td><td>Modellversion und Driftindikator</td><td>Wie wird das Modell überwacht?</td></tr></tbody></table></figure>
+
+
+
+<h2 class="wp-block-heading" id="wie-wird-aus-rohdaten-eine-kleine-meldung">Wie wird aus Rohdaten eine kleine Meldung?</h2>
+
+
+
+<p class="wp-block-paragraph">Ein Vibrationsknoten kann beispielsweise fünf Sekunden mit hoher Rate messen, das Signal filtern, spektrale Merkmale berechnen und ein Modell ausführen. Bei normalem Verhalten sendet er nur einen periodischen Gesundheitsdatensatz. Bei einer Auffälligkeit speichert er das Rohfenster lokal und sendet Score, Merkmal, Betriebsmodus und Speicherhinweis.</p>
+
+
+
+<p class="wp-block-paragraph">Diese Pipeline reduziert Funklast, aber sie verschiebt Verantwortung in die Firmware. Fensterlänge, Filter, Quantisierung, Normalisierung und Sensortakt müssen mit der Trainingspipeline übereinstimmen. Schon eine kleine Änderung kann Modellresultate verschieben, ohne dass der Binärcode abstürzt.</p>
+
+
+
+<div class="wp-block-group lw-box is-layout-flow wp-block-group-is-layout-flow">
+<p class="wp-block-paragraph"><strong>Zu jedem Edge-Ergebnis gehören</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li>Sensor- und Asset-ID sowie Betriebszustand</li>
+
+<li>Modell-, Feature- und Firmwareversion</li>
+
+<li>Score oder Klasse mit nachvollziehbarer Schwelle</li>
+
+<li>Datenqualität, Batterie, Temperatur und Rechenfehlerstatus</li>
+
+<li>Hinweis auf lokal gespeicherte Rohdaten und deren Zeitfenster</li>
+</ul>
+</div>
+
+
+
+<h2 class="wp-block-heading" id="warum-lorawan-gut-zu-edge-ai-passt">Warum LoRaWAN gut zu Edge AI passt</h2>
+
+
+
+<p class="wp-block-paragraph">Die <a href="https://lora-alliance.org/about-lorawan/" rel="noopener">LoRa Alliance</a> beschreibt LoRaWAN als energiearme Kommunikation für kleine Datenmengen. TinyML reduziert ein großes lokales Signal auf wenige aussagekräftige Werte. Dadurch kann ein batteriebetriebener Knoten lange arbeiten, ohne Audio-, Strom- oder Vibrationsrohdaten permanent zu übertragen.</p>
+
+
+
+<p class="wp-block-paragraph">The Things Network nennt in den <a href="https://www.thethingsnetwork.org/docs/lorawan/limitations/" rel="noopener">LoRaWAN-Limitierungen</a> geringe Bandbreite und begrenzte Downlinks. Genau deshalb sollte ein Edge-AI-System nicht versuchen, jedes Rohfenster oder häufige Modellpakete über LoRaWAN zu bewegen. Uplinks bleiben klein; umfangreiche Diagnose und Training nutzen Wartungszugang, lokales Kabel, WLAN oder einen anderen geeigneten Kanal.</p>
+
+
+
+<h2 class="wp-block-heading" id="was-muss-auf-der-zielhardware-gemessen-werden">Was muss auf der Zielhardware gemessen werden?</h2>
+
+
+
+<p class="wp-block-paragraph">Auf Mikrocontrollern sind Flash, RAM, Rechenzeit und Energie begrenzt. Ein kleineres Modell ist nicht automatisch schlechter, wenn die Eingangsmerkmale gut gewählt sind. Bei rotierenden Maschinen können Drehzahlbezug, Bandenergie oder Hüllkurvenmerkmale mehr Nutzen bringen als ein großes Netz auf unnormalisierten Rohdaten.</p>
+
+
+
+<p class="wp-block-paragraph">Quantisierung reduziert Speicher und Rechenlast, kann aber Genauigkeit verändern. Deshalb wird nicht nur das Trainingsmodell am PC geprüft, sondern exakt die eingebettete, quantisierte Variante auf Zielhardware. Laufzeit, maximaler Speicherbedarf und Energie pro Inferenz gehören zu den Abnahmekriterien.</p>
+
+
+
+<ul class="wp-block-list">
+<li>Flash- und RAM-Budget vor der Modellauswahl festlegen</li>
+
+<li>Worst-Case-Laufzeit unter realer Sensor- und Funklast messen</li>
+
+<li>quantisiertes Zielmodell gegen unabhängige Testdaten prüfen</li>
+
+<li>Überlauf, fehlende Samples und Sensorfehler gezielt simulieren</li>
+
+<li>Strombedarf aus Messung, Inferenz, Speicherung und Uplink bilanzieren</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading" id="wie-wird-verhindert-dass-der-test-zu-gut-aussieht">Wie wird verhindert, dass der Test zu gut aussieht?</h2>
+
+
+
+<p class="wp-block-paragraph">Industriesignale hängen von Last, Drehzahl, Produkt, Werkzeug, Montage und Umgebung ab. Ein Modell, das nur an einer Maschine bei einer Last trainiert wurde, kann an einer baugleichen Anlage falsche Alarme erzeugen. Trainings- und Testdaten müssen die vorgesehenen Anlagenfamilien und Betriebsmodi abdecken.</p>
+
+
+
+<p class="wp-block-paragraph">Besonders wertvoll sind bestätigte Fehlerbefunde. Eine Anomalie ist zunächst nur anders. Erst Wartungsbefund, Prozesswissen und Wiederholung zeigen, ob sie relevant ist. Datenaufteilung sollte außerdem zeitlich und anlagenbezogen sauber erfolgen, damit nahezu identische Fenster nicht gleichzeitig in Training und Test landen.</p>
+
+
+
+<h2 class="wp-block-heading" id="anomalieerkennung-und-klassifikation-trennen">Anomalieerkennung und Klassifikation trennen</h2>
+
+
+
+<p class="wp-block-paragraph">Anomalieerkennung lernt typisches Verhalten und meldet Abweichung. Sie eignet sich, wenn wenige Fehlerbeispiele vorliegen, sagt aber nicht automatisch, was defekt ist. Klassifikation unterscheidet bekannte Klassen, benötigt dafür repräsentative und korrekt beschriftete Beispiele. Beide Verfahren können kombiniert werden, sollten im Ergebnis aber klar bezeichnet sein.</p>
+
+
+
+<p class="wp-block-paragraph">Ein beispielhafter Uplink könnte enthalten: Anomaliescore 0,82, Betriebsmodus Volllast, auffälliges Frequenzband, Modellversion M12 und Verweis auf ein lokal gespeichertes Rohfenster. <strong>0,82 ist ohne passende Kalibrierung keine 82-prozentige Ausfallwahrscheinlichkeit.</strong> Bedeutung und Skala ergeben sich aus dem jeweiligen Modell. Eine Aussage wie „Lagerausfall in drei Tagen“ benötigt eine dafür entwickelte und unabhängig validierte Prognose.</p>
+
+
+
+<div class="wp-block-group lw-box lw-box--rule is-layout-flow wp-block-group-is-layout-flow">
+<p class="wp-block-paragraph"><strong>KI-Regel:</strong> Das Modell darf nur behaupten, was Trainingsziel, Testdaten und Feldvalidierung tragen. Unbekannt ist eine fachlich wertvolle Ausgabe.</p>
+</div>
+
+
+
+<h2 class="wp-block-heading" id="modell-und-konzeptdrift-im-feld">Modell- und Konzeptdrift im Feld</h2>
+
+
+
+<p class="wp-block-paragraph">Im Betrieb werden unter anderem Eingangsverteilung, Scoreverlauf und bestätigte Befunde beobachtet. Eine veränderte Eingangsverteilung ist Datendrift. Ändert sich der Zusammenhang zwischen Eingang und Zielgröße, spricht man von Konzeptdrift. Eine neue Laststufe beweist also noch keinen Modellfehler; umgekehrt kann ein unveränderter Durchschnittswert Probleme verdecken. Ohne Rückmeldungen aus dem Feld bleibt die Überwachung unvollständig.</p>
+
+
+
+<p class="wp-block-paragraph">Das <a href="https://www.nist.gov/itl/ai-risk-management-framework" rel="noopener">NIST AI Risk Management Framework</a> stellt kontinuierliches Risikomanagement über den Lebenszyklus in den Mittelpunkt. Für TinyML bedeutet das eine klare Governance: Wer darf Modelle freigeben, wie werden Tests dokumentiert, wann erfolgt Rollback und wer bewertet Auswirkungen auf Betrieb und Sicherheit?</p>
+
+
+
+<h2 class="wp-block-heading" id="wie-kommen-neue-modelle-sicher-auf-das-geraet">Wie kommen neue Modelle sicher auf das Gerät?</h2>
+
+
+
+<p class="wp-block-paragraph">Die technische Empfehlung zum <a href="https://resources.lora-alliance.org/document/fuota-process-summary-technical-recommendation-tr002-v1-0-0" rel="noopener">LoRaWAN FUOTA Process</a> beschreibt Bausteine für Firmware Updates Over the Air auf Anwendungsebene. Ein Modell kann Teil der Firmware oder ein separates Datenpaket sein. In beiden Fällen braucht der Knoten genügend Speicher, Integritäts- und Authentizitätsprüfung, einen sicheren Aktivierungsprozess und eine funktionierende Rückfallversion.</p>
+
+
+
+<p class="wp-block-paragraph">FUOTA verbraucht Downlinkkapazität und Energie. Eine große Flotte wird deshalb in Wellen aktualisiert, überwacht und bei Problemen gestoppt. Ein Modell sollte nicht häufiger gewechselt werden, als es fachlich nötig ist. Für schwer erreichbare oder sicherheitsnahe Geräte kann ein kontrolliertes Wartungsupdate trotz höherem Aufwand die bessere Wahl sein.</p>
+
+
+
+<h2 class="wp-block-heading" id="security-vom-sensor-bis-zum-modell">Security vom Sensor bis zum Modell</h2>
+
+
+
+<p class="wp-block-paragraph">Geräteidentität und LoRaWAN-Schlüssel schützen den Transport, reichen aber nicht für den gesamten AI-Lebenszyklus. Modellartefakte, Trainingsdaten, Featurecode und Freigaben brauchen Zugriffsschutz und Versionierung. Ein Angreifer oder versehentlicher Prozessfehler darf nicht unbemerkt ein anderes Modell aktivieren.</p>
+
+
+
+<p class="wp-block-paragraph">Auch Datenschutz kann relevant sein. Audio- oder Prozessrohdaten bleiben idealerweise lokal und werden nur für definierte Diagnosefälle ausgelesen. Wenn sie Personen oder vertrauliche Produktionsabläufe erkennen lassen, gelten zusätzliche Zugriffs- und Löschregeln. Edge-Verarbeitung reduziert Übertragung, beseitigt aber nicht automatisch jedes Datenschutzrisiko.</p>
+
+
+
+<h2 class="wp-block-heading" id="fallback-und-sichere-wirkung">Fallback und sichere Wirkung</h2>
+
+
+
+<p class="wp-block-paragraph">Ein Modell kann hängen, abstürzen oder unplausible Ergebnisse liefern. Der Knoten braucht Watchdog, Selbsttest und einen definierten Degradationsmodus. Bei Modellfehler kann er auf transparente Kennwerte oder konservative Schwellen zurückfallen und den Zustand melden.</p>
+
+
+
+<p class="wp-block-paragraph">TinyML sollte keine sicherheitsgerichtete Abschaltung übernehmen, wenn Hardware, Software und Gesamtfunktion dafür nicht nachgewiesen sind. In vielen Projekten ist die richtige Wirkung eine Wartungsinformation. Lokale Maschinen- und Personenschutzfunktionen bleiben in den zugelassenen Steuerungen.</p>
+
+
+
+<h2 class="wp-block-heading" id="welche-schritte-fuehren-zu-einem-belastbaren-feldtest">Welche Schritte führen zu einem belastbaren Feldtest?</h2>
+
+
+
+<ol class="wp-block-list">
+<li>klaren Entscheidungsnutzen und zulässige Fehlerraten definieren</li>
+
+<li>repräsentative Daten mit Betriebsmodus und Befund sammeln</li>
+
+<li>einfache Regeln als Baseline gegen das ML-Modell vergleichen</li>
+
+<li>quantisiertes Modell auf Zielhardware verifizieren</li>
+
+<li>Funk, Energie, Speicher und Ausfallmodi gemeinsam testen</li>
+
+<li>Shadow Mode ohne automatische Wirkung im Feld betreiben</li>
+
+<li>Befunde zurückführen und Modellüberwachung etablieren</li>
+
+<li>Update, Rollback und Außerbetriebnahme vor Skalierung üben</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">Im Shadow Mode erzeugt das Modell Meldungen, ohne den Arbeitsprozess automatisch zu verändern. Fachleute vergleichen sie mit realen Befunden. So werden Schwellen, unbekannte Betriebszustände und Fehlalarme sichtbar, bevor ein Modell Aufträge oder Eskalationen auslöst.</p>
+
+
+
+<h2 class="wp-block-heading" id="kennzahlen-fuer-tinyml-plus-lorawan">Kennzahlen für TinyML plus LoRaWAN</h2>
+
+
+
+<p class="wp-block-paragraph">Modellseitig zählen Precision, Recall oder andere zur Aufgabe passende Metriken, getrennt nach Anlage und Betriebsmodus. Im Feld zählen bestätigte Treffer, Fehlalarme, unbekannte Zustände, Drift und Zeit bis zur Rückmeldung. Embedded-seitig zählen Inferenzzeit, RAM, Flash, Energie und Abstürze.</p>
+
+
+
+<p class="wp-block-paragraph">Funkseitig zählen Nachrichtengröße, Sendehäufigkeit, Downlinkbedarf, Paketverlust und Batterierestlaufzeit. Der eigentliche Nutzen zeigt sich schließlich im Prozess: frühere Erkennung, besser vorbereitete Wartung und weniger unnötige Kontrollen. Keine einzelne Metrik ersetzt dieses Gesamtbild.</p>
+
+
+
+<h2 class="wp-block-heading" id="modellflotten-beobachtbar-und-gestuft-ausrollen">Modellflotten beobachtbar und gestuft ausrollen</h2>
+
+
+
+<p class="wp-block-paragraph">Bei hundert Edge-Knoten reicht es nicht zu wissen, welches Modell laut Planung installiert sein sollte. Jeder Gesundheitsdatensatz sollte die aktive Modell- und Firmwareversion, letzten erfolgreichen Selbsttest, Inferenzfehler und Zeitpunkt der Aktivierung enthalten. Eine Flottenansicht erkennt Geräte, die auf einer alten Version verbleiben, nach einem Neustart in die Rückfallversion gewechselt sind oder seit dem Update ungewöhnlich viele unbekannte Zustände melden.</p>
+
+
+
+<p class="wp-block-paragraph">Neue Modelle werden zunächst auf Laborgeräten, dann auf wenigen repräsentativen Feldknoten und erst danach in größeren Wellen aktiviert. Zwischen den Stufen liegen definierte Beobachtungszeiten und Abbruchkriterien. Eine Canary-Gruppe sollte verschiedene Anlagen, Funkbedingungen und Betriebsmodi enthalten, nicht nur die am leichtesten erreichbaren Geräte. Bei auffälliger Scoreverteilung, höherem Energiebedarf oder technischen Fehlern stoppt der Rollout, bevor die gesamte Flotte betroffen ist.</p>
+
+
+
+<h2 class="wp-block-heading" id="wer-bestaetigt-die-trainingsdaten-der-naechsten-version">Wer bestätigt die Trainingsdaten der nächsten Version?</h2>
+
+
+
+<p class="wp-block-paragraph">Für die Weiterentwicklung werden Edge-Meldung, ausgewähltes Rohfenster, Betriebszustand und Wartungsbefund in einem kuratierten Datensatz verbunden. Das aktuelle Modell darf seine eigenen Vorhersagen nicht ungeprüft zu neuen Trainingslabels machen. Sonst verstärkt es frühere Fehler. Fachlich bestätigte Befunde, zufällige Normalstichproben und bewusst erfasste Grenzfälle ergeben eine belastbarere Grundlage für die nächste Version.</p>
+
+
+
+<p class="wp-block-paragraph">Die Datenfreigabe hält fest, aus welchen Anlagen und Zeiträumen Beispiele stammen, welche Personen Zugriff hatten und welche Ausschlüsse gelten. Vor einem Retraining wird geprüft, ob neue Daten echte Veränderungen oder nur einen Sensor- beziehungsweise Firmwarewechsel abbilden. Auf diese Weise bleibt die Modellverbesserung nachvollziehbar und kann bei schlechterer Feldleistung auf eine bekannte Version zurückgesetzt werden.</p>
+
+
+
+<h2 class="wp-block-heading" id="haeufige-fragen">Häufige Fragen</h2>
+
+
+
+<h3 class="wp-block-heading" id="was-ist-tinyml">Was ist TinyML?</h3>
+
+
+
+<p class="wp-block-paragraph">TinyML bezeichnet kompakte Machine-Learning-Modelle, die direkt auf ressourcenbegrenzten Mikrocontrollern oder ähnlichen Edge-Geräten ausgeführt werden.</p>
+
+
+
+<h3 class="wp-block-heading" id="warum-passt-tinyml-zu-lorawan">Warum passt TinyML zu LoRaWAN?</h3>
+
+
+
+<p class="wp-block-paragraph">Das Modell verdichtet große lokale Sensorsignale zu kleinen Scores, Klassen und Kennwerten, die sich effizient per LoRaWAN senden lassen.</p>
+
+
+
+<h3 class="wp-block-heading" id="werden-modelle-direkt-auf-dem-sensor-trainiert">Werden Modelle direkt auf dem Sensor trainiert?</h3>
+
+
+
+<p class="wp-block-paragraph">Meist findet das Training außerhalb des Endgeräts statt. Der Mikrocontroller führt anschließend das konvertierte und validierte Modell zur Inferenz aus.</p>
+
+
+
+<h3 class="wp-block-heading" id="koennen-tinyml-modelle-per-lorawan-aktualisiert-werden">Können TinyML-Modelle per LoRaWAN aktualisiert werden?</h3>
+
+
+
+<p class="wp-block-paragraph">Grundsätzlich ja, etwa über FUOTA-Bausteine. Speicher, Integrität, Energie, Downlinkkapazität, gestufter Rollout und Rollback müssen dafür geplant sein.</p>
+
+
+
+<h3 class="wp-block-heading" id="wann-ist-keine-ki-noetig">Wann ist keine KI nötig?</h3>
+
+
+
+<p class="wp-block-paragraph">Wenn eine transparente physikalische Schwelle oder ein einfacher Kennwert den Anwendungsfall zuverlässig löst, ist diese Lösung meist leichter zu validieren und zu betreiben.</p>
+
+
+
+<h2 class="wp-block-heading" id="quellen-und-einordnung">Quellen und Einordnung</h2>
+
+
+
+<p class="wp-block-paragraph">Projektberichte belegen den jeweils beschriebenen Stand. Die Beispiele und Vorschläge zur Umsetzung in diesem Artikel sind redaktionelle Planungshilfen.</p>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://github.com/tensorflow/tflite-micro" rel="noopener">TensorFlow Lite for Microcontrollers</a></li>
+
+<li><a href="https://developers.google.com/edge/litert/microcontrollers/get_started" rel="noopener">Google-Anleitung für LiteRT auf Mikrocontrollern</a></li>
+
+<li><a href="https://lora-alliance.org/about-lorawan/" rel="noopener">LoRa Alliance</a></li>
+
+<li><a href="https://www.thethingsnetwork.org/docs/lorawan/limitations/" rel="noopener">LoRaWAN-Limitierungen</a></li>
+
+<li><a href="https://www.nist.gov/itl/ai-risk-management-framework" rel="noopener">NIST AI Risk Management Framework</a></li>
+
+<li><a href="https://resources.lora-alliance.org/document/fuota-process-summary-technical-recommendation-tr002-v1-0-0" rel="noopener">LoRaWAN FUOTA Process</a></li>
+</ul>
+</div>
+
+<footer class="lwc-article-footer wp-block-lorawan-core-article-footer">
+		<p class="lwc-article-footer__feedback">
+		Fehler gefunden oder Ergänzung? Schreiben Sie an <a href="mailto:info@lora-wan.de?subject=Feedback%3A%20TinyML%20und%20LoRaWAN%3A%20Lokale%20Modelle%2C%20kleine%20Funkpakete%2C%20belastbare%20Ergebnisse">info@lora-wan.de</a>.	</p>
+	<p class="lwc-article-footer__share">
+		<span>Teilen:</span>
+					<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.lora-wan.de%2Ftinyml-lorawan-edge-ai-industrie%2F" rel="noopener nofollow" target="_blank">LinkedIn</a>
+					<a href="https://x.com/intent/post?url=https%3A%2F%2Fwww.lora-wan.de%2Ftinyml-lorawan-edge-ai-industrie%2F&#038;text=TinyML%20und%20LoRaWAN%3A%20Lokale%20Modelle%2C%20kleine%20Funkpakete%2C%20belastbare%20Ergebnisse" rel="noopener nofollow" target="_blank">X</a>
+					<a href="mailto:?subject=TinyML%20und%20LoRaWAN%3A%20Lokale%20Modelle%2C%20kleine%20Funkpakete%2C%20belastbare%20Ergebnisse&#038;body=https%3A%2F%2Fwww.lora-wan.de%2Ftinyml-lorawan-edge-ai-industrie%2F" rel="noopener nofollow" target="_blank">E-Mail</a>
+			</p>
+</footer>
+</div>
+</div>
+
+
+
+<section class="wp-block-group alignwide lw-section lw-related is-layout-flow wp-block-group-is-layout-flow">
+<h2 class="wp-block-heading lw-section__title">Weiterlesen</h2>
+
+
+<div style="--lw-cols:3" class="lw-list lw-list--grid wp-block-lorawan-magazin-post-list"><article class="lw-card lw-card--card" style="--lw-card-cat:#4338ca"><a class="lw-card__media lw-cover" href="../ipv6-over-lorawan-schc/index.html" tabindex="-1" aria-hidden="true"><svg class="lw-cover__svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" role="presentation" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<linearGradient id="lwc24-2-bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#202362"/>
+			<stop offset="1" stop-color="#131B3A"/>
+		</linearGradient>
+		<filter id="lwc24-2-glow" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="7"/></filter>
+	</defs>
+	<rect width="100%" height="100%" fill="url(#lwc24-2-bg)"/>
+	<path d="M0 76.9H1200M0 126.5H1200M0 176.1H1200M0 225.7H1200M0 275.3H1200M0 324.9H1200M0 374.5H1200M0 424.1H1200M0 473.7H1200" stroke="#B8B3EB" stroke-opacity=".09" stroke-width="1" fill="none"/>
+	<path d="M922 427h6M47 116h4M306 418h3M536 369h5M1176 83h7M89 91h9M875 155h5M748 310h3M1059 324h3M1144 285h7M475 401h8M1059 251h2M118 164h4M1031 124h6M885 222h10M19 310h3M42 401h8M235 225h7M706 122h9M748 133h10M631 313h5M979 382h9M527 92h3M264 178h9M141 254h8M438 466h2M706 106h2M979 366h4M447 324h7M136 427h7M169 455h6M715 234h9M922 427h6M47 116h4M306 418h3M536 369h5M1176 83h7M89 91h9M875 155h5M748 310h3M1059 324h3M1144 285h7M475 401h8M1059 251h2M118 164h4M1031 124h6M885 222h10M19 310h3M42 401h8M235 225h7M706 122h9M748 133h10M631 313h5M979 382h9M527 92h3M264 178h9M141 254h8M438 466h2M706 106h2M979 366h4M447 324h7M136 427h7M169 455h6M715 234h9M922 427h6M47 116h4M306 418h3M536 369h5M1176 83h7M89 91h9" stroke="#B8B3EB" stroke-opacity=".22" stroke-width="2" fill="none"/>
+	<path d="M170.4 649.0V661.0M373.3 649.0V661.0M576.3 649.0V661.0M779.3 649.0V661.0M982.3 649.0V661.0M1185.3 649.0V661.0" stroke="#B8B3EB" stroke-opacity=".35" stroke-width="2" fill="none"/>
+	<path d="M-32.6 473.7L170.4 76.9M170.4 473.7L373.3 76.9M373.3 374.5L525.6 76.9M525.6 473.7L576.3 374.5M576.3 275.3L677.8 76.9M677.8 473.7L779.3 275.3M779.3 76.9L982.3 473.7M982.3 76.9L1185.3 473.7M1185.3 76.9L1236.0 176.1" stroke="#726AD7" stroke-width="9" stroke-linecap="round" fill="none" opacity=".55" filter="url(#lwc24-2-glow)"/>
+	<path d="M-32.6 473.7L170.4 76.9M170.4 473.7L373.3 76.9M373.3 374.5L525.6 76.9M525.6 473.7L576.3 374.5M576.3 275.3L677.8 76.9M677.8 473.7L779.3 275.3M779.3 76.9L982.3 473.7M982.3 76.9L1185.3 473.7M1185.3 76.9L1236.0 176.1" stroke="#B8B3EB" stroke-width="3" stroke-linecap="round" fill="none"/>
+	</svg></a><div class="lw-card__body"><a class="lw-eyebrow" href="../thema/technik/index.html">Technik &amp; Protokoll</a><h3 class="lw-card__title"><a href="../ipv6-over-lorawan-schc/index.html">IPv6 über LoRaWAN mit SCHC: Kleine Header, klare Grenzen</a></h3><p class="lw-card__excerpt">Der Temperaturwert braucht zwei Byte. Der gewöhnliche IPv6-Header davor bereits 40, UDP weitere acht. Auf einem Ethernetlink fällt das kaum auf. Bei einem …</p><p class="lw-meta"><span class="lw-meta__time"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>6 Min. Lesezeit</span></p></div></article><article class="lw-card lw-card--card" style="--lw-card-cat:#4338ca"><a class="lw-card__media lw-cover" href="../lorawan-relay-funktionalitaet/index.html" tabindex="-1" aria-hidden="true"><svg class="lw-cover__svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" role="presentation" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<linearGradient id="lwc23-3-bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#202362"/>
+			<stop offset="1" stop-color="#131B3A"/>
+		</linearGradient>
+		<filter id="lwc23-3-glow" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="7"/></filter>
+	</defs>
+	<rect width="100%" height="100%" fill="url(#lwc23-3-bg)"/>
+	<path d="M0 155.2H1200M0 207.6H1200M0 260.0H1200M0 312.4H1200M0 364.8H1200M0 417.1H1200M0 469.5H1200M0 521.9H1200M0 574.3H1200" stroke="#B8B3EB" stroke-opacity=".09" stroke-width="1" fill="none"/>
+	<path d="M344 346h7M842 283h8M1153 272h4M231 377h6M1092 160h3M1144 556h3M1111 543h4M1073 418h9M42 410h8M273 260h9M146 313h4M546 408h8M367 467h10M334 270h4M635 346h9M14 190h10M1148 226h9M1111 278h9M753 499h2M729 472h4M301 515h3M452 275h6M725 449h4M894 558h4M329 236h6M546 536h2M99 555h10M202 543h9M353 530h7M984 170h7M908 251h4M1031 206h5M344 346h7M842 283h8M1153 272h4M231 377h6M1092 160h3M1144 556h3M1111 543h4M1073 418h9M42 410h8M273 260h9M146 313h4M546 408h8M367 467h10M334 270h4M635 346h9M14 190h10M1148 226h9M1111 278h9M753 499h2M729 472h4M301 515h3M452 275h6M725 449h4M894 558h4M329 236h6M546 536h2M99 555h10M202 543h9M353 530h7M984 170h7M908 251h4M1031 206h5M344 346h7M842 283h8M1153 272h4M231 377h6M1092 160h3M1144 556h3" stroke="#B8B3EB" stroke-opacity=".22" stroke-width="2" fill="none"/>
+	<path d="M94.1 649.0V661.0M219.9 649.0V661.0M345.7 649.0V661.0M471.5 649.0V661.0M597.3 649.0V661.0M723.1 649.0V661.0M848.9 649.0V661.0M974.7 649.0V661.0M1100.5 649.0V661.0" stroke="#B8B3EB" stroke-opacity=".35" stroke-width="2" fill="none"/>
+	<path d="M-31.7 574.3L94.1 155.2M94.1 574.3L219.9 155.2M219.9 469.5L314.3 155.2M314.3 574.3L345.7 469.5M345.7 364.8L408.6 155.2M408.6 574.3L471.5 364.8M471.5 155.2L597.3 574.3M597.3 155.2L723.1 574.3M723.1 155.2L754.6 260.0M754.6 443.3L841.1 155.2M841.1 574.3L880.4 443.3M880.4 443.3L966.9 155.2M966.9 574.3L1006.2 443.3M1006.2 469.5L1100.5 155.2M1100.5 574.3L1132.0 469.5M1132.0 364.8L1194.9 155.2M1194.9 574.3L1257.8 364.8" stroke="#726AD7" stroke-width="9" stroke-linecap="round" fill="none" opacity=".55" filter="url(#lwc23-3-glow)"/>
+	<path d="M-31.7 574.3L94.1 155.2M94.1 574.3L219.9 155.2M219.9 469.5L314.3 155.2M314.3 574.3L345.7 469.5M345.7 364.8L408.6 155.2M408.6 574.3L471.5 364.8M471.5 155.2L597.3 574.3M597.3 155.2L723.1 574.3M723.1 155.2L754.6 260.0M754.6 443.3L841.1 155.2M841.1 574.3L880.4 443.3M880.4 443.3L966.9 155.2M966.9 574.3L1006.2 443.3M1006.2 469.5L1100.5 155.2M1100.5 574.3L1132.0 469.5M1132.0 364.8L1194.9 155.2M1194.9 574.3L1257.8 364.8" stroke="#B8B3EB" stroke-width="3" stroke-linecap="round" fill="none"/>
+		<path d="M-11.2 110.6L36.9 30.8M36.9 137.2L53.0 110.6M53.0 84.0L85.1 30.8M85.1 137.2L117.1 84.0M117.1 30.8L181.3 137.2M181.3 30.8L245.4 137.2M245.4 30.8L261.4 57.4M261.4 104.0L305.5 30.8M305.5 137.2L325.6 104.0M325.6 110.6L373.7 30.8M373.7 137.2L389.7 110.6M389.7 84.0L421.8 30.8M421.8 137.2L453.8 84.0M453.8 90.7L489.9 30.8M489.9 137.2L518.0 90.7M518.0 44.1L526.0 30.8M526.0 137.2L582.1 44.1M582.1 130.6L642.2 30.8M642.2 137.2L646.2 130.6M646.2 123.9L702.4 30.8M702.4 137.2L710.4 123.9M710.4 44.1L718.4 30.8M718.4 137.2L774.5 44.1M774.5 44.1L782.5 30.8M782.5 137.2L838.6 44.1M838.6 117.3L890.8 30.8M890.8 137.2L902.8 117.3M902.8 44.1L910.8 30.8M910.8 137.2L966.9 44.1M966.9 44.1L974.9 30.8M974.9 137.2L1031.0 44.1M1031.0 104.0L1075.1 30.8M1075.1 137.2L1095.2 104.0M1095.2 44.1L1103.2 30.8M1103.2 137.2L1159.3 44.1M1159.3 70.7L1183.4 30.8M1183.4 137.2L1223.5 70.7" stroke="#B8B3EB" stroke-width="2" stroke-linecap="round" fill="none" opacity=".45"/>
+	</svg></a><div class="lw-card__body"><a class="lw-eyebrow" href="../thema/technik/index.html">Technik &amp; Protokoll</a><h3 class="lw-card__title"><a href="../lorawan-relay-funktionalitaet/index.html">LoRaWAN Relay: Funklöcher mit WOR und RXR gezielt schließen</a></h3><p class="lw-card__excerpt">Im Keller sendet der Zähler vergeblich. Eine Etage höher kommt derselbe Funkverkehr zuverlässig an. Ein Relay kann diese Lücke überbrücken: Es empfängt den …</p><p class="lw-meta"><span class="lw-meta__time"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>5 Min. Lesezeit</span></p></div></article><article class="lw-card lw-card--card" style="--lw-card-cat:#4338ca"><a class="lw-card__media lw-cover" href="../lr-fhss-lorawan/index.html" tabindex="-1" aria-hidden="true"><svg class="lw-cover__svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" role="presentation" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<linearGradient id="lwc22-4-bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#202362"/>
+			<stop offset="1" stop-color="#131B3A"/>
+		</linearGradient>
+		<filter id="lwc22-4-glow" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="7"/></filter>
+	</defs>
+	<rect width="100%" height="100%" fill="url(#lwc22-4-bg)"/>
+	<path d="M0 82.7H1200M0 136.0H1200M0 189.3H1200M0 242.6H1200M0 295.9H1200M0 349.2H1200M0 402.6H1200M0 455.9H1200M0 509.2H1200" stroke="#B8B3EB" stroke-opacity=".09" stroke-width="1" fill="none"/>
+	<path d="M1111 196h7M231 302h6M725 467h5M193 357h6M1181 120h8M1153 228h5M871 213h8M664 504h3M715 364h3M725 206h2M1049 394h9M320 364h4M616 300h7M1082 223h3M772 270h10M104 417h10M409 228h8M367 402h6M1186 143h7M791 126h7M348 93h9M875 477h4M791 165h6M612 340h9M395 151h7M527 502h3M941 492h5M409 392h4M899 319h10M169 337h7M122 340h4M28 456h8M1111 196h7M231 302h6M725 467h5M193 357h6M1181 120h8M1153 228h5M871 213h8M664 504h3M715 364h3M725 206h2M1049 394h9M320 364h4M616 300h7M1082 223h3M772 270h10M104 417h10M409 228h8M367 402h6M1186 143h7M791 126h7M348 93h9M875 477h4M791 165h6M612 340h9M395 151h7M527 502h3M941 492h5M409 392h4M899 319h10M169 337h7M122 340h4M28 456h8M1111 196h7M231 302h6M725 467h5M193 357h6M1181 120h8M1153 228h5" stroke="#B8B3EB" stroke-opacity=".22" stroke-width="2" fill="none"/>
+	<path d="M107.9 649.0V661.0M336.0 649.0V661.0M564.1 649.0V661.0M792.2 649.0V661.0M1020.2 649.0V661.0" stroke="#B8B3EB" stroke-opacity=".35" stroke-width="2" fill="none"/>
+	<path d="M-120.2 402.6L50.9 82.7M50.9 509.2L107.9 402.6M107.9 295.9L222.0 82.7M222.0 509.2L336.0 295.9M336.0 82.7L564.1 509.2M564.1 82.7L792.2 509.2M792.2 82.7L849.2 189.3M849.2 136.0L877.7 82.7M877.7 509.2L1077.3 136.0M1077.3 349.2L1219.8 82.7M1219.8 509.2L1305.3 349.2" stroke="#726AD7" stroke-width="9" stroke-linecap="round" fill="none" opacity=".55" filter="url(#lwc22-4-glow)"/>
+	<path d="M-120.2 402.6L50.9 82.7M50.9 509.2L107.9 402.6M107.9 295.9L222.0 82.7M222.0 509.2L336.0 295.9M336.0 82.7L564.1 509.2M564.1 82.7L792.2 509.2M792.2 82.7L849.2 189.3M849.2 136.0L877.7 82.7M877.7 509.2L1077.3 136.0M1077.3 349.2L1219.8 82.7M1219.8 509.2L1305.3 349.2" stroke="#B8B3EB" stroke-width="3" stroke-linecap="round" fill="none"/>
+		<path d="M-84.0 54.0L-23.3 8.0M-23.3 100.0L37.3 54.0M37.3 8.0L158.6 100.0M158.6 8.0L279.9 100.0M279.9 8.0L310.2 31.0M310.2 65.5L386.0 8.0M386.0 100.0L431.5 65.5M431.5 82.7L530.0 8.0M530.0 100.0L552.8 82.7M552.8 42.5L598.2 8.0M598.2 100.0L674.1 42.5M674.1 59.7L742.3 8.0M742.3 100.0L795.3 59.7M795.3 13.7L802.9 8.0M802.9 100.0L916.6 13.7M916.6 88.5L1022.7 8.0M1022.7 100.0L1037.9 88.5M1037.9 31.0L1068.2 8.0M1068.2 100.0L1159.2 31.0M1159.2 19.5L1174.3 8.0M1174.3 100.0L1280.5 19.5" stroke="#B8B3EB" stroke-width="2" stroke-linecap="round" fill="none" opacity=".45"/>
+	</svg></a><div class="lw-card__body"><a class="lw-eyebrow" href="../thema/technik/index.html">Technik &amp; Protokoll</a><h3 class="lw-card__title"><a href="../lr-fhss-lorawan/index.html">LR-FHSS in LoRaWAN: Wann Frequenzsprünge dem Netz helfen</a></h3><p class="lw-card__excerpt">Ein einzelner Sensor erreicht das Gateway zuverlässig. Tausend ähnliche Sensoren am selben Standort verlieren plötzlich viele Pakete. Die Reichweite kann …</p><p class="lw-meta"><span class="lw-meta__time"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>5 Min. Lesezeit</span></p></div></article></div></section>
+
+
+<section class="lw-newsletter lw-newsletter--box alignwide wp-block-lorawan-magazin-newsletter" aria-labelledby="lw-nl-3-t">
+	<div class="lw-newsletter__text">
+		<p class="lw-kicker"><svg class="lw-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>Newsletter</p>
+		<h2 id="lw-nl-3-t" class="lw-newsletter__title">Neue Artikel, einmal im Monat</h2>
+		<p class="lw-newsletter__lead">Praxisberichte, Protokoll-Details und Neuigkeiten rund um LoRaWAN. Kostenlos, jederzeit abbestellbar.</p>
+	</div>
+	<div class="lw-newsletter__form">
+					<form class="lw-nl-form" action="#" method="post" data-lw-demo-form>
+				<label class="screen-reader-text" for="lw-nl-3-email">E-Mail-Adresse</label>
+				<input id="lw-nl-3-email" type="email" name="email" placeholder="name@firma.de" autocomplete="email" required>
+				<button type="submit" class="wp-element-button">Anmelden</button>
+				<p class="lw-nl-form__note">
+					Mit der Anmeldung akzeptieren Sie die <a href="../datenschutz/index.html">Datenschutzerklärung</a>. Double-Opt-in per E-Mail.				</p>
+				<p class="lw-nl-form__status" role="status" hidden></p>
+			</form>
+				</div>
+</section>
+</main>
+
+
+<div class="wp-block-template-part">
+<footer class="wp-block-group lw-footer has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+<div class="wp-block-group alignwide lw-footer__grid is-layout-flow wp-block-group-is-layout-flow">
+<div class="wp-block-group lw-footer__about is-layout-flow wp-block-group-is-layout-flow"><p class="lw-brand__name wp-block-site-title"><a href="../index.html" target="_self" rel="home">lora-wan.de</a></p>
+
+
+<p class="wp-block-paragraph">Das deutschsprachige Fachmagazin zu LoRa, LoRaWAN und dem Internet der Dinge: Grundlagen, Protokoll-Details und Praxisbeispiele aus Industrie, Stadt und Gebäude.</p>
+</div>
+
+
+
+<div class="wp-block-group lw-footer__col is-layout-flow wp-block-group-is-layout-flow">
+<h2 class="wp-block-heading lw-footer__title">Ressorts</h2>
+
+
+
+<ul class="wp-block-list lw-footer__links">
+<li><a href="../thema/grundlagen/index.html">Grundlagen</a></li>
+
+
+
+<li><a href="../thema/technik/index.html">Technik &amp; Protokoll</a></li>
+
+
+
+<li><a href="../thema/anwendungen/index.html">Anwendungen</a></li>
+
+
+
+<li><a href="../thema/netze-anbieter/index.html">Netze &amp; Anbieter</a></li>
+
+
+
+<li><a href="../glossar/index.html">Glossar</a></li>
+</ul>
+</div>
+
+
+
+<div class="wp-block-group lw-footer__col is-layout-flow wp-block-group-is-layout-flow">
+<h2 class="wp-block-heading lw-footer__title">Anwendungen</h2>
+
+
+
+<ul class="wp-block-list lw-footer__links">
+<li><a href="../thema/anwendungen/industrie/index.html">Industrie &amp; Bergbau</a></li>
+
+
+
+<li><a href="../thema/anwendungen/logistik/index.html">Logistik &amp; Tracking</a></li>
+
+
+
+<li><a href="../thema/anwendungen/bau-infrastruktur/index.html">Bau &amp; Infrastruktur</a></li>
+
+
+
+<li><a href="../thema/anwendungen/energie/index.html">Energie</a></li>
+
+
+
+<li><a href="../thema/anwendungen/smart-city/index.html">Smart City</a></li>
+
+
+
+<li><a href="../thema/anwendungen/gebaeude/index.html">Gebäude &amp; Smart Home</a></li>
+</ul>
+</div>
+
+
+
+<div class="wp-block-group lw-footer__col is-layout-flow wp-block-group-is-layout-flow">
+<h2 class="wp-block-heading lw-footer__title">Service</h2>
+
+
+
+<ul class="wp-block-list lw-footer__links">
+<li><a href="../index.html#newsletter">Newsletter</a></li>
+
+
+
+<li><a href="../impressum/index.html">Impressum</a></li>
+
+
+
+<li><a href="../datenschutz/index.html">Datenschutz</a></li>
+
+
+
+<li><a href="/feed/">RSS-Feed</a></li>
+</ul>
+</div>
+</div>
+
+
+
+<div class="wp-block-group alignwide lw-footer__bottom is-content-justification-space-between is-layout-flex wp-container-core-group-is-layout-5f78a805 wp-block-group-is-layout-flex">
+<p class="wp-block-paragraph">© 2026 lora-wan.de · growth with attitude UG (haftungsbeschränkt), Stuttgart</p>
+
+
+
+<p class="wp-block-paragraph"><a href="#top">Nach oben ↑</a></p>
+</div>
+</footer>
+
+</div>
+</div>
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/lorawan-magazin/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script data-wp-router-options="{&quot;loadOnClientNavigation&quot;:true}" fetchpriority="low" id="@wordpress/block-library/navigation/view-js-module" src="../wp-includes/js/dist/script-modules/block-library/navigation/view.min.js" type="module"></script>
+<script data-wp-router-options="{&quot;loadOnClientNavigation&quot;:true}" fetchpriority="low" id="@wordpress/block-library/search/view-js-module" src="../wp-includes/js/dist/script-modules/block-library/search/view.min.js" type="module"></script>
+<script data-wp-strategy="defer" defer id="lorawan-magazin-js" src="../wp-content/themes/lorawan-magazin/assets/js/theme.js"></script>
+<script>window.LW_STATIC_ROOT="../";</script><script src="../static-search.js" defer></script>
+</body>
+</html>
