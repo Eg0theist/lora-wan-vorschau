@@ -1132,7 +1132,15 @@ p {
 		gap: 4rem;
 	}
 
+	/* Feste Spalten: Der Text bleibt in der Hauptspalte, auch wenn es kein Inhaltsverzeichnis gibt. */
+	.lw-article-body {
+		grid-column: 2;
+		grid-row: 1;
+	}
+
 	.lw-article__aside {
+		grid-column: 1;
+		grid-row: 1;
 		position: sticky;
 		top: calc(var(--lw-header-h) + 2rem);
 		align-self: start;
